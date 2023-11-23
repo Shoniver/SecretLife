@@ -1,0 +1,21 @@
+name: SecretLife
+version: '1.0'
+main: org.shonivergames.secretlife.Main
+api-version: '1.20'
+authors: [Shoniver Games]
+description: A recreation of the plugin used in Secret Life
+website: https://shoniver.carrd.co/
+permissions:
+  admin:
+    description: Full control over the plugin.
+    default: op
+  public:
+    description: basic commands everyone should have access to.
+    default: true
+commands:
+  sl:
+    description: All of the plugin's available commands.
+    permission: admin
+  GiveHeart:
+    description: Gives a target player 1 heart.
+    permission: public

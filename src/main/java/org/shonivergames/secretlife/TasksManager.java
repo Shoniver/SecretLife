@@ -1,13 +1,11 @@
 package org.shonivergames.secretlife;
 
 import org.bukkit.*;
-import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BookMeta;
 import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.util.Vector;
 import org.shonivergames.secretlife.config_readers.*;
 
 public class TasksManager {

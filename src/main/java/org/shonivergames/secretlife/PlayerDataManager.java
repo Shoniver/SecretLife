@@ -34,20 +34,20 @@ public class PlayerDataManager {
     public String getTaskTitle(Player player){
         return getString(player, "current_task.item");
     }
-
     public String getTaskDifficulty(Player player){
         return getString(player, "current_task.difficulty");
     }
-
-    public void setTask(Player player, String taskTitle, String taskDifficulty){
+    public boolean getIsRedTask(Player player){
+        return getBool(player, "current_task.is_red");
+    }
+    public void setTask(Player player, String taskTitle, String taskDifficulty, boolean isRedTask){
         setValueAndSave(player, "current_task.item", taskTitle);
         setValueAndSave(player, "current_task.difficulty", taskDifficulty);
+        setValueAndSave(player, "current_task.is_red", isRedTask);
     }
-
     public void resetTask(Player player){
-        setTask(player, "", "");
+        setTask(player, "", "", false);
     }
-
     public boolean hasTask(Player player){
         String currentTask = getTaskTitle(player);
         return currentTask != null && !currentTask.isEmpty();

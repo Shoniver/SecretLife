@@ -12,7 +12,7 @@ public class FailPlayerTask extends _CommandBase {
 
     @Override
     public void executeCommand(CommandSender sender, Player player) {
-        String errorCode = TasksManager.getRemoveTaskError(player);
+        String errorCode = TasksManager.getFailTaskError(player);
         if(errorCode != null) {
             MessageReader.sendPrivate(baseConfigPath, "specific_errors." + errorCode, sender, player.getName());
             return;

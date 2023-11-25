@@ -18,6 +18,10 @@ public class TasksManager {
             MessageReader.sendPublic(baseConfigPath, "reroll_task", player.getName(), task);
         }
 
+        // If this player gets constant tasks AND currently has a task, don't continue forward.
+        if(shouldGetConstantTasks(player) && Main.playerData.hasTask(player))
+            return;
+
         new BukkitRunnable() {
             boolean init = false;
             int i;
@@ -50,7 +54,7 @@ public class TasksManager {
                     player.playEffect(EntityEffect.TOTEM_RESURRECT);
                 }
                 else {
-                    TasksManager.giveTask(player, isHardTask);
+                    Util.spawnItemForPlayer(player, player.getLocation(), getNewPlayerTask(player, isHardTask));
                     SoundEffectReader.playAtPlayer(baseConfigPath, currentVar + "obtained", player, true);
                     cancel();
                 }
@@ -60,13 +64,13 @@ public class TasksManager {
         }.runTaskTimer(Main.instance, 0L, SettingReader.getInt(baseConfigPath, "delay_between_obtain_messages." + convertToDifficulty(isHardTask)));
     }
 
-    public static void giveTask(Player player, boolean isHardTask) {
+    private static ItemStack getNewPlayerTask(Player player, boolean isHardTask) {
         String difficulty = convertToDifficulty(isHardTask);
         ItemStack taskItem = TaskReader.getRandomTask(baseConfigPath, player, difficulty);
 
-        Util.spawnItemForPlayer(player, player.getLocation(), taskItem);
+        Main.playerData.setTask(player, taskItem.getItemMeta().getDisplayName(), difficulty, LivesManager.isRedPlayer(player));
 
-        Main.playerData.setTask(player, taskItem.getItemMeta().getDisplayName(), difficulty);
+        return taskItem;
     }
 
     // Assumes the task exists in the player inventory. Must be checked before this!
@@ -80,12 +84,15 @@ public class TasksManager {
 
         // Give rewards & loot
         String path = "";
-        if(LivesManager.isRedPlayer(player))
+        if(Main.playerData.getIsRedTask(player))
             path += "red.";
         path += difficulty;
         int healthReward = SettingReader.getInt(baseConfigPath, "reward." + path);
         int healthChange = HealthManager.addHealth(player, healthReward, false);
         createTaskRewardLoot(player, healthReward - healthChange, path);
+
+        if(shouldGetConstantTasks(player))
+            spawnItemAtLootPool(player, getNewPlayerTask(player, false));
     }
 
     // Assumes the task exists in the player inventory. Must be checked before this!
@@ -101,6 +108,9 @@ public class TasksManager {
         if(LivesManager.isRedPlayer(player))
             configVar += "red.";
         HealthManager.removeHealth(player, SettingReader.getInt(baseConfigPath, configVar + difficulty), SettingReader.getBool(baseConfigPath, "can_penalty_kill"));
+
+        if(shouldGetConstantTasks(player))
+            spawnItemAtLootPool(player, getNewPlayerTask(player, false));
     }
 
     // Assumes the task exists in the player inventory. Must be checked before this!
@@ -126,25 +136,32 @@ public class TasksManager {
         if(!SettingReader.getBool(baseConfigPath, "can_reds_get_hard_tasks") && LivesManager.isRedPlayer(player))
             return "red_cant_reroll";
         // if the player has requested a hard task, but already HAS a hard task, invalid request.
-        else if (Main.playerData.getTaskDifficulty(player).equals("hard"))
+        else if (checkIsHardTask(Main.playerData.getTaskDifficulty(player)))
             return "already_has_hard";
 
         return null;
     }
-    public static String getRemoveTaskError(Player player) {
+    public static String getPassTaskError(Player player){
+        return getRemoveTaskError(player);
+    }
+    public static String getFailTaskError(Player player){
+        return getRemoveTaskError(player);
+    }
+    public static String getSessionBeginError(Player player) {
+        // If the player already has a task, can't start the session!
+        // This does NOT apply if the player has constant tasks.
+        if(!shouldGetConstantTasks(player) && Main.playerData.hasTask(player))
+            return "has_incomplete_task";
+
+        return null;
+    }
+    private static String getRemoveTaskError(Player player) {
         // If the player doesn't have a task, it can not be removed
         if(!Main.playerData.hasTask(player))
             return "has_no_task";
         // If the player has a task, but doesn't have it in his inventory, can't give new task.
         if (Main.playerData.hasTask(player) && !isTaskInPlayerInv(player))
             return "no_task_in_inv";
-
-        return null;
-    }
-    public static String getReceiveNewTaskError(Player player) {
-        // If the player has a task, but doesn't have it in his inventory, can't give new task.
-        if (Main.playerData.hasTask(player))
-            return "has_incomplete_task";
 
         return null;
     }
@@ -166,6 +183,9 @@ public class TasksManager {
         }
 
         return null;
+    }
+    private static boolean shouldGetConstantTasks(Player player){
+        return LivesManager.isRedPlayer(player) && SettingReader.getBool(baseConfigPath, "constant_red_tasks");
     }
 
     public static void manageHasTaskEffect(){
@@ -199,6 +219,9 @@ public class TasksManager {
             return "hard";
         return "normal";
     }
+    private static boolean checkIsHardTask(String difficulty){
+        return difficulty.equals("hard");
+    }
     private static String extractTaskContent(ItemStack taskItem){
         return ((BookMeta) taskItem.getItemMeta()).getPage(1);
     }
@@ -214,6 +237,7 @@ public class TasksManager {
                     init = true;
                     double lootPerHealth = SettingReader.getDouble(baseConfigPath, "loot_per_heath");
                     itemsCount = lootPerHealth * healthToConvert;
+                    return; // Skips the first loop, just to give a tiny delay
                 }
 
                 if(itemsCount <= 0) {
@@ -221,14 +245,15 @@ public class TasksManager {
                     return;
                 }
 
-                ItemStack itemStack = LootTableReader.getRandomItem(baseConfigPath, lootTable);
-                Location spawnLocation = LocationReader.getRandomLocation(baseConfigPath, "loot_spawn");
-
-                Util.spawnItemForPlayer(player, spawnLocation, itemStack);
-                SoundEffectReader.playAtLocation(baseConfigPath, "loot_spawn", player, spawnLocation, true);
-
+                spawnItemAtLootPool(player, LootTableReader.getRandomItem(baseConfigPath, lootTable));
                 itemsCount--;
             }
         }.runTaskTimer(Main.instance, 0L, SettingReader.getInt(baseConfigPath, "delay_between_items"));
+    }
+
+    public static void spawnItemAtLootPool(Player player, ItemStack item) {
+        Location spawnLocation = LocationReader.getRandomLocation(baseConfigPath, "loot_spawn");
+        Util.spawnItemForPlayer(player, spawnLocation, item);
+        SoundEffectReader.playAtLocation(baseConfigPath, "loot_spawn", player, spawnLocation, true);
     }
 }

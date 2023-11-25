@@ -21,7 +21,7 @@ admin_commands_manager:
       no_player: "§cThere is no online player by the name %value1%."
     specific_errors:
       no_task_in_inv: "§c%value1%'s task not found in their inventory!"
-      has_no_task: "§c%value1% has already finished their task."
+      has_no_task: "§c%value1% does not have an active task."
       has_incomplete_task: "§c%value1% still has an unfinished task from last session!"
 
 lives_manager:
@@ -57,6 +57,7 @@ tasks_manager:
   settings:
     can_penalty_kill: false
     can_reds_get_hard_tasks: false
+    constant_red_tasks: true
     has_task_effect:
       offset: 2
       delay: 2
@@ -619,7 +620,7 @@ interactions_manger:
       z: 1987
   messages:
     no_task_in_inv: "§cYour task is not in your inventory!"
-    has_no_task: "§bYou don't have a task! Come back next session..."
+    has_no_task: "§cYou don't have an active task!"
     already_has_hard: "§cYou already have a hard task!"
     red_cant_reroll: "§cRed players are not allowed to reroll for a hard task!"
 

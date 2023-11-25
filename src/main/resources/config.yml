@@ -57,6 +57,7 @@ tasks_manager:
   settings:
     can_penalty_kill: false
     can_reds_get_hard_tasks: false
+    constant_red_tasks: true
     has_task_effect:
       offset: 2
       delay: 2

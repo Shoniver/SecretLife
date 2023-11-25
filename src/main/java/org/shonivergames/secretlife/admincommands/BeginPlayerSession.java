@@ -5,7 +5,6 @@ import org.bukkit.entity.Player;
 import org.shonivergames.secretlife.Main;
 import org.shonivergames.secretlife.TasksManager;
 import org.shonivergames.secretlife.config_readers.MessageReader;
-import org.shonivergames.secretlife.PlayerDataManager;
 
 public class BeginPlayerSession extends _CommandBase {
     public BeginPlayerSession() {
@@ -14,7 +13,7 @@ public class BeginPlayerSession extends _CommandBase {
 
     @Override
     public void executeCommand(CommandSender sender, Player player) {
-        String errorCode = TasksManager.getReceiveNewTaskError(player);
+        String errorCode = TasksManager.getSessionBeginError(player);
         if(errorCode != null) {
             MessageReader.sendPrivate(baseConfigPath, "specific_errors." + errorCode, sender, player.getName());
             return;

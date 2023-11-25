@@ -31,7 +31,7 @@ public class InteractionsManager {
     }
 
     public static void passTaskInteraction(Player player){
-        String removeTaskError = TasksManager.getRemoveTaskError(player);
+        String removeTaskError = TasksManager.getPassTaskError(player);
         if(removeTaskError != null) {
             MessageReader.sendPrivate(baseConfigPath, removeTaskError, player);
             return;
@@ -51,7 +51,7 @@ public class InteractionsManager {
     }
 
     public static void failTaskInteraction(Player player){
-        String removeTaskError = TasksManager.getRemoveTaskError(player);
+        String removeTaskError = TasksManager.getFailTaskError(player);
         if(removeTaskError != null) {
             MessageReader.sendPrivate(baseConfigPath, removeTaskError, player);
             return;

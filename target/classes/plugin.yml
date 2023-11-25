@@ -1,5 +1,5 @@
 name: SecretLife
-version: '1.1'
+version: '1.1.1'
 main: org.shonivergames.secretlife.Main
 api-version: '1.20'
 authors: [Shoniver Games]

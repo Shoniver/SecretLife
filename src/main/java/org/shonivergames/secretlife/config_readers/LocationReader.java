@@ -2,12 +2,12 @@ package org.shonivergames.secretlife.config_readers;
 
 import org.bukkit.Location;
 import org.shonivergames.secretlife.Main;
+import org.shonivergames.secretlife.Util;
 
 import java.util.Random;
 
 public class LocationReader {
     private static final String configName = ".locations.";
-    private static Random rnd;
 
     public static Location get(String configTitle, String configVar){
         String configPath = configTitle + configName + configVar;
@@ -17,15 +17,12 @@ public class LocationReader {
     }
 
     public static Location getRandomLocation(String configTitle, String configVar){
-        if(rnd == null)
-            rnd = new Random();
-
         Location loc1 = get(configTitle, configVar + ".start");
         Location loc2 = get(configTitle, configVar + ".end");
 
-        return new Location(Main.server.getWorlds().get(0), rnd.nextDouble(loc1.getX(), loc2.getX()),
-                rnd.nextDouble(loc1.getY(), loc2.getY()),
-                rnd.nextDouble(loc1.getZ(), loc2.getZ()));
+        return new Location(Main.server.getWorlds().get(0), Util.getRandomDoubleInRange(loc1.getX(), loc2.getX()),
+                Util.getRandomDoubleInRange(loc1.getY(), loc2.getY()),
+                Util.getRandomDoubleInRange(loc1.getZ(), loc2.getZ()));
     }
 
     public static boolean isAtLocation(String configTitle, String configVar, Location locToCheck, boolean checkInt){

@@ -16,7 +16,7 @@ public class BeginPlayerSession extends _CommandBase {
     public void executeCommand(CommandSender sender, Player player) {
         String errorCode = TasksManager.getReceiveNewTaskError(player);
         if(errorCode != null) {
-            MessageReader.sendPrivate(baseConfigPath, errorCode, sender);
+            MessageReader.sendPrivate(baseConfigPath, "specific_errors." + errorCode, sender, player.getName());
             return;
         }
 

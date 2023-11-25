@@ -20,12 +20,6 @@ public class InteractionsManager {
         if(block.getType() == correctBlockType){
             Player player = event.getPlayer();
 
-            String playerInteractError = TasksManager.getPlayerInteractError(player);
-            if(playerInteractError != null) {
-                MessageReader.sendPrivate(baseConfigPath, playerInteractError, player);
-                return;
-            }
-
             Location blockLocation = event.getClickedBlock().getLocation();
             if(LocationReader.isAtLocation(baseConfigPath, "pass_task", blockLocation, true))
                 passTaskInteraction(player);

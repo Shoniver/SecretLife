@@ -21,7 +21,7 @@ admin_commands_manager:
       no_player: "§cThere is no online player by the name %value1%."
     specific_errors:
       no_task_in_inv: "§c%value1%'s task not found in their inventory!"
-      has_no_task: "§a%value1% has already finished their task."
+      has_no_task: "§c%value1% has already finished their task."
       has_incomplete_task: "§c%value1% still has an unfinished task from last session!"
 
 lives_manager:
@@ -57,7 +57,9 @@ tasks_manager:
   settings:
     can_penalty_kill: false
     can_reds_get_hard_tasks: false
-    has_task_effect_offset: 2
+    has_task_effect:
+      offset: 2
+      delay: 2
     amount_of_messages_on_obtain:
       normal: 4
       hard: 4
@@ -93,11 +95,9 @@ tasks_manager:
       normal:
         type: "FLAME"
         intensity: 5
-        tick_delay: 2
       hard:
         type: "DRAGON_BREATH"
         intensity: 5
-        tick_delay: 2
   sound_effects:
     task_obtain:
       normal:
@@ -609,7 +609,7 @@ interactions_manger:
       x: -1026
       y: 67
       z: 1987
-    reoll_task:
+    reroll_task:
       x: -1033
       y: 67
       z: 1998

@@ -28,17 +28,4 @@ public class VisualEffectReader {
             }
         }
     }
-
-    public static BukkitTask playLooped(String configTitle, String configVar, Player player, Location location, boolean showToSelf, boolean showToOtherPlayers){
-        return new BukkitRunnable() {
-            @Override
-            public void run() {
-                play(configTitle, configVar, player, location, showToSelf, showToOtherPlayers);
-            }
-        }.runTaskTimer(Main.instance, 0L, getTickDelay(configTitle, configVar));
-    }
-
-    public static int getTickDelay(String configTitle, String configVar){
-        return Main.configFile.getInt(configTitle + configName + configVar + ".tick_delay");
-    }
 }

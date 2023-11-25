@@ -23,7 +23,7 @@ public class TaskReader {
         taskTitle = Util.getFormattedString(taskTitle, player.getName());
 
         String taskContent = SettingReader.getString(configPath, "task_content");
-        taskContent = Util.getFormattedString(taskContent, difficulty, getRandomContent(configPath, player, difficulty));
+        taskContent = Util.getFormattedString(taskContent, difficulty.toUpperCase(), getRandomContent(configPath, player, difficulty));
 
         ItemStack book = new ItemStack(Material.WRITTEN_BOOK);
         BookMeta meta = (BookMeta) book.getItemMeta();

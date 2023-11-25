@@ -37,5 +37,4 @@ org\shonivergames\secretlife\config_readers\TaskReader.class
 org\shonivergames\secretlife\config_readers\VisualEffectReader.class
 org\shonivergames\secretlife\TasksManager$3.class
 org\shonivergames\secretlife\TasksManager.class
-org\shonivergames\secretlife\config_readers\VisualEffectReader$1.class
 org\shonivergames\secretlife\InteractionsManager.class

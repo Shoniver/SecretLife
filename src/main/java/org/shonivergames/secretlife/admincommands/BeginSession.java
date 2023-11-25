@@ -19,7 +19,7 @@ public class BeginSession extends _CommandBase {
         for (Player player : Main.server.getOnlinePlayers()) {
             String errorCode = TasksManager.getReceiveNewTaskError(player);
             if(errorCode != null) {
-                MessageReader.sendPrivate(baseConfigPath, errorCode, sender);
+                MessageReader.sendPrivate(baseConfigPath, "specific_errors." + errorCode, sender, player.getName());
                 needToExit = true;
             }
         }

@@ -1,11 +1,13 @@
 package org.shonivergames.secretlife;
 
 import org.bukkit.*;
+import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BookMeta;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.util.Vector;
 import org.shonivergames.secretlife.config_readers.*;
 
 public class TasksManager {
@@ -41,7 +43,7 @@ public class TasksManager {
 
                 if(i <= amount){
                     TitleReader.send(baseConfigPath, currentVar + i, player);
-                    if(i == 0)
+                    if(i == 1)
                         SoundEffectReader.playAtPlayer(baseConfigPath, currentVar + "start", player, false);
                     else
                         SoundEffectReader.playAtPlayer(baseConfigPath, currentVar + "tick", player, false);
@@ -63,6 +65,8 @@ public class TasksManager {
     public static void giveTask(Player player, boolean isHardTask) {
         String difficulty = convertToDifficulty(isHardTask);
         ItemStack taskItem = TaskReader.getRandomTask(baseConfigPath, player, difficulty);
+
+        Util.spawnItemForPlayer(player, player.getLocation(), taskItem);
 
         Main.playerData.setTask(player, taskItem.getItemMeta().getDisplayName(), difficulty);
     }
@@ -130,16 +134,12 @@ public class TasksManager {
         return null;
     }
     public static String getRemoveTaskError(Player player) {
+        // If the player doesn't have a task, it can not be removed
+        if(!Main.playerData.hasTask(player))
+            return "has_no_task";
         // If the player has a task, but doesn't have it in his inventory, can't give new task.
         if (Main.playerData.hasTask(player) && !isTaskInPlayerInv(player))
             return "no_task_in_inv";
-
-        return null;
-    }
-    public static String getPlayerInteractError(Player player){
-        // If the player doesn't have a task, they can not interact with anything
-        if(!Main.playerData.hasTask(player))
-            return "has_no_task";
 
         return null;
     }
@@ -180,7 +180,7 @@ public class TasksManager {
             public void run() {
                 if(!init){
                     init = true;
-                    yOffset = SettingReader.getInt(baseConfigPath, "has_task_effect_offset");
+                    yOffset = SettingReader.getInt(baseConfigPath, "has_task_effect.offset");
                 }
 
                 // For every player with a task, spawn an effect
@@ -190,11 +190,10 @@ public class TasksManager {
 
                     Location location = player.getLocation().clone();
                     location.setY(location.getY() + yOffset);
-                    VisualEffectReader.play(baseConfigPath, "has_task", player, location, false, true);
+                    VisualEffectReader.play(baseConfigPath, "has_task." + Main.playerData.getTaskDifficulty(player), player, location, false, true);
                 }
-
             }
-        }.runTaskTimer(Main.instance, 0L, VisualEffectReader.getTickDelay(baseConfigPath, "has_task"));
+        }.runTaskTimer(Main.instance, 0L, SettingReader.getInt(baseConfigPath, "has_task_effect.delay"));
     }
 
     private static String convertToDifficulty(boolean isHardTask){
@@ -210,7 +209,6 @@ public class TasksManager {
         new BukkitRunnable() {
             boolean init = false;
             double itemsCount;
-            Location spawnLocation;
 
             @Override
             public void run() {
@@ -218,15 +216,17 @@ public class TasksManager {
                     init = true;
                     double lootPerHealth = SettingReader.getDouble(baseConfigPath, "loot_per_heath");
                     itemsCount = lootPerHealth * healthToConvert;
-                    spawnLocation = LocationReader.getRandomLocation(baseConfigPath, "loot_spawn");
                 }
+
                 if(itemsCount <= 0) {
                     cancel();
                     return;
                 }
 
-                ItemStack item = LootTableReader.getRandomItem(baseConfigPath, lootTable);
-                spawnLocation.getWorld().dropItem(spawnLocation, item);
+                ItemStack itemStack = LootTableReader.getRandomItem(baseConfigPath, lootTable);
+                Location spawnLocation = LocationReader.getRandomLocation(baseConfigPath, "loot_spawn");
+
+                Util.spawnItemForPlayer(player, spawnLocation, itemStack);
                 SoundEffectReader.playAtLocation(baseConfigPath, "loot_spawn", player, spawnLocation, true);
 
                 itemsCount--;

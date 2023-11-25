@@ -1,6 +1,10 @@
 package org.shonivergames.secretlife;
 
+import org.bukkit.Location;
+import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.util.Vector;
 
 import java.util.Random;
 
@@ -41,9 +45,26 @@ public class Util {
         String result = text;
         int i = 1;
         for (String value : values) {
-            result = result.replace("value" + i, value);
+            result = result.replace("%value" + i + "%", value);
             i++;
         }
         return result;
+    }
+
+    public static Double getRandomDoubleInRange(double start, double end){
+        if (rnd == null)
+            rnd = new Random();
+
+        double min = Math.min(start, end);
+        double max = Math.max(start, end);
+        return start + (rnd.nextDouble() * (max - min));
+    }
+
+    public static Item spawnItemForPlayer(Player player, Location location, ItemStack itemStack){
+        Item item = location.getWorld().dropItem(location, itemStack);
+        item.setVelocity(new Vector());
+        item.setOwner(player.getUniqueId());
+        item.setPickupDelay(0);
+        return item;
     }
 }

@@ -50,7 +50,7 @@ public class GiftCommand implements TabCompleter, CommandExecutor {
         }
 
         if (HealthManager.willGoAboveMaxHealth(targetPlayer, healthAddition, canOverflow)) {
-            MessageReader.sendPrivate(baseConfigPath, "errors.will_go_above_max", sender);
+            MessageReader.sendPrivate(baseConfigPath, "errors.will_go_above_max", sender, targetPlayer.getName());
             return true;
         }
 

@@ -30,10 +30,12 @@ public class HealthManager {
         if(health == 0)
             return 0;
         int maxHealth = getCorrectMaxHealth(overflow);
-
         int healthChange = health;
         double currentHealth = player.getHealth();
-        if(currentHealth + healthChange > maxHealth) {
+
+        if(currentHealth > maxHealth)
+            healthChange = 0;
+        else if(currentHealth + healthChange > maxHealth) {
             healthChange =  maxHealth - (int)Math.round(currentHealth);
             currentHealth = maxHealth;
         }

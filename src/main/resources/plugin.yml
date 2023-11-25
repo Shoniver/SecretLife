@@ -16,6 +16,6 @@ commands:
   sl:
     description: All of the plugin's available commands.
     permission: admin
-  GiveHeart:
-    description: Gives a target player 1 heart.
+  gift:
+    description: Gifts another player some health.
     permission: public

@@ -5,51 +5,41 @@ import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
+import org.shonivergames.secretlife.config_readers.MessageReader;
+import org.shonivergames.secretlife.config_readers.SettingReader;
 
 public class LivesManager {
-    public static boolean addLife(Player player){
-        int lives = getCurrentLives(player) + 1;
+    private static final String baseConfigPath = "lives_manager";
+
+    public static void addLife(Player player){
+        int lives = Main.playerData.getLivesCount(player) + 1;
         setCurrentLives(player, lives);
-        return true;
     }
 
-    public static boolean removeLife(Player player){
-        int lives = getCurrentLives(player) - 1;
+    public static void removeLife(Player player){
+        int lives = Main.playerData.getLivesCount(player) - 1;
         if(lives < 0)
-            return false; // can't remove any more lives!
+            lives = 0; // can't remove any more lives!
         setCurrentLives(player, lives);
-        return true;
     }
 
     public static void initPlayer(Player player){
         int lives;
-        if(PlayersManager.isNewPlayer(player))
-            lives = Main.configFile.getInt("settings.base_lives");
+        if(Main.playerData.isPlayerRegistered(player))
+            lives = SettingReader.getInt(baseConfigPath, "start_amount");
         else
-            lives = getCurrentLives(player);
+            lives = Main.playerData.getLivesCount(player);
         setCurrentLives(player, lives);
     }
 
-    public static int getCurrentLives(Player player){
-        return PlayersManager.getPlayerInt(player, "lives");
-    }
-
     public static void setCurrentLives(Player player, int lives){
-        PlayersManager.setPlayerValue(player, "lives", lives);
+        Main.playerData.setLivesCount(player, lives);
 
         // Change player name color to match the amount of lives they now have
         setPlayerColor(player, lives);
 
         // Send them a private message in chat, matching the amount of lives they have
-        String messageConfigPath;
-        switch (lives){
-            case 2 -> messageConfigPath = "messages.player.death.two";
-            case 1 -> messageConfigPath = "messages.player.death.one";
-            case 0 -> messageConfigPath = "messages.player.death.zero";
-            default -> messageConfigPath = null;
-        }
-        if(messageConfigPath != null)
-            TextManager.sendFormattedPrivateMessage(player, messageConfigPath, player, null);
+        MessageReader.sendPrivate(baseConfigPath, "intro." + String.valueOf(lives), player, player.getName());
 
         if(lives == 0)
             player.setGameMode(GameMode.SPECTATOR);
@@ -61,14 +51,18 @@ public class LivesManager {
         Scoreboard scoreboard = Main.server.getScoreboardManager().getMainScoreboard();
 
         // Add to new team + set tab to proper color
-        String teamName = String.valueOf(lives);
+        String teamName;
+        if(lives >= 4)
+            teamName = "4+";
+        else
+            teamName = String.valueOf(lives);
         Team team = scoreboard.getTeam(teamName);
         team.addEntry(player.getName());
     }
 
     public static void createTeams(){
         Scoreboard scoreboard = Main.server.getScoreboardManager().getMainScoreboard();
-        Team t = scoreboard.registerNewTeam("4");
+        Team t = scoreboard.registerNewTeam("4+");
         t.setColor(ChatColor.DARK_GREEN);
         t = scoreboard.registerNewTeam("3");
         t.setColor(ChatColor.GREEN);
@@ -82,10 +76,31 @@ public class LivesManager {
 
     public static void deleteTeams(){
         Scoreboard scoreboard = Main.server.getScoreboardManager().getMainScoreboard();
-        scoreboard.getTeam("4").unregister();
+        scoreboard.getTeam("4+").unregister();
         scoreboard.getTeam("3").unregister();
         scoreboard.getTeam("2").unregister();
         scoreboard.getTeam("1").unregister();
         scoreboard.getTeam("0").unregister();
+    }
+
+    public static boolean isRedPlayer(Player player) {
+        return Main.playerData.getLivesCount(player) == 1;
+    }
+    public static boolean isYellowPlayer(Player player) {
+        return Main.playerData.getLivesCount(player) == 2;
+    }
+    public static boolean isThereRedPlayer() {
+        for (Player player : Main.server.getOnlinePlayers()) {
+            if(isRedPlayer(player))
+                return true;
+        }
+        return false;
+    }
+    public static boolean isThereYellowPlayer() {
+        for (Player player : Main.server.getOnlinePlayers()) {
+            if(isYellowPlayer(player))
+                return true;
+        }
+        return false;
     }
 }

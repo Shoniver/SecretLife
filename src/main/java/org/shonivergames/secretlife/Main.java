@@ -3,8 +3,6 @@ package org.shonivergames.secretlife;
 import org.bukkit.Server;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.shonivergames.secretlife.commands.CommandsManager;
-import org.shonivergames.secretlife.commands.GiveHeart;
 import org.shonivergames.secretlife.events.*;
 
 import java.util.logging.Logger;
@@ -12,6 +10,7 @@ import java.util.logging.Logger;
 public final class Main extends JavaPlugin {
     public static Main instance;
     public static FileConfiguration configFile;
+    public static PlayerDataManager playerData;
     public static Server server;
     public static Logger logger;
 
@@ -21,13 +20,13 @@ public final class Main extends JavaPlugin {
         saveDefaultConfig();
 
         instance = this;
-
+        playerData = new PlayerDataManager();
         configFile = getConfig();
         logger = getLogger();
         server = getServer();
 
-        getCommand(CommandsManager.prefix).setExecutor(new CommandsManager());
-        getCommand(GiveHeart.commandName).setExecutor(new GiveHeart());
+        getCommand(AdminCommandsManager.commandName).setExecutor(new AdminCommandsManager());
+        getCommand(GiftCommand.commandName).setExecutor(new GiftCommand());
 
         server.getPluginManager().registerEvents(new PlayerJoinEvent(), this);
         server.getPluginManager().registerEvents(new PlayerDeathEvent(), this);
@@ -35,12 +34,9 @@ public final class Main extends JavaPlugin {
         server.getPluginManager().registerEvents(new PlayerRespawnEvent(), this);
         server.getPluginManager().registerEvents(new EntityDamageEvent(), this);
         server.getPluginManager().registerEvents(new PlayerInteractEvent(), this);
-        if(configFile.getBoolean("settings.enable_uhc_mode"))
-            server.getPluginManager().registerEvents(new EntityRegenEvent(), this);
-        else
-            EntityRegenEvent.setNaturalRegen(true);
 
         LivesManager.createTeams();
+        HealthManager.init();
         TasksManager.manageHasTaskEffect();
 
         logger.info("SecretLife has been enabled!");

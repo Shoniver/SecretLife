@@ -1,11 +1,11 @@
-package org.shonivergames.secretlife.commands;
+package org.shonivergames.secretlife.admincommands;
 
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.shonivergames.secretlife.LivesManager;
 
-public class RemoveLife extends CommandBase{
-    protected RemoveLife() {
+public class RemoveLife extends _CommandBase {
+    public RemoveLife() {
         super("RemoveLife", true);
     }
 

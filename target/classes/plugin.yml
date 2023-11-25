@@ -1,5 +1,5 @@
 name: SecretLife
-version: '1.0'
+version: '1.1'
 main: org.shonivergames.secretlife.Main
 api-version: '1.20'
 authors: [Shoniver Games]
@@ -16,6 +16,6 @@ commands:
   sl:
     description: All of the plugin's available commands.
     permission: admin
-  GiveHeart:
-    description: Gives a target player 1 heart.
+  gift:
+    description: Gifts another player some health.
     permission: public

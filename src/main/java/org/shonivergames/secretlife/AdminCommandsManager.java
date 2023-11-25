@@ -1,22 +1,23 @@
-package org.shonivergames.secretlife.commands;
+package org.shonivergames.secretlife;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
-import org.shonivergames.secretlife.Main;
-import org.shonivergames.secretlife.PlayersManager;
-import org.shonivergames.secretlife.TextManager;
+import org.shonivergames.secretlife.admincommands.*;
+import org.shonivergames.secretlife.config_readers.MessageReader;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CommandsManager implements TabCompleter, CommandExecutor {
-    public static String prefix = "sl";
-    List<CommandBase> commandsList;
+public class AdminCommandsManager implements TabCompleter, CommandExecutor {
+    public static String commandName = "sl";
+    List<_CommandBase> commandsList;
 
-    public CommandsManager() {
+    private final String baseConfigPath = "admin_commands_manager";
+
+    public AdminCommandsManager() {
         commandsList = new ArrayList<>();
         commandsList.add(new BeginSession());
         commandsList.add(new FailPlayerTask());
@@ -33,25 +34,26 @@ public class CommandsManager implements TabCompleter, CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (args.length == 0 || args.length > 2) {
-            TextManager.sendPrivateMessage(sender,"messages.commands.invalid_cmd_structure");
+            MessageReader.sendPrivate(baseConfigPath, "generic_errors.invalid_cmd_structure", sender);
             return true;
         }
 
-        for (CommandBase currentCmd : commandsList) {
+        for (_CommandBase currentCmd : commandsList) {
             if (currentCmd.isCorrectCommand(args[0])) {
                 String player = "";
                 if (args.length > 1)
                     player = args[1];
 
-                if (currentCmd.isPerPlayer && !PlayersManager.isPlayerOnline(player))
-                    TextManager.sendPrivateMessage(sender,"messages.commands.no_player");
+                if (currentCmd.isPerPlayer && !Util.isPlayerOnline(player)) {
+                    MessageReader.sendPrivate(baseConfigPath, "generic_errors.no_player", sender, player);
+                }
                 else
                     currentCmd.executeCommand(sender, Main.server.getPlayer(player));
                 return true;
             }
         }
 
-        TextManager.sendPrivateMessage(sender,"messages.commands.invalid_cmd");
+        MessageReader.sendPrivate(baseConfigPath, "generic_errors.invalid_cmd", sender);
         return true;
     }
 
@@ -60,18 +62,18 @@ public class CommandsManager implements TabCompleter, CommandExecutor {
         List<String> options = new ArrayList<String>();
 
         // If the prefix isn't correct, don't bother continuing.
-        if (!cmd.getName().equalsIgnoreCase(prefix))
+        if (!cmd.getName().equalsIgnoreCase(commandName))
             return options;
 
         // if we're on the first argument, just gotta give the list of all possible commands
         if (args.length == 1) {
-            for (CommandBase currentCmd : commandsList)
+            for (_CommandBase currentCmd : commandsList)
                 options.add(currentCmd.command);
         }
         else if (args.length == 2) {
             // Find the command that was chosen in the first argument
-            CommandBase chosenCmd = null;
-            for (CommandBase currentCmd : commandsList) {
+            _CommandBase chosenCmd = null;
+            for (_CommandBase currentCmd : commandsList) {
                 if (currentCmd.isCorrectCommand(args[0])) {
                     chosenCmd = currentCmd;
                     break;

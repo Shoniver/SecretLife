@@ -1,36 +1,318 @@
-settings:
-  enable_uhc_mode: true
-  base_lives: 4
-  max_murder_health: 80
-  health_for_murder: 20
-  max_normal_health: 60
-  health_on_respawn: 60
-  admin_name: "The Secret Keeper"
-  can_reds_get_hard: false
-  health_change_message_color:
-    plus: "§a"
-    minus: "§c"
-    stay: 20
-    fade: 10
-  first_join_platform:
-    enabled: true
-    location:
+basic_settings:
+  admin_name: "§bThe Secret Keeper"
+
+player_join_manager:
+  settings:
+    teleport_to_platform_on_first_join: true
+  locations:
+    first_join_platform:
       x: -1032.5
       y: 100
       z: 1991.5
+  messages:
+    welcome: "§bWelcome to Secret Life, %value1%!\nRemember... you. must. remain. silent."
 
-tasks:
-  reward:
-    settings:
-      spawn:
-        x: -1032.50
+admin_commands_manager:
+  messages:
+    success: "§bCommand executed successfully."
+    generic_errors:
+      invalid_cmd_structure: "§cCorrect usage - /sl [command] or /sl [command] [player]"
+      invalid_cmd: "§cUnknown command."
+      no_player: "§cThere is no online player by the name %value1%."
+    specific_errors:
+      no_task_in_inv: "§c%value1%'s task not found in their inventory!"
+      has_no_task: "§a%value1% has already finished their task."
+      has_incomplete_task: "§c%value1% still has an unfinished task from last session!"
+
+lives_manager:
+  settings:
+    start_amount: 4
+  messages:
+    intro:
+      2: "§eYou are on your second life.\nYou have the power to guess other players' tasks -\nand if you manage to guess correctly, they instantly fail!\n(you can only guess ONCE per player per session.)"
+      1: "§cYou are on your FINAL life.\nYou ALWAYS have a task - ain't no rest for the wicked.\nAnd those tasks... Will be extra violent."
+      0: "§8You are out of lives.\nGG, you had a good run!\nSee you next season."
+
+health_manager:
+  settings:
+    uhc_enabled: true
+    reward_max: 60
+    health_on_respawn: 60
+    true_max: 80
+  title_messages:
+    given:
+      title: "§a+%value2% hearts"
+      sub: "§aGiven by %value1%"
+      fadeIn: 10
+      stay: 20
+      fadeOut: 10
+    taken:
+      title: "§c-%value2% hearts"
+      sub: "§cTaken by %value1%"
+      fadeIn: 10
+      stay: 20
+      fadeOut: 10
+
+tasks_manager:
+  settings:
+    can_penalty_kill: false
+    can_reds_get_hard_tasks: false
+    has_task_effect_offset: 2
+    amount_of_messages_on_obtain:
+      normal: 4
+      hard: 4
+    delay_between_obtain_messages:
+      normal: 20
+      hard: 40
+    reward:
+      normal: 20
+      hard: 40
+      red:
+        normal: 10
+        hard: 20
+    penalty:
+      normal: 0
+      hard: 20
+      red:
+        normal: 20
+        hard: 20
+    loot_per_heath: .5
+    delay_between_items: 2
+  locations:
+    loot_spawn:
+      start:
+        x: -1033.50
         y: 70
-        z: 1991.5
-      loot_per_heath: .5
-      delay_between_items: 2
-      sub_category_indicator: "<sub>"
+        z: 1990.5
+      end:
+        x: -1031.50
+        y: 70
+        z: 1992.5
+  visual_effects:
+    has_task:
+      normal:
+        type: "FLAME"
+        intensity: 5
+        tick_delay: 2
+      hard:
+        type: "DRAGON_BREATH"
+        intensity: 5
+        tick_delay: 2
+  sound_effects:
+    task_obtain:
+      normal:
+        start:
+          type: "block.portal.trigger"
+          volume: .4
+          pitch: 1
+        tick:
+          type: "ui.button.click"
+          volume: 1
+          pitch: 1
+        obtained:
+          type: ""
+          volume: 1
+          pitch: 1
+      hard:
+        start:
+          type: "ambient.soul_sand_valley.mood"
+          volume: 1
+          pitch: .75
+        tick:
+          type: "ui.button.click"
+          volume: 1
+          pitch: 1
+        obtained:
+          type: "block.conduit.ambient"
+          volume: 1
+          pitch: 1
+    loot_spawn:
+      type: "block.note_block.chime"
+      volume: 1
+      pitch: 1
+  title_messages:
+    task_obtain:
+      normal:
+        1:
+          title: "§bYour secret is..."
+          fadeIn: 10
+          stay: 20
+          fadeOut: 1000
+        2:
+          title: "§a3"
+          fadeIn: 0
+          stay: 20
+          fadeOut: 1000
+        3:
+          title: "§e2"
+          fadeIn: 0
+          stay: 20
+          fadeOut: 1000
+        4:
+          title: "§c1"
+          fadeIn: 0
+          stay: 20
+          fadeOut: 10
+      hard:
+        1:
+          title: "§2The reward is more"
+          fadeIn: 10
+          stay: 40
+          fadeOut: 1000
+        2:
+          title: "§aThe risk is great"
+          fadeIn: 0
+          stay: 40
+          fadeOut: 1000
+        3:
+          title: "§eLet me open the door"
+          fadeIn: 0
+          stay: 40
+          fadeOut: 1000
+        4:
+          title: "§cAccept your fate"
+          fadeIn: 0
+          stay: 40
+          fadeOut: 10
+  messages:
+    pass_task: "§l§a%value1% has finished their task!§r§a It was:\n%value2%"
+    reroll_task: "§l§5%value1% has rerolled their task...§r§5 Their original task was:\n%value2%"
+    fail_task: "§l§c%value1% has failed their task!§r§c It was:\n%value2%"
+  tasks:
+    settings:
+      task_title: "§c%value1%'s Task"
+      task_content: "%value1% TASK: %value2%"
     normal:
-      health: 20
+      - "Make your base deeply uncomfortable to use and look at."
+      - "Dig a big hole. All the way down. At least 3x3. Make it your base if you want."
+      - "Build your base directly above %value1%'s base."
+      - "Steal 3 beds from other players without being caught and place them on a shrine. If you get caught collecting a bed, it doesn't count."
+      - "Convince %value1% to take a leap of faith (make sure they take no damage!)."
+      - "Make 3 bad jokes and get NO laughs (if someone laughs, it doesn't count)."
+      - "Make Oak wood your entire identity for the entire session."
+      - "Break 3 crafting tables while they are being used."
+      - "Build a base that looks exactly the same as %value1%'s base."
+      - "Get 2 players to gift you their heart (it must be a gift, not an exchange)."
+      - "Call other players anything EXCEPT their username for at least 30 minutes of the session. If you say a username, you have to reset the timer."
+      - "Build a base directly and obnoxiously attached to %value1%'s base."
+      - "Don't be further than 10 blocks from %value1% for 10 minutes. One attempt only. If you get interrupted in those 10 minutes, you fail."
+      - "Write a poem about %value1% and read it to them."
+      - "Get %value1% to talk about Harry Potter for over 60 seconds. One attempt only. If you get interrupted in those 60 seconds, you fail."
+      - "Make a pun at every opportunity in a 5 minute conversation with %value1%, minimum of 3 successful puns."
+      - "Move 3 people's front door at least twice. You must not be called out. If you do, that door doesn't count."
+      - "Make a bet with %value1% and win."
+      - "Start 3 conversations with 3 different players and leave halfway through without saying a word. Don't get called out."
+      - "Send %value1% on a wild goose chase."
+      - "Be %value1%'s hype man for 15 consecutive minutes of the session and don't get called out. If you do, you fail."
+      - "Fill 4 DIFFERENT players' chests / inventory with light gray stained glass without being caught. If you get caught, that player doesn't count."
+      - "Use a pig as your main mode of transport for 30 consecutive minutes of the session. If you get off of it, the timer resets."
+      - "Tell a story and get someone to leave before you finish it."
+      - "Don't call mobs by their real names for 30 consecutive minutes. If you do, the timer resets."
+      - "Successfully jump-scare another player (manage to get an audible reaction from them)."
+      - "Every few minutes, replace a block with another block in a player's base without getting caught (must wait at least 3 minutes between each block!). If you get caught, start again with someone else. Total of 6 prominent blocks must be changed for the task to pass."
+      - "Get another player to say 'get out of here'."
+      - "Start a cult and get another player to join it."
+      - "Get accused of doing 3 FAKE secret tasks by 3 different players."
+      - "Convince someone to burn down your house without getting called out. If they do call you out, you must find a different person."
+      - "Be best friends with %value1% for 15 consecutive minutes of this session and don't get called out for it. If you get called out, you fail."
+      - "Use any of the words 'bet', 'poggers', 'dab', 'yeet', 'drip', 'slay', 'vibing', 'valid', 'rizz', 'sheesh' (at least one word) in their CORRECT CONTEXT in at least 3 conversations (with 3 different players). If someone questions you or repeats the word back to you, that conversation doesn't count."
+      - "Find any player over 25 hearts, and 'accidentally' take 5 off of them. The method is your choice. You fail if they ask if it is your task."
+      - "Re-bind your W key to A, S->W, D->S, and A->D, for 30 consecutive minutes of the session. If someone points out your weird movements, restart the timer. You must interact with other players during this time."
+      - "You are a 'yes man' for the entire session. You can not deny any request or question from another player. You must always say yes / agree. If you refuse to do so, you fail."
+      - "Request an item 5 times in one conversation but never pick it up. You must not be called out for it. If you do, you have to try again with another player."
+      - "Remove all light sources from the surrounding area of 5 different players' bases. If the player catches you and questions you, you must put all light sources back for that player (the player will still count though!)."
+      - "Tell another player you love them and have them say it back unprompted (without asking them to do so). Only one attempt allowed per player."
+      - "Follow and stare at %value1% from afar using a spyglass for at least 10 consecutive minutes of the session. If anyone notices you, you fail."
+      - "Get another player to say 'deja vu', or question why things seem to be repeating around them, without calling you out. If they call you out, you must switch to another player."
+      - "Compliment other players (on anything you can think of!) whenever you see them take damage (for the entire session!)."
+      - "Ask someone what they think a good task would be. Their response is YOUR TASK for this session, no matter what it is! If they don't give you a task, you need to ask someone else."
+      - "You must always lie to all other players. You can never say the truth about anything for the whole session. If you can't manage to do so, you fail."
+      - "Sing everything you say for 10 consecutive minutes. You must interact with other players during this time! If you say something normally during this time, you have to reset the timer."
+      - "You can not HURT any mob or player for the entire session. If you do, you fail."
+      - "Create a dangerous mini-game and convince another player to participate in it. While playing, they must take damage. If they manage to play without getting hurt, you must find another player."
+      - "Connect your base to EVERY OTHER PLAYER's base (can be with paths, underground tunnels, whatever - up to you)."
+      - "You are now terrified of 1 on 1 conversations. If you are in a conversation with just 1 person, you must flee in active terror. If you forget this, you fail."
+      - "Do the opposite of whatever other players tell you to do for the entire session. If you do something as you were told, you fail."
+      - "Figure out %value1%'s task and complete it. You can show them this task once you think you have done it and get them to confirm success. You only pass if they confirm you've completed their task properly. If they deny it, you fail."
+      - "Be actively involved in 3 different conversations %value1% has with someone else on the server. During these conversations, you must mimic all of %value1%'s movements without being called out on it. If someone calls you out, you FAIL."
+      - "Leave this 'secret task' book in 3 different bases and get players to find them and call you out on it. If 3 players do so, you PASS the task."
+      - "Convince 2 different players to 'help' you build a monument or communal building, then never place or destroy a single block yourself."
+      - "Fully convince someone their mic is off when it's not. You have to get them to log off in an attempt to fix the issue to pass the task."
+      - "Gift another player's something without them wondering why you're gifting it to them (has to be something somewhat valuable)."
+      - "Make another player suspect you into having a task that involves harming someone."
+      - "Decorate an area, then receive 3 compliments on the decorations."
+      - "Go along with any skit / joke other players tell you for the entire session."
+      - "Convince someone that you have exposed your task by accident, and have them escort you to the secret keeper - only to see you pass your task."
+      - "Make up a holiday and convince another player it is an actual holiday and get them to celebrate it with you. If they don't believe you, you can try with another player."
+      - "Convince a player to follow you for at least 10 consecutive minutes of the session. You can try again with another player if you fail."
+      - "Change the aesthetics of someones build without being caught. If you get caught while doing it, you fail."
+      - "Create a random structure and get another player to ask you what it is."
+      - "Manage to 'accidentally' place a block directly in %value1%'s way as they are moving - at least 3 times."
+      - "Make 2 successful trades with two different players/groups on the server."
+      - "Get 2 other players to leave your vicinity via your own actions."
+      - "Sneak an item into %value1%'s inventory without them noticing."
+      - "Have a stick in your offhand for an entire interaction without anyone mentioning it. If someone says anything, you have to try again with other players."
+      - "Cover %value1%'s base in dirt."
+      - "Become %value1%'s bodyguard for 30 minutes. If they takes damage, restart the timer."
+      - "Stay within hearing range of another player for at least 15 minutes. If they get too far from you, you have to restart the timer with another player."
+      - "Make a memorial for %value1% and hold a funeral for them with at least one other player."
+      - "Follow %value1% around and question EVERYTHING they're doing for 10 consecutive minutes."
+      - "Get someone who you are not currently working with to make a build with you."
+    hard:
+      - "Come up with a nickname for another player and convince 2 other people to use it."
+      - "You have an imaginary friend now. Talk to them as if they follow you around the whole session and are part of conversations. You must interact with other players during this time."
+      - "Figure out %value1%'s secret task and prevent them from completing it (they MUST fail for you to win!)."
+      - "Do a successful 100 block high water bucket clutch in front of the whole server."
+      - "Convince another player to change their skin. You can try with as many players as you'd like."
+      - "Move another player's base 10 blocks in any direction without them noticing. If they notice, you instantly fail."
+      - "Build some sort of structure and then proceed to convince another player that they are the one who built the structure."
+      - "You can ONLY call other players by their username for the entire session. If you say any other name, you fail."
+      - "Randomly move in with someone you are NOT teaming with whilst they are in their base, without them questioning it. At the end of the session, you have to have a bed in their house for you to pass."
+      - "Talk in a foreign accent for the entire session. If you accidentally change the accent through the session, you fail."
+      - "Make a different player speak in a random accent for at least 5 consecutive minutes. If they stop before the time is up, you fail the task."
+      - "Add a secret room in %value1%'s house and live in it for the rest of the session without being caught. If they notice you, you fail."
+      - "Convince someone you know what their task is and get them to tell you what it is. You only pass if they fail."
+      - "Get another player to sing a song with you. If they don't sing along, you can look for a different player."
+      - "Start quoting an opening from a TV show, and get someone else to complete the quote."
+      - "Do the 'I left my diamonds over here!' joke with another player and ACTUALLY find diamonds where you mine."
+      - "Start a rumor. To pass the task, you must hear your rumor from another player (which you haven't told the rumor to!)."
+      - "Always say the exact opposite of what you actually want to say."
+      - "Make sure %value1% doesn't lose more than 3 hearts in this session overall. If they do, you fail."
+      - "You can only communicate with other players with one word of your choice for the rest of the session."
+      - "Stalk Someone for 10 minutes, make your presence known. You are not allowed to say a single word to them until the time is up. If you do, you fail."
+      - "Break 2 or 4 blocks of another player's base and convince them to place a door there instead, detailing why it's a good idea to have that door there."
+      - "Get every player on the server to give you an item of your choice (has to be a different item from each player!). Place all of the items you obtained on a wall in your base."
+      - "Convince %value1% that there is something wrong with their base design and get them to change it."
+      - "Go to every player's base while they are inside of it, and enter via anything EXCEPT the front door."
+    has_yellows:
+      normal:
+        - "Bait a yellow into believing your task is 'Singing everything you say'."
+        - "Make up a fake task and get a yellow player to believe it is the task of one of the other players. You only succeed if the yellow believes you and guesses wrongly. If they don't believe you, you can try again with another yellow."
+        - "Get a yellow to accuse you of a task. Whatever they tell you is now your REAL TASK for the rest of the session. You can let them in on this once they give you your task. You are also immune to yellow guesses for this session."
+        - "Bait a yellow into believing that you and one other player have the same task. You can share this information with the other player, but once you do, you can not pick another player for the task."
+        - "Bait a yellow into believing your task is to spy for them."
+      hard:
+        - "Keep a pumpkin head for the entire session. Don't remove it for a second!"
+    no_yellows:
+      normal:
+        - "You are %value1%'s butler for the whole session. Do whatever they say. You have to let them in on this secret, but no one else."
+        - "For every heart of damage %value1% takes, you must take the same. You can let them in on this secret, but no one else... If either of you die in this episode, you fail."
+      hard:
+    has_reds:
+      normal:
+      hard:
+    no_reds:
+      normal:
+      hard:
+        - "Convince %value1% you have the same task as them. If you can't manage to do so, you fail."
+    red:
+      normal:
+        - "Gaslight a group of people into not trusting each other. You pass the task if you manage to get someone to talk shit on their friend."
+        - "Set a trap without being seen."
+      hard:
+      - "Hit other players 5 times without getting hit back if you get hit back you fail."
+  loot_tables:
+    normal:
       enchanted_book:
         - "aqua_affinity"
         - "bane_of_arthropods"
@@ -142,7 +424,6 @@ tasks:
         - "EYE_ARMOR_TRIM_SMITHING_TEMPLATE"
         - "SPIRE_ARMOR_TRIM_SMITHING_TEMPLATE"
     hard:
-      health: 40
       enchanted_book:
         - "fire_aspect"
         - "flame"
@@ -210,7 +491,6 @@ tasks:
         - "MOOSHROOM_SPAWN_EGG"
     red:
       normal:
-        health: 10
         enchanted_book:
           - "fire_aspect"
           - "flame"
@@ -302,256 +582,78 @@ tasks:
           - "SPIDER_SPAWN_EGG"
           - "SKELETON_SPAWN_EGG"
       hard:
-        health: 20
         enchanted_book:
         potion:
         loot:
           - "ENCHANTED_BOOK"
           - "SPLASH_POTION"
-  penalty:
-    normal: 0
-    hard: 20
-    red:
-      normal: 20
-      hard: 20
-  title_color: "§c"
-  author: "§bThe Secret Keeper"
-  start:
-    delay: 20
-    fade: 10
-    text1: "§bYour secret is..."
-    text2: "§a3"
-    text3: "§e2"
-    text4: "§c1"
-  start_hard:
-    delay: 40
-    fade: 10
-    text1: "§2The reward is more"
-    text2: "§aThe risk is great"
-    text3: "§eLet me open the door"
-    text4: "§cAccept your fate"
-  normal:
-    - "Make your base deeply uncomfortable to use and look at."
-    - "Dig a big hole. All the way down. At least 3x3. Make it your base if you want."
-    - "Build your base directly above %player%'s base."
-    - "Steal 3 beds from other players without being caught and place them on a shrine. If you get caught collecting a bed, it doesn't count."
-    - "Convince %player% to take a leap of faith (make sure they take no damage!)."
-    - "Make 3 bad jokes and get NO laughs (if someone laughs, it doesn't count)."
-    - "Make Oak wood your entire identity for the entire session."
-    - "Break 3 crafting tables while they are being used."
-    - "Build a base that looks exactly the same as %player%'s base."
-    - "Get 2 players to gift you their heart (it must be a gift, not an exchange)."
-    - "Call other players anything EXCEPT their username for at least 30 minutes of the session. If you say a username, you have to reset the timer."
-    - "Build a base directly and obnoxiously attached to %player%'s base."
-    - "Don't be further than 10 blocks from %player% for 10 minutes. One attempt only. If you get interrupted in those 10 minutes, you fail."
-    - "Write a poem about %player% and read it to them."
-    - "Get %player% to talk about Harry Potter for over 60 seconds. One attempt only. If you get interrupted in those 60 seconds, you fail."
-    - "Make a pun at every opportunity in a 5 minute conversation with %player%, minimum of 3 successful puns."
-    - "Move 3 people's front door at least twice. You must not be called out. If you do, that door doesn't count."
-    - "Make a bet with %player% and win."
-    - "Start 3 conversations with 3 different players and leave halfway through without saying a word. Don't get called out."
-    - "Send %player% on a wild goose chase."
-    - "Be %player%'s hype man for 15 consecutive minutes of the session and don't get called out. If you do, you fail."
-    - "Fill 4 DIFFERENT players' chests / inventory with light gray stained glass without being caught. If you get caught, that player doesn't count."
-    - "Use a pig as your main mode of transport for 30 consecutive minutes of the session. If you get off of it, the timer resets."
-    - "Tell a story and get someone to leave before you finish it."
-    - "Don't call mobs by their real names for 30 consecutive minutes. If you do, the timer resets."
-    - "Successfully jump-scare another player (manage to get an audible reaction from them)."
-    - "Every few minutes, replace a block with another block in a player's base without getting caught (must wait at least 3 minutes between each block!). If you get caught, start again with someone else. Total of 6 prominent blocks must be changed for the task to pass."
-    - "Get another player to say 'get out of here'."
-    - "Start a cult and get another player to join it."
-    - "Get accused of doing 3 FAKE secret tasks by 3 different players."
-    - "Convince someone to burn down your house without getting called out. If they do call you out, you must find a different person."
-    - "Be best friends with %player% for 15 consecutive minutes of this session and don't get called out for it. If you get called out, you fail."
-    - "Use any of the words 'bet', 'poggers', 'dab', 'yeet', 'drip', 'slay', 'vibing', 'valid', 'rizz', 'sheesh' (at least one word) in their CORRECT CONTEXT in at least 3 conversations (with 3 different players). If someone questions you or repeats the word back to you, that conversation doesn't count."
-    - "Find any player over 25 hearts, and 'accidentally' take 5 off of them. The method is your choice. You fail if they ask if it is your task."
-    - "Re-bind your W key to A, S->W, D->S, and A->D, for 30 consecutive minutes of the session. If someone points out your weird movements, restart the timer. You must interact with other players during this time."
-    - "You are a 'yes man' for the entire session. You can not deny any request or question from another player. You must always say yes / agree. If you refuse to do so, you fail."
-    - "Request an item 5 times in one conversation but never pick it up. You must not be called out for it. If you do, you have to try again with another player."
-    - "Remove all light sources from the surrounding area of 5 different players' bases. If the player catches you and questions you, you must put all light sources back for that player (the player will still count though!)."
-    - "Tell another player you love them and have them say it back unprompted (without asking them to do so). Only one attempt allowed per player."
-    - "Follow and stare at %player% from afar using a spyglass for at least 10 consecutive minutes of the session. If anyone notices you, you fail."
-    - "Get another player to say 'deja vu', or question why things seem to be repeating around them, without calling you out. If they call you out, you must switch to another player."
-    - "Compliment other players (on anything you can think of!) whenever you see them take damage (for the entire session!)."
-    - "Ask someone what they think a good task would be. Their response is YOUR TASK for this session, no matter what it is! If they don't give you a task, you need to ask someone else."
-    - "You must always lie to all other players. You can never say the truth about anything for the whole session. If you can't manage to do so, you fail."
-    - "Sing everything you say for 10 consecutive minutes. You must interact with other players during this time! If you say something normally during this time, you have to reset the timer."
-    - "You can not HURT any mob or player for the entire session. If you do, you fail."
-    - "Create a dangerous mini-game and convince another player to participate in it. While playing, they must take damage. If they manage to play without getting hurt, you must find another player."
-    - "Connect your base to EVERY OTHER PLAYER's base (can be with paths, underground tunnels, whatever - up to you)."
-    - "You are now terrified of 1 on 1 conversations. If you are in a conversation with just 1 person, you must flee in active terror. If you forget this, you fail."
-    - "Do the opposite of whatever other players tell you to do for the entire session. If you do something as you were told, you fail."
-    - "Figure out %player%'s task and complete it. You can show them this task once you think you have done it and get them to confirm success. You only pass if they confirm you've completed their task properly. If they deny it, you fail."
-    - "Be actively involved in 3 different conversations %player% has with someone else on the server. During these conversations, you must mimic all of %player%'s movements without being called out on it. If someone calls you out, you FAIL."
-    - "Leave this 'secret task' book in 3 different bases and get players to find them and call you out on it. If 3 players do so, you PASS the task."
-    - "Convince 2 different players to 'help' you build a monument or communal building, then never place or destroy a single block yourself."
-    - "Fully convince someone their mic is off when it's not. You have to get them to log off in an attempt to fix the issue to pass the task."
-    - "Gift another player's something without them wondering why you're gifting it to them (has to be something somewhat valuable)."
-    - "Make another player suspect you into having a task that involves harming someone."
-    - "Decorate an area, then receive 3 compliments on the decorations."
-    - "Go along with any skit / joke other players tell you for the entire session."
-    - "Convince someone that you have exposed your task by accident, and have them escort you to the secret keeper - only to see you pass your task."
-    - "Make up a holiday and convince another player it is an actual holiday and get them to celebrate it with you. If they don't believe you, you can try with another player."
-    - "Convince a player to follow you for at least 10 consecutive minutes of the session. You can try again with another player if you fail."
-    - "Change the aesthetics of someones build without being caught. If you get caught while doing it, you fail."
-    - "Create a random structure and get another player to ask you what it is."
-    - "Manage to 'accidentally' place a block directly in %player%'s way as they are moving - at least 3 times."
-    - "Make 2 successful trades with two different players/groups on the server."
-    - "Get 2 other players to leave your vicinity via your own actions."
-    - "Sneak an item into %player%'s inventory without them noticing."
-    - "Have a stick in your offhand for an entire interaction without anyone mentioning it. If someone says anything, you have to try again with other players."
-    - "Cover %player%'s base in dirt."
-    - "Become %player%'s bodyguard for 30 minutes. If they takes damage, restart the timer."
-    - "Stay within hearing range of another player for at least 15 minutes. If they get too far from you, you have to restart the timer with another player."
-    - "Make a memorial for %player% and hold a funeral for them with at least one other player."
-    - "Follow %player% around and question EVERYTHING they're doing for 10 consecutive minutes."
-    - "Get someone who you are not currently working with to make a build with you."
-  hard:
-    - "Come up with a nickname for another player and convince 2 other people to use it."
-    - "You have an imaginary friend now. Talk to them as if they follow you around the whole session and are part of conversations. You must interact with other players during this time."
-    - "Figure out %player%'s secret task and prevent them from completing it (they MUST fail for you to win!)."
-    - "Do a successful 100 block high water bucket clutch in front of the whole server."
-    - "Convince another player to change their skin. You can try with as many players as you'd like."
-    - "Move another player's base 10 blocks in any direction without them noticing. If they notice, you instantly fail."
-    - "Build some sort of structure and then proceed to convince another player that they are the one who built the structure."
-    - "You can ONLY call other players by their username for the entire session. If you say any other name, you fail."
-    - "Randomly move in with someone you are NOT teaming with whilst they are in their base, without them questioning it. At the end of the session, you have to have a bed in their house for you to pass."
-    - "Talk in a foreign accent for the entire session. If you accidentally change the accent through the session, you fail."
-    - "Make a different player speak in a random accent for at least 5 consecutive minutes. If they stop before the time is up, you fail the task."
-    - "Add a secret room in %player%'s house and live in it for the rest of the session without being caught. If they notice you, you fail."
-    - "Convince someone you know what their task is and get them to tell you what it is. You only pass if they fail."
-    - "Get another player to sing a song with you. If they don't sing along, you can look for a different player."
-    - "Start quoting an opening from a TV show, and get someone else to complete the quote."
-    - "Do the 'I left my diamonds over here!' joke with another player and ACTUALLY find diamonds where you mine."
-    - "Start a rumor. To pass the task, you must hear your rumor from another player (which you haven't told the rumor to!)."
-    - "Always say the exact opposite of what you actually want to say."
-    - "Make sure %player% doesn't lose more than 3 hearts in this session overall. If they do, you fail."
-    - "You can only communicate with other players with one word of your choice for the rest of the session."
-    - "Stalk Someone for 10 minutes, make your presence known. You are not allowed to say a single word to them until the time is up. If you do, you fail."
-    - "Break 2 or 4 blocks of another player's base and convince them to place a door there instead, detailing why it's a good idea to have that door there."
-    - "Get every player on the server to give you an item of your choice (has to be a different item from each player!). Place all of the items you obtained on a wall in your base."
-    - "Convince %player% that there is something wrong with their base design and get them to change it."
-    - "Go to every player's base while they are inside of it, and enter via anything EXCEPT the front door."
-  has_yellows:
-    normal:
-      - "Bait a yellow into believing your task is 'Singing everything you say'."
-      - "Make up a fake task and get a yellow player to believe it is the task of one of the other players. You only succeed if the yellow believes you and guesses wrongly. If they don't believe you, you can try again with another yellow."
-      - "Get a yellow to accuse you of a task. Whatever they tell you is now your REAL TASK for the rest of the session. You can let them in on this once they give you your task. You are also immune to yellow guesses for this session."
-      - "Bait a yellow into believing that you and one other player have the same task. You can share this information with the other player, but once you do, you can not pick another player for the task."
-      - "Bait a yellow into believing your task is to spy for them."
-    hard:
-      - "Keep a pumpkin head for the entire session. Don't remove it for a second!"
-  no_yellows:
-    normal:
-      - "You are %player%'s butler for the whole session. Do whatever they say. You have to let them in on this secret, but no one else."
-      - "For every heart of damage %player% takes, you must take the same. You can let them in on this secret, but no one else... If either of you die in this episode, you fail."
-    hard:
-  has_reds:
-    normal:
-    hard:
-  no_reds:
-    normal:
-    hard:
-      - "Convince %player% you have the same task as them. If you can't manage to do so, you fail."
-  red:
-    normal:
-      - "Gaslight a group of people into not trusting each other. You pass the task if you manage to get someone to talk shit on their friend."
-      - "Set a trap without being seen."
-    hard:
-      - "Hit other players 5 times without getting hit back if you get hit back you fail."
 
-interactions:
-  block_type: "BELL"
-  pass_task:
-    x: -1026
-    y: 67
-    z: 1987
-  reroll_for_hard:
-    x: -1033
-    y: 67
-    z: 1998
-  fail_task:
-    x: -1040
-    y: 67
-    z: 1987
-
-effects:
-  player_with_unfinished_task:
-    tick_delay: 2
-    intensity: 5
-    height_above_player: 2
-    normal_effect: "FLAME"
-    hard_effect: "DRAGON_BREATH"
-
-sound_effects:
-  tick:
-    name: "ui.button.click"
-    pitch: 1
-    volume: 1
-  give_heart:
-    name: "block.enchantment_table.use"
-    pitch: 1.5
-    volume: 1
-  task:
-    obtain:
-      name: "block.portal.trigger"
-      pitch: 1
-      volume: .4
-    obtain_hard:
-      name: "ambient.soul_sand_valley.mood"
-      pitch: .75
+interactions_manger:
+  settings:
+    block_type: "BELL"
+  sound_effects:
+    pass_task:
+      type: "block.bell.resonate"
       volume: 1
-    pass:
-      name: "block.bell.resonate"
       pitch: 1
+    reroll_task:
+      type: ""
       volume: 1
-    fail:
-      name: "block.conduit.deactivate"
+      pitch: 1
+    fail_task:
+      type: "block.conduit.deactivate"
+      volume: 1
       pitch: 2
-      volume: 1
-    reroll:
-      name: "block.conduit.ambient"
-      pitch: 1
-      volume: 1
-    loot_drop:
-      name: "block.note_block.chime"
-      pitch: 1
-      volume: 1
+  locations:
+    pass_task:
+      x: -1026
+      y: 67
+      z: 1987
+    reoll_task:
+      x: -1033
+      y: 67
+      z: 1998
+    fail_task:
+      x: -1040
+      y: 67
+      z: 1987
+  messages:
+    no_task_in_inv: "§cYour task is not in your inventory!"
+    has_no_task: "§bYou don't have a task! Come back next session..."
+    already_has_hard: "§cYou already have a hard task!"
+    red_cant_reroll: "§cRed players are not allowed to reroll for a hard task!"
 
-messages:
-  player_indicator: "%player%"
-  task_indicator: "%task%"
-  commands:
-    invalid_cmd_structure: "§cCorrect usage - /sl [command] or /sl [command] [player]"
-    invalid_cmd: "§cUnknown command."
-    must_be_player: "§cThis command can only be ran by a player."
-    invalid_public_cmd_structure: "§cCorrect usage - /GiveHeart [player]"
-    no_player: "§cThere is no online player with the name you've entered."
-    valid_cmd: "§bCommand executed successfully."
-    give_heart:
-      unavailable: "§cYou have already given your heart away. Wait for next session!"
-      self: "§cYou can not give your heart to yourself."
-      already_full: "§cThis player is already on max hearts!"
-    tasks:
-      public:
-        fail_task: "§l§c%player% has failed their task!§r§c It was:\n%task%"
-        pass_task: "§l§a%player% has finished their task!§r§a It was:\n%task%"
-        rerolled_task: "§l§5%player% has rerolled their task...§r§5 Their original task was:\n%task%"
-      server:
-        no_task_in_inv: "§c%player%'s task not found in their inventory!"
-        has_incomplete_task: "§c%player% still has an unfinished task from last session!"
-        has_no_task: "§a%player% has already finished their task."
-      no_task_in_inv: "§cYour task is not in your inventory!"
-      has_incomplete_task: "§cYou still have an unfinished task!"
-      has_no_task: "§bYou don't have a task! Come back next session..."
-      already_has_hard: "§cYou already have a hard task!"
-      red_cant_reroll: "§cRed players are not allowed to reroll for a hard task!"
-      reroll_without_normal: "§cYou can not reroll for a hard task without a normal task!"
-  player:
-    welcome: "§bWelcome to Secret Life, %player%!\nRemember... you. must. remain. silent."
-    death:
-      two: "§eYou are on your second life.\nYou have the power to guess other players' tasks -\nand if you manage to guess correctly, they instantly fail!\n(you can only guess ONCE per player per session.)"
-      one: "§cYou are on your FINAL life.\nYou ALWAYS have a task - ain't no rest for the wicked.\nAnd those tasks... Will be extra violent."
-      zero: "§8You are out of lives.\nGG, you had a good run!\nSee you next season."
+kill_manager:
+  settings:
+    can_non_reds_kill: false
+    health_reward: 20
+  title_messages:
+    non_red_kills_disabled:
+      title: "§c...Why did you do that?"
+      sub: "§cYou monster..."
+      fadeIn: 10
+      stay: 60
+      fadeOut: 10
 
-player_data:
+gift_command:
+  settings:
+    health_given: 2
+    can_go_above_max: true
+  sound_effects:
+    give:
+      type: "block.enchantment_table.use"
+      volume: 1
+      pitch: 1.5
+    receive:
+      type: "block.enchantment_table.use"
+      volume: 1
+      pitch: 1.5
+  messages:
+    success: "§bCommand executed successfully."
+    errors:
+      must_be_player: "§cThis command can only be ran by a player."
+      invalid_cmd_structure: "§cCorrect usage - /gift [player]"
+      unavailable: "§cYou have already given your gift away. Wait for next session!"
+      no_player: "§cThere is no online player by the name %value1%."
+      self: "§cYou can not gift to yourself."
+      will_go_above_max: "§cYour gift will get %value1% above max health!"

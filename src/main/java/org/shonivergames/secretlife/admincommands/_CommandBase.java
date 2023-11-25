@@ -1,13 +1,15 @@
-package org.shonivergames.secretlife.commands;
+package org.shonivergames.secretlife.admincommands;
 
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.shonivergames.secretlife.TextManager;
+import org.shonivergames.secretlife.config_readers.MessageReader;
 
-public abstract class CommandBase {
+public abstract class _CommandBase {
+    protected final String baseConfigPath = "admin_commands_manager";
+
     public String command;
     public boolean isPerPlayer = false;
-    protected CommandBase(String command, boolean isPerPlayer){
+    protected _CommandBase(String command, boolean isPerPlayer){
         this.command = command;
         this.isPerPlayer = isPerPlayer;
     }
@@ -20,6 +22,6 @@ public abstract class CommandBase {
 
     protected void printFeedback(CommandSender sender){
         if(sender != null)
-            TextManager.sendPrivateMessage(sender,"messages.commands.valid_cmd");
+            MessageReader.sendPrivate(baseConfigPath, "success", sender);
     }
 }

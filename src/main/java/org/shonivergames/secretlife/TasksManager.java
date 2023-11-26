@@ -105,7 +105,7 @@ public class TasksManager {
         MessageReader.sendPublic(baseConfigPath, "fail_task", player.getName(), task);
 
         String configVar = "penalty.";
-        if(LivesManager.isRedPlayer(player))
+        if(Main.playerData.getIsRedTask(player))
             configVar += "red.";
         HealthManager.removeHealth(player, SettingReader.getInt(baseConfigPath, configVar + difficulty), SettingReader.getBool(baseConfigPath, "can_penalty_kill"));
 

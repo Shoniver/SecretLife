@@ -75,18 +75,18 @@ public class TasksManager {
 
     // Assumes the task exists in the player inventory. Must be checked before this!
     public static void passTask(Player player) {
-        // Get the difficulty before removing the task
+        // Get the current task's settings before removing the task
         String difficulty = Main.playerData.getTaskDifficulty(player);
+        String path = "";
+        if(Main.playerData.getIsRedTask(player))
+            path += "red.";
+        path += difficulty;
 
         ItemStack taskItem = removeTask(player);
         String task = extractTaskContent(taskItem);
         MessageReader.sendPublic(baseConfigPath, "pass_task", player.getName(), task);
 
         // Give rewards & loot
-        String path = "";
-        if(Main.playerData.getIsRedTask(player))
-            path += "red.";
-        path += difficulty;
         int healthReward = SettingReader.getInt(baseConfigPath, "reward." + path);
         int healthChange = HealthManager.addHealth(player, healthReward, false);
         createTaskRewardLoot(player, healthReward - healthChange, path);
@@ -97,17 +97,18 @@ public class TasksManager {
 
     // Assumes the task exists in the player inventory. Must be checked before this!
     public static void failTask(Player player) {
-        // Get the difficulty before removing the task
+        // Get the current task's settings before removing the task
         String difficulty = Main.playerData.getTaskDifficulty(player);
+        String configVar = "penalty.";
+        if(Main.playerData.getIsRedTask(player))
+            configVar += "red.";
+        configVar += difficulty;
 
         ItemStack taskItem = removeTask(player);
         String task = extractTaskContent(taskItem);
         MessageReader.sendPublic(baseConfigPath, "fail_task", player.getName(), task);
 
-        String configVar = "penalty.";
-        if(Main.playerData.getIsRedTask(player))
-            configVar += "red.";
-        HealthManager.removeHealth(player, SettingReader.getInt(baseConfigPath, configVar + difficulty), SettingReader.getBool(baseConfigPath, "can_penalty_kill"));
+        HealthManager.removeHealth(player, SettingReader.getInt(baseConfigPath, configVar), SettingReader.getBool(baseConfigPath, "can_penalty_kill"));
 
         if(shouldGetConstantTasks(player))
             spawnItemAtLootPool(player, getNewPlayerTask(player, false));

@@ -4,6 +4,7 @@ import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.EnchantmentStorageMeta;
 import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.potion.PotionType;
 import org.shonivergames.secretlife.Main;
@@ -25,8 +26,10 @@ public class LootTableReader {
 
         ItemStack item = new ItemStack(mat);
         if(mat == Material.ENCHANTED_BOOK){
+            EnchantmentStorageMeta meta = (EnchantmentStorageMeta)item.getItemMeta();
             Enchantment enchantment = getRandomEnchant(configPath);
-            item.addUnsafeEnchantment(enchantment, getRandomEnchantLevel(enchantment));
+            meta.addStoredEnchant(enchantment, getRandomEnchantLevel(enchantment), false);
+            item.setItemMeta(meta);
         }
         else if(mat == Material.SPLASH_POTION){
             PotionMeta meta = (PotionMeta) item.getItemMeta();

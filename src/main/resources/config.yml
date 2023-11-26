@@ -60,7 +60,7 @@ tasks_manager:
     constant_red_tasks: true
     has_task_effect:
       offset: 2
-      delay: 2
+      delay: 5
     amount_of_messages_on_obtain:
       normal: 4
       hard: 4
@@ -95,10 +95,10 @@ tasks_manager:
     has_task:
       normal:
         type: "FLAME"
-        intensity: 5
+        intensity: 1
       hard:
         type: "DRAGON_BREATH"
-        intensity: 5
+        intensity: 1
   sound_effects:
     task_obtain:
       normal:
@@ -426,6 +426,27 @@ tasks_manager:
         - "SPIRE_ARMOR_TRIM_SMITHING_TEMPLATE"
     hard:
       enchanted_book:
+        - "aqua_affinity"
+        - "channeling"
+        - "depth_strider"
+        - "efficiency"
+        - "feather_falling"
+        - "frost_walker"
+        - "infinity"
+        - "knockback"
+        - "loyalty"
+        - "luck_of_the_sea"
+        - "lure"
+        - "piercing"
+        - "punch"
+        - "quick_charge"
+        - "respiration"
+        - "silk_touch"
+        - "soul_speed"
+        - "sweeping"
+        - "swift_sneak"
+        - "thorns"
+        - "unbreaking"
         - "fire_aspect"
         - "flame"
         - "fortune"
@@ -438,6 +459,20 @@ tasks_manager:
         - "riptide"
         - "sharpness"
       potion:
+        - "INVISIBILITY"
+        - "LONG_INVISIBILITY"
+        - "JUMP"
+        - "LONG_LEAPING"
+        - "STRONG_LEAPING"
+        - "NIGHT_VISION"
+        - "LONG_NIGHT_VISION"
+        - "SLOW_FALLING"
+        - "LONG_SLOW_FALLING"
+        - "WATER_BREATHING"
+        - "LONG_WATER_BREATHING"
+        - "SPEED"
+        - "LONG_SWIFTNESS"
+        - "STRONG_SWIFTNESS"
         - "FIRE_RESISTANCE"
         - "LONG_FIRE_RESISTANCE"
         - "INSTANT_DAMAGE"
@@ -457,6 +492,28 @@ tasks_manager:
         - "WEAKNESS"
         - "LONG_WEAKNESS"
       loot:
+        - "SPYGLASS"
+        - "NAME_TAG"
+        - "IRON_BLOCK"
+        - "GOLD_BLOCK"
+        - "EMERALD_BLOCK"
+        - "COPPER_BLOCK"
+        - "DIAMOND"
+        - "ANCIENT_DEBRIS"
+        - "GOLDEN_APPLE"
+        - "TNT"
+        - "PUFFERFISH_BUCKET"
+        - "AXOLOTL_BUCKET"
+        - "INFESTED_STONE"
+        - "SCULK_SENSOR"
+        - "ENDER_PEARL"
+        - "SNIFFER_EGG"
+        - "CHORUS_FRUIT"
+        - "SADDLE"
+        - "DIAMOND_HORSE_ARMOR"
+        - "SPONGE"
+        - "SUGAR_CANE"
+        - "<sub>armor_trim"
         - "GOAT_HORN"
         - "ELYTRA"
         - "END_CRYSTAL"
@@ -477,11 +534,44 @@ tasks_manager:
         - "<sub>egg"
         - "ENCHANTED_BOOK"
         - "SPLASH_POTION"
+      armor_trim:
+        - "SENTRY_ARMOR_TRIM_SMITHING_TEMPLATE"
+        - "VEX_ARMOR_TRIM_SMITHING_TEMPLATE"
+        - "WILD_ARMOR_TRIM_SMITHING_TEMPLATE"
+        - "COAST_ARMOR_TRIM_SMITHING_TEMPLATE"
+        - "DUNE_ARMOR_TRIM_SMITHING_TEMPLATE"
+        - "WAYFINDER_ARMOR_TRIM_SMITHING_TEMPLATE"
+        - "RAISER_ARMOR_TRIM_SMITHING_TEMPLATE"
+        - "SHAPER_ARMOR_TRIM_SMITHING_TEMPLATE"
+        - "HOST_ARMOR_TRIM_SMITHING_TEMPLATE"
+        - "WARD_ARMOR_TRIM_SMITHING_TEMPLATE"
+        - "SILENCE_ARMOR_TRIM_SMITHING_TEMPLATE"
+        - "TIDE_ARMOR_TRIM_SMITHING_TEMPLATE"
+        - "SNOUT_ARMOR_TRIM_SMITHING_TEMPLATE"
+        - "RIB_ARMOR_TRIM_SMITHING_TEMPLATE"
+        - "EYE_ARMOR_TRIM_SMITHING_TEMPLATE"
+        - "SPIRE_ARMOR_TRIM_SMITHING_TEMPLATE"
       music_disc:
         - "MUSIC_DISC_CAT"
         - "MUSIC_DISC_PIGSTEP"
         - "MUSIC_DISC_OTHERSIDE"
       egg:
+        - "POLAR_BEAR_SPAWN_EGG"
+        - "PARROT_SPAWN_EGG"
+        - "WOLF_SPAWN_EGG"
+        - "CAT_SPAWN_EGG"
+        - "ALLAY_SPAWN_EGG"
+        - "CHICKEN_SPAWN_EGG"
+        - "PIG_SPAWN_EGG"
+        - "COW_SPAWN_EGG"
+        - "SHEEP_SPAWN_EGG"
+        - "HORSE_SPAWN_EGG"
+        - "SKELETON_HORSE_SPAWN_EGG"
+        - "CAMEL_SPAWN_EGG"
+        - "ZOMBIE_SPAWN_EGG"
+        - "SLIME_SPAWN_EGG"
+        - "SPIDER_SPAWN_EGG"
+        - "SKELETON_SPAWN_EGG"
         - "VILLAGER_SPAWN_EGG"
         - "WITCH_SPAWN_EGG"
         - "CAVE_SPIDER_SPAWN_EGG"

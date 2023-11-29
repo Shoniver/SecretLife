@@ -14,7 +14,7 @@ public class TasksManager {
     public static void giveTaskAnimated(Player player, boolean isHardTask){
         if(isHardTask){
             ItemStack taskItem = removeTask(player);
-            String task = extractTaskContent(taskItem);
+            String task = Util.extractBookContent((BookMeta)taskItem.getItemMeta());
             MessageReader.sendPublic(baseConfigPath, "reroll_task", player.getName(), task);
         }
 
@@ -83,7 +83,7 @@ public class TasksManager {
         path += difficulty;
 
         ItemStack taskItem = removeTask(player);
-        String task = extractTaskContent(taskItem);
+        String task = Util.extractBookContent((BookMeta)taskItem.getItemMeta());
         MessageReader.sendPublic(baseConfigPath, "pass_task", player.getName(), task);
 
         // Give rewards & loot
@@ -105,7 +105,7 @@ public class TasksManager {
         configVar += difficulty;
 
         ItemStack taskItem = removeTask(player);
-        String task = extractTaskContent(taskItem);
+        String task = Util.extractBookContent((BookMeta)taskItem.getItemMeta());
         MessageReader.sendPublic(baseConfigPath, "fail_task", player.getName(), task);
 
         HealthManager.removeHealth(player, SettingReader.getInt(baseConfigPath, configVar), SettingReader.getBool(baseConfigPath, "can_penalty_kill"));
@@ -222,9 +222,6 @@ public class TasksManager {
     }
     private static boolean checkIsHardTask(String difficulty){
         return difficulty.equals("hard");
-    }
-    private static String extractTaskContent(ItemStack taskItem){
-        return ((BookMeta) taskItem.getItemMeta()).getPage(1);
     }
 
     public static void createTaskRewardLoot(Player player, int healthToConvert, String lootTable){

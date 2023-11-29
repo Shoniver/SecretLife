@@ -4,6 +4,7 @@ import org.bukkit.Location;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.BookMeta;
 import org.bukkit.util.Vector;
 
 import java.util.Random;
@@ -66,5 +67,19 @@ public class Util {
         item.setOwner(player.getUniqueId());
         item.setPickupDelay(0);
         return item;
+    }
+
+    public static String extractBookContent(BookMeta book){
+        StringBuilder content = new StringBuilder();
+        for (String page : book.getPages()) {
+            content.append(page);
+            content.append("\n");
+        }
+        return content.toString().trim();
+    }
+    public static void writeBookContent(BookMeta book, String content){
+        String[] pageDividedContent = content.split("<p>");
+        for (String pageContent : pageDividedContent)
+            book.addPage(pageContent);
     }
 }

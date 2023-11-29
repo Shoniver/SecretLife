@@ -1,12 +1,12 @@
 package org.shonivergames.secretlife;
 
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
-import org.shonivergames.secretlife.config_readers.LocationReader;
-import org.shonivergames.secretlife.config_readers.MessageReader;
-import org.shonivergames.secretlife.config_readers.SettingReader;
+import org.bukkit.scheduler.BukkitRunnable;
+import org.shonivergames.secretlife.config_readers.*;
 
-public class PlayerJoinManager {
-    private static final String baseConfigPath = "player_join_manager";
+public class PlayersManager {
+    private static final String baseConfigPath = "players_manager";
 
     public static void handlePlayerJoin(Player player){
         MessageReader.sendPrivate(baseConfigPath, "welcome", player, player.getName());

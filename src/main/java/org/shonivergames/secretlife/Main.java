@@ -38,6 +38,7 @@ public final class Main extends JavaPlugin {
         LivesManager.createTeams();
         HealthManager.init();
         TasksManager.manageHasTaskEffect();
+        HealthManager.handleTabListDisplay();
 
         logger.info("SecretLife has been enabled!");
     }

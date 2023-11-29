@@ -4,6 +4,7 @@ import org.bukkit.GameRule;
 import org.bukkit.World;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Player;
+import org.bukkit.scheduler.BukkitRunnable;
 import org.shonivergames.secretlife.config_readers.SettingReader;
 import org.shonivergames.secretlife.config_readers.TitleReader;
 import org.shonivergames.secretlife.events.EntityRegenEvent;
@@ -36,7 +37,7 @@ public class HealthManager {
         if(currentHealth > maxHealth)
             healthChange = 0;
         else if(currentHealth + healthChange > maxHealth) {
-            healthChange =  maxHealth - (int)Math.round(currentHealth);
+            healthChange =  maxHealth - getRoundHealth(player);
             currentHealth = maxHealth;
         }
         else
@@ -61,7 +62,7 @@ public class HealthManager {
         if(currentHealth < minHealth)
             healthChange = 0;
         else if(currentHealth - healthChange < minHealth) {
-            healthChange =  (int)Math.round(currentHealth) - minHealth;
+            healthChange =  getRoundHealth(player) - minHealth;
             currentHealth = minHealth;
         }
         else
@@ -116,5 +117,25 @@ public class HealthManager {
         for (World x: worlds) {
             x.setGameRule(GameRule.NATURAL_REGENERATION, isTrue);
         }
+    }
+
+    public static void handleTabListDisplay(){
+        if(!SettingReader.getBool(baseConfigPath, "show_hearts_on_tab.enabled"))
+            return;
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                for (Player player : Main.server.getOnlinePlayers()) {
+                    String format = SettingReader.getString(baseConfigPath, "show_hearts_on_tab.format");
+                    int health = getRoundHealth(player);
+                    String listName = Util.getFormattedString(format, getPresentableHeartsCount(health), LivesManager.getPlayerColorCode(player) + player.getDisplayName());
+                    player.setPlayerListName(listName);
+                }
+            }
+        }.runTaskTimer(Main.instance, 0L, SettingReader.getInt(baseConfigPath, "show_hearts_on_tab.update_rate"));
+    }
+
+    private static int getRoundHealth(Player player){
+        return (int)Math.ceil(player.getHealth());
     }
 }

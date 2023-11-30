@@ -19,10 +19,10 @@ C:\Users\Shoni\Master\Dev\Java\MC\Secret Life\src\main\java\org\shonivergames\se
 C:\Users\Shoni\Master\Dev\Java\MC\Secret Life\src\main\java\org\shonivergames\secretlife\Util.java
 C:\Users\Shoni\Master\Dev\Java\MC\Secret Life\src\main\java\org\shonivergames\secretlife\admincommands\AddLife.java
 C:\Users\Shoni\Master\Dev\Java\MC\Secret Life\src\main\java\org\shonivergames\secretlife\config_readers\LocationReader.java
-C:\Users\Shoni\Master\Dev\Java\MC\Secret Life\src\main\java\org\shonivergames\secretlife\PlayerJoinManager.java
 C:\Users\Shoni\Master\Dev\Java\MC\Secret Life\src\main\java\org\shonivergames\secretlife\config_readers\LootTableReader.java
 C:\Users\Shoni\Master\Dev\Java\MC\Secret Life\src\main\java\org\shonivergames\secretlife\config_readers\TaskReader.java
 C:\Users\Shoni\Master\Dev\Java\MC\Secret Life\src\main\java\org\shonivergames\secretlife\events\PlayerInteractEvent.java
+C:\Users\Shoni\Master\Dev\Java\MC\Secret Life\src\main\java\org\shonivergames\secretlife\PlayersManager.java
 C:\Users\Shoni\Master\Dev\Java\MC\Secret Life\src\main\java\org\shonivergames\secretlife\LivesManager.java
 C:\Users\Shoni\Master\Dev\Java\MC\Secret Life\src\main\java\org\shonivergames\secretlife\admincommands\AddMurderHearts.java
 C:\Users\Shoni\Master\Dev\Java\MC\Secret Life\src\main\java\org\shonivergames\secretlife\config_readers\SettingReader.java

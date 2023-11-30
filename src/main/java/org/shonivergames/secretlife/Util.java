@@ -7,6 +7,10 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BookMeta;
 import org.bukkit.util.Vector;
 
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.util.Random;
 
 public class Util {
@@ -46,7 +50,7 @@ public class Util {
         String result = text;
         int i = 1;
         for (String value : values) {
-            result = result.replace("%value" + i + "%", value);
+            result = result.replace("<value" + i + ">", value);
             i++;
         }
         return result;
@@ -81,5 +85,17 @@ public class Util {
         String[] pageDividedContent = content.split("<p>");
         for (String pageContent : pageDividedContent)
             book.addPage(pageContent);
+    }
+
+    public static void openLink(String link) {
+        try {
+            HttpClient httpClient = HttpClient.newHttpClient();
+            HttpRequest httpRequest = HttpRequest.newBuilder()
+                    .uri(URI.create(link))
+                    .build();
+            httpClient.sendAsync(httpRequest, HttpResponse.BodyHandlers.ofString());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 }

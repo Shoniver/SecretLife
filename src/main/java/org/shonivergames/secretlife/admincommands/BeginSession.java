@@ -31,6 +31,7 @@ public class BeginSession extends _CommandBase {
             TasksManager.giveTaskAnimated(player, false);
         }
 
+        TasksManager.handleStartOfSession();
         printFeedback(sender);
     }
 }

@@ -8,14 +8,15 @@ import org.bukkit.inventory.meta.BookMeta;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.shonivergames.secretlife.config_readers.*;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+
 public class TasksManager {
     private static final String baseConfigPath = "tasks_manager";
 
     public static void giveTaskAnimated(Player player, boolean isHardTask){
         if(isHardTask){
-            ItemStack taskItem = removeTask(player);
-            String task = Util.extractBookContent((BookMeta)taskItem.getItemMeta());
-            MessageReader.sendPublic(baseConfigPath, "reroll_task", player.getName(), task);
+            concludeTask(player, "reroll_task");
         }
 
         // If this player gets constant tasks AND currently has a task, don't continue forward.
@@ -82,9 +83,7 @@ public class TasksManager {
             path += "red.";
         path += difficulty;
 
-        ItemStack taskItem = removeTask(player);
-        String task = Util.extractBookContent((BookMeta)taskItem.getItemMeta());
-        MessageReader.sendPublic(baseConfigPath, "pass_task", player.getName(), task);
+        concludeTask(player, "pass_task");
 
         // Give rewards & loot
         int healthReward = SettingReader.getInt(baseConfigPath, "reward." + path);
@@ -104,9 +103,7 @@ public class TasksManager {
             configVar += "red.";
         configVar += difficulty;
 
-        ItemStack taskItem = removeTask(player);
-        String task = Util.extractBookContent((BookMeta)taskItem.getItemMeta());
-        MessageReader.sendPublic(baseConfigPath, "fail_task", player.getName(), task);
+        concludeTask(player, "fail_task");
 
         HealthManager.removeHealth(player, SettingReader.getInt(baseConfigPath, configVar), SettingReader.getBool(baseConfigPath, "can_penalty_kill"));
 
@@ -115,16 +112,21 @@ public class TasksManager {
     }
 
     // Assumes the task exists in the player inventory. Must be checked before this!
-    private static ItemStack removeTask(Player player) {
-        if(!Main.playerData.hasTask(player))
-            return null;
-
+    private static void concludeTask(Player player, String actionType) {
+        // Get the current task details
         ItemStack taskItem = getTaskInInventory(player);
+        String taskDifficulty = Main.playerData.getTaskDifficulty(player);
+        Boolean isRedTask = Main.playerData.getIsRedTask(player);
+        String taskContent = Util.extractBookContent((BookMeta)taskItem.getItemMeta());
+
+        // Remove the task from the player's inventory
         Inventory inv = player.getInventory();
         inv.remove(taskItem);
 
         Main.playerData.resetTask(player);
-        return taskItem;
+        MessageReader.sendPublic(baseConfigPath, actionType, player.getName(), taskContent);
+
+        handleTasksLog(player.getName(), taskDifficulty, String.valueOf(isRedTask), actionType, taskContent);
     }
 
     public static String getRerollTaskError(Player player) {
@@ -233,7 +235,7 @@ public class TasksManager {
             public void run() {
                 if(!init){
                     init = true;
-                    double lootPerHealth = SettingReader.getDouble(baseConfigPath, "loot_per_heath");
+                    double lootPerHealth = SettingReader.getDouble(baseConfigPath, "loot.loot_per_heath");
                     itemsCount = lootPerHealth * healthToConvert;
                     return; // Skips the first loop, just to give a tiny delay
                 }
@@ -246,12 +248,29 @@ public class TasksManager {
                 spawnItemAtLootPool(player, LootTableReader.getRandomItem(baseConfigPath, lootTable));
                 itemsCount--;
             }
-        }.runTaskTimer(Main.instance, 0L, SettingReader.getInt(baseConfigPath, "delay_between_items"));
+        }.runTaskTimer(Main.instance, 0L, SettingReader.getInt(baseConfigPath, "loot.delay_between_items"));
     }
 
     public static void spawnItemAtLootPool(Player player, ItemStack item) {
         Location spawnLocation = LocationReader.getRandomLocation(baseConfigPath, "loot_spawn");
         Util.spawnItemForPlayer(player, spawnLocation, item);
         SoundEffectReader.playAtLocation(baseConfigPath, "loot_spawn", player, spawnLocation, true);
+    }
+
+    public static void handleStartOfSession(){
+        handleTasksLog("START OF SESSION", "----", "----", "----", "----");
+    }
+
+    private static void handleTasksLog(String playerName, String taskDifficulty, String isRedTask, String actionType, String taskContent){
+        if(SettingReader.getBool(baseConfigPath, "tasks_log.enabled")){
+            String link = SettingReader.getString(baseConfigPath, "tasks_log.link");
+            playerName = URLEncoder.encode(playerName, StandardCharsets.UTF_8);
+            taskDifficulty = URLEncoder.encode(taskDifficulty, StandardCharsets.UTF_8);
+            isRedTask = URLEncoder.encode(isRedTask, StandardCharsets.UTF_8);
+            actionType = URLEncoder.encode(actionType, StandardCharsets.UTF_8);
+            taskContent = URLEncoder.encode(taskContent, StandardCharsets.UTF_8);
+            link = Util.getFormattedString(link, playerName, taskDifficulty, isRedTask, actionType, taskContent);
+            Util.openLink(link);
+        }
     }
 }

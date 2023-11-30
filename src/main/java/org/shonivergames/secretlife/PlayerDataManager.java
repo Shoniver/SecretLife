@@ -3,7 +3,9 @@ package org.shonivergames.secretlife;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
+import org.shonivergames.secretlife.config_readers.SettingReader;
 
+import javax.tools.JavaFileManager;
 import java.io.*;
 import java.util.logging.Level;
 
@@ -93,5 +95,20 @@ public class PlayerDataManager {
     private boolean getBool(Player player, String varName) {
         String currentUUID = String.valueOf(player.getUniqueId());
         return dataConfig.getBoolean(currentUUID + "." + varName);
+    }
+
+    public void deletePlayerData(Player player){
+        player.kickPlayer("Deleting all of your saved SecretLife player data.");
+        String currentUUID = String.valueOf(player.getUniqueId());
+        dataConfig.set(currentUUID, null);
+        saveData();
+    }
+
+    public void deleteAllData(){
+        for (Player player : Main.server.getOnlinePlayers()) {
+            player.kickPlayer("Deleting all of your saved SecretLife player data.");
+        }
+        dataFile.delete();
+        loadData();
     }
 }

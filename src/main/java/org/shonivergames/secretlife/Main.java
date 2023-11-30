@@ -17,11 +17,12 @@ public final class Main extends JavaPlugin {
     @Override
     public void onEnable() {
         // Plugin startup logic
-        saveDefaultConfig();
-
         instance = this;
+
+        saveDefaultConfig();
+        loadConfig();
+
         playerData = new PlayerDataManager();
-        configFile = getConfig();
         logger = getLogger();
         server = getServer();
 
@@ -49,5 +50,10 @@ public final class Main extends JavaPlugin {
         LivesManager.deleteTeams();
 
         logger.info("SecretLife has been disabled!");
+    }
+
+    public static void loadConfig(){
+        instance.reloadConfig();
+        configFile = instance.getConfig();
     }
 }

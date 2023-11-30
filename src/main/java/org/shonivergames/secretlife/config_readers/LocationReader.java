@@ -11,7 +11,8 @@ public class LocationReader {
 
     public static Location get(String configTitle, String configVar){
         String configPath = configTitle + configName + configVar;
-        return new Location(Main.server.getWorlds().get(0), Main.configFile.getDouble(configPath + ".x"),
+        return new Location(Main.server.getWorld(Main.configFile.getString(configPath + ".world", "world")),
+                Main.configFile.getDouble(configPath + ".x"),
                 Main.configFile.getDouble(configPath + ".y"),
                 Main.configFile.getDouble(configPath + ".z"));
     }
@@ -27,6 +28,8 @@ public class LocationReader {
 
     public static boolean isAtLocation(String configTitle, String configVar, Location locToCheck, boolean checkInt){
         Location loc = get(configTitle, configVar);
+        if(loc.getWorld() != locToCheck.getWorld())
+            return false;
         if(checkInt)
             return (int)loc.getX() == (int)locToCheck.getX() && (int)loc.getY() == (int)locToCheck.getY() && (int)loc.getZ() == (int)locToCheck.getZ();
         else

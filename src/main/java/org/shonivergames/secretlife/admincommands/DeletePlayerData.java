@@ -2,16 +2,16 @@ package org.shonivergames.secretlife.admincommands;
 
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.shonivergames.secretlife.HealthManager;
+import org.shonivergames.secretlife.Main;
 
-public class AddHeart extends _CommandBase {
-    public AddHeart() {
-        super("AddHeart", true);
+public class DeletePlayerData extends _CommandBase {
+    public DeletePlayerData() {
+        super("DeletePlayerData", true);
     }
 
     @Override
     public void executeCommand(CommandSender sender, Player player) {
-        HealthManager.addHealth(player, 2, true);
+        Main.playerData.deletePlayerData(player);
         printFeedback(sender);
     }
 }

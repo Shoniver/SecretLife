@@ -20,15 +20,18 @@ public class AdminCommandsManager implements TabCompleter, CommandExecutor {
     public AdminCommandsManager() {
         commandsList = new ArrayList<>();
         commandsList.add(new BeginSession());
-        commandsList.add(new FailPlayerTask());
+        commandsList.add(new BeginPlayerSession());
+        commandsList.add(new ReloadConfig());
+        commandsList.add(new ForceFailPlayerTask());
+        commandsList.add(new ResetPlayerTask());
         commandsList.add(new AddHeart());
         commandsList.add(new AddMurderHearts());
         commandsList.add(new RemoveHeart());
         commandsList.add(new ResetHearts());
         commandsList.add(new AddLife());
         commandsList.add(new RemoveLife());
-        commandsList.add(new BeginPlayerSession());
-        commandsList.add(new ResetPlayerTask());
+        commandsList.add(new DeletePlayerData());
+        commandsList.add(new DeleteAllPlayersData());
     }
 
     @Override

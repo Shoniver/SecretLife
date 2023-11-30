@@ -5,9 +5,9 @@ import org.bukkit.entity.Player;
 import org.shonivergames.secretlife.TasksManager;
 import org.shonivergames.secretlife.config_readers.MessageReader;
 
-public class FailPlayerTask extends _CommandBase {
-    public FailPlayerTask() {
-        super("FailPlayerTask", true);
+public class ForceFailPlayerTask extends _CommandBase {
+    public ForceFailPlayerTask() {
+        super("ForceFailPlayerTask", true);
     }
 
     @Override

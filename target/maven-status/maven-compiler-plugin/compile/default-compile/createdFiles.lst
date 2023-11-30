@@ -19,9 +19,9 @@ org\shonivergames\secretlife\config_readers\TitleReader.class
 org\shonivergames\secretlife\admincommands\AddHeart.class
 org\shonivergames\secretlife\events\PlayerInteractEvent.class
 org\shonivergames\secretlife\events\PlayerJoinEvent.class
-org\shonivergames\secretlife\admincommands\FailPlayerTask.class
 org\shonivergames\secretlife\config_readers\SoundEffectReader.class
 org\shonivergames\secretlife\config_readers\SettingReader.class
+org\shonivergames\secretlife\admincommands\DeletePlayerData.class
 org\shonivergames\secretlife\events\EntityRegenEvent.class
 org\shonivergames\secretlife\admincommands\ResetPlayerTask.class
 org\shonivergames\secretlife\PlayersManager.class
@@ -29,10 +29,13 @@ org\shonivergames\secretlife\TasksManager$1.class
 org\shonivergames\secretlife\events\PlayerRespawnEvent.class
 org\shonivergames\secretlife\admincommands\_CommandBase.class
 org\shonivergames\secretlife\admincommands\BeginSession.class
+org\shonivergames\secretlife\admincommands\ReloadConfig.class
 org\shonivergames\secretlife\KillManager.class
 org\shonivergames\secretlife\admincommands\BeginPlayerSession.class
 org\shonivergames\secretlife\GiftCommand.class
 org\shonivergames\secretlife\HealthManager$1.class
+org\shonivergames\secretlife\admincommands\DeleteAllPlayersData.class
+org\shonivergames\secretlife\admincommands\ForceFailPlayerTask.class
 org\shonivergames\secretlife\PlayerDataManager.class
 org\shonivergames\secretlife\config_readers\TaskReader.class
 org\shonivergames\secretlife\config_readers\VisualEffectReader.class

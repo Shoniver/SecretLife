@@ -6,6 +6,7 @@ players_manager:
     teleport_to_platform_on_first_join: true
   locations:
     first_join_platform:
+      world: "world"
       x: -1032.5
       y: 100
       z: 1991.5
@@ -92,10 +93,12 @@ tasks_manager:
   locations:
     loot_spawn:
       start:
+        world: "world"
         x: -1033.50
         y: 70
         z: 1990.5
       end:
+        world: "world"
         x: -1031.50
         y: 70
         z: 1992.5
@@ -770,14 +773,17 @@ interactions_manger:
       pitch: 2
   locations:
     pass_task:
+      world: "world"
       x: -1026
       y: 67
       z: 1987
     reroll_task:
+      world: "world"
       x: -1033
       y: 67
       z: 1998
     fail_task:
+      world: "world"
       x: -1040
       y: 67
       z: 1987

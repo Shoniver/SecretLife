@@ -12,6 +12,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.Random;
+import java.util.concurrent.CompletableFuture;
 
 public class Util {
     private static Random rnd;
@@ -93,7 +94,13 @@ public class Util {
             HttpRequest httpRequest = HttpRequest.newBuilder()
                     .uri(URI.create(link))
                     .build();
-            httpClient.sendAsync(httpRequest, HttpResponse.BodyHandlers.ofString());
+
+            CompletableFuture<HttpResponse<String>> futureResponse = httpClient.sendAsync(httpRequest, HttpResponse.BodyHandlers.ofString());
+            futureResponse.thenAccept(response -> {
+                int statusCode = response.statusCode();
+                if (statusCode < 200 || statusCode > 299)
+                    Main.logger.info("Failed to open the given link! Status code: " + statusCode);
+            });
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

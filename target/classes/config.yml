@@ -431,6 +431,7 @@ tasks_manager:
         - "STRONG_SWIFTNESS"
       loot:
         - "SPYGLASS"
+        - "BUNDLE"
         - "NAME_TAG"
         - "IRON_BLOCK"
         - "GOLD_BLOCK"
@@ -564,6 +565,7 @@ tasks_manager:
         - "LONG_WEAKNESS"
       loot:
         - "SPYGLASS"
+        - "BUNDLE"
         - "NAME_TAG"
         - "IRON_BLOCK"
         - "GOLD_BLOCK"

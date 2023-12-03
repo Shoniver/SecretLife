@@ -204,6 +204,9 @@ public class TasksManager {
                     yOffset = SettingReader.getInt(baseConfigPath, "has_task_effect.offset");
                 }
 
+                if(!SettingReader.getBool(baseConfigPath, "has_task_effect.enabled"))
+                    return;
+
                 // For every player with a task, spawn an effect
                 for (Player player : Main.server.getOnlinePlayers()) {
                     if(!Main.playerData.hasTask(player))

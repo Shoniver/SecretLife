@@ -7,18 +7,18 @@ import org.shonivergames.secretlife.config_readers.MessageReader;
 public abstract class _CommandBase {
     protected final String baseConfigPath = "admin_commands_manager";
 
-    public String command;
+    public String name;
     public boolean isPerPlayer = false;
-    protected _CommandBase(String command, boolean isPerPlayer){
-        this.command = command;
+    protected _CommandBase(String name, boolean isPerPlayer){
+        this.name = name;
         this.isPerPlayer = isPerPlayer;
     }
 
     public boolean isCorrectCommand(String arg){
-        return arg.equalsIgnoreCase(command);
+        return arg.equalsIgnoreCase(name);
     }
 
-    public abstract void executeCommand(CommandSender sender, Player player);
+    public abstract void executeCommand(CommandSender sender, Player player, boolean isAfterWarning);
 
     protected void printFeedback(CommandSender sender){
         if(sender != null)

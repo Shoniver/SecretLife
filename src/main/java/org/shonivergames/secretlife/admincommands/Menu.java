@@ -2,16 +2,16 @@ package org.shonivergames.secretlife.admincommands;
 
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.shonivergames.secretlife.Main;
+import org.shonivergames.secretlife.PluginMenuManager;
 
-public class ReloadConfig extends _CommandBase {
-    public ReloadConfig() {
-        super("ReloadConfig", false);
+public class Menu extends _CommandBase {
+    public Menu() {
+        super("_Menu", false);
     }
 
     @Override
     public void executeCommand(CommandSender sender, Player irrelevant, boolean irrelevant2) {
-        Main.loadConfig();
+        PluginMenuManager.showMenu((Player)sender);
         printFeedback(sender);
     }
 }

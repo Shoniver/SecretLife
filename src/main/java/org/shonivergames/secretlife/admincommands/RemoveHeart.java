@@ -10,7 +10,7 @@ public class RemoveHeart extends _CommandBase {
     }
 
     @Override
-    public void executeCommand(CommandSender sender, Player player) {
+    public void executeCommand(CommandSender sender, Player player, boolean irrelevant) {
         HealthManager.removeHealth(player, 2, false);
         printFeedback(sender);
     }

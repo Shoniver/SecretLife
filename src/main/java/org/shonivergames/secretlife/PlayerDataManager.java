@@ -97,13 +97,6 @@ public class PlayerDataManager {
         return dataConfig.getBoolean(currentUUID + "." + varName);
     }
 
-    public void deletePlayerData(Player player){
-        player.kickPlayer("Deleting all of your saved SecretLife player data.");
-        String currentUUID = String.valueOf(player.getUniqueId());
-        dataConfig.set(currentUUID, null);
-        saveData();
-    }
-
     public void deleteAllData(){
         for (Player player : Main.server.getOnlinePlayers()) {
             player.kickPlayer("Deleting all of your saved SecretLife player data.");

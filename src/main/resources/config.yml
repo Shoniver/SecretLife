@@ -20,6 +20,8 @@ admin_commands_manager:
       invalid_cmd_structure: "§cCorrect usage - /sl [command] or /sl [command] [player]"
       invalid_cmd: "§cUnknown command."
       no_player: "§cThere is no online player by the name <value1>."
+      no_player_selected: "§cThe command <value1> requires a player.\nPlease use the format /sl <value1> [player]."
+      not_op: "§cYou don't have permission to use this command."
     specific_errors:
       no_task_in_inv: "§c<value1>'s task not found in their inventory!"
       has_no_task: "§c<value1> does not have an active task."
@@ -64,6 +66,7 @@ tasks_manager:
     can_reds_get_hard_tasks: false
     constant_red_tasks: true
     has_task_effect:
+      enabled: true
       offset: 2
       delay: 5
     amount_of_messages_on_obtain:
@@ -272,7 +275,7 @@ tasks_manager:
       - "Copy another player's base, block for block."
       - "Starting with grass seeds, trade your way up to a golden apple. Minimum of 4 trades."
       - "For the entire session, you must engage in pointless competitions whenever possible. If you get called of it being your task, that competition doesn't count. To pass the task, you must WIN at least 3 of the competitions you engage in."
-      - "\nORIGINAL TASK OWNER (if this task doesn't belong to you, flip to next page!): To pass the task, you must give this item to other players - it can't be on you at the end of the session! You must also always have an empty slot in your inv AT ALL TIMES.<p>WHOEVER GOT THIS BOOK: If this item is in your inv by the end of the session, you must reroll for a hard task next session! To avoid this, give this item back to its ORIGINAL OWNER (can not give it to a random player!)."
+      - "\nORIGINAL TASK OWNER (if this task doesn't belong to you, flip to next page!): To pass the task, you must get this item into another player's inventory - it can't be on you at the end of the session, otherwise you fail! You must also always have an empty slot in your inv AT ALL TIMES.<p>WHOEVER GOT THIS BOOK: If this item is in your inv by the end of the session, you must reroll for a hard task next session! To avoid this, give this item back to its ORIGINAL OWNER (can not give it to a random player!)."
       - "Talk to <value1> as if they don't know basic game mechanics as much as you can this session. Teach them everything. To pass this task, you must do this for at least 10 minutes overall."
       - "Get every player on the server to give you an item of your choice (has to be a different item from each player!). Place all of the items you obtained on a wall in your base."
       - "Every time someone tells you to do something, repeat it back to them in a quieter, whiny voice for the whole session."
@@ -297,16 +300,17 @@ tasks_manager:
       - "Go to every base on the server and swap every bed inside with dyed beds (the color is up to you, but they all have to be the SAME COLOR and it must not be white). If you get caught replacing a bed, you fail instantly!"
       - "For this entire session, always refer to yourself in third person. If you forget this, you fail."
       - "For this entire session, you are allergic to all mobs. If there is ANY creature nearby, you must cough, sneeze, and sniffle. This includes friendly mobs too!"
-      - "You are Poultry Man for this session! Do anything in your power to get as many eggs as possible, and proceed to fill every base on the server with as many chickens as you can - while also throwing eggs at people."
+      - "You are Poultry Man for this session! Do anything in your power to get as many eggs as possible, and proceed to fill every base on the server with as many chickens as you can - while also throwing eggs at people. You pass the task as long as you fully commit to the bit."
       - "Who is your best friend / teammate in the server? Well, for this entire session, that player CAN NOT see you! You must hide from them at all costs. You may use anything you want for this task (including invis potions). If they see you, you fail!"
+      - "Convince another player you have the same task as them. If you can't manage to do so, you fail. You pass the task if they say they think you have the same task, or something of that nature."
     hard:
       - "Come up with a nickname for another player and convince as many other players as you can to use it. You pass the task if at least 2 other players say it by the end of the session."
       - "Figure out another player's secret task and prevent them from completing it in any way possible (they MUST fail for you to pass!)."
       - "Do a successful 100 block high water bucket clutch in front of the whole server."
-      - "Convince another player to change their skin. You can try with as many players as you'd like."
       - "Move another player's base 10 blocks in any direction without them noticing. If they notice, you instantly fail."
       - "You can ONLY call other players by their username for the rest of the session. If you say any other name, you fail."
       - "Randomly move in with someone you are NOT teaming with whilst they are in their base, without them questioning it. At the end of the session, you must have a bed in their house for you to pass."
+      - "Get another player who you are NOT teaming with to move into YOUR house. You pass the task if they have a bed in your house by the end of the session."
       - "Make another player speak in a random accent for at least 5 consecutive minutes. If they stop before the time is up, you fail the task."
       - "Add a secret room in <value1>'s house and live in it for the rest of the session without being caught. If they notice you, you fail."
       - "Convince someone you know what their task is and get them to tell you what it is. You only pass if they fail."
@@ -353,8 +357,7 @@ tasks_manager:
       hard:
     no_reds:
       normal: false
-      hard:
-        - "Convince <value1> you have the same task as them. If you can't manage to do so, you fail."
+      hard: false
     red:
       normal:
         - "Dig a 3x3 hole all the way down to bedrock and get a non-red player (if there are any - otherwise, any player will do) to fall into it via any means necessary - but you can NOT deal damage to them before they fall in (can't punch them in, for example!)."
@@ -827,3 +830,176 @@ gift_command:
       no_player: "§cThere is no online player by the name <value1>."
       self: "§cYou can not gift to yourself."
       will_go_above_max: "§cYour gift will get <value1> above max health!"
+
+plugin_menu_manager:
+  settings:
+    menu_names:
+      main: "§bSL - Main Menu"
+      player_select: "§bSL - Player Select"
+      warning: "§cARE YOU SURE?"
+    change_page_buttons_material: "ARROW"
+    current_page_prefix: "§bCurrent Page:"
+    current_command_prefix: "§bCurrent Command:"
+  special_items:
+    cancel:
+      type: "BARRIER"
+      name: "§cCancel"
+      lore: false
+    frame:
+      type: "LIGHT_BLUE_STAINED_GLASS_PANE"
+      name: "Frame"
+      lore: false
+    separator:
+      type: "RED_STAINED_GLASS_PANE"
+      name: "Separator"
+      lore: false
+    info:
+      type: "WARPED_SIGN"
+      name: "§bInfo"
+      lore: false
+    next_page:
+      type: "ARROW"
+      name: "§bNext Page"
+      lore: false
+    prev_page:
+      type: "ARROW"
+      name: "§bPrevious Page"
+      lore: false
+    proceed:
+      type: "SCULK_SHRIEKER"
+      name: "§cProceed"
+      lore: false
+    go_back:
+      type: "BARRIER"
+      name: "§aNever mind, go back"
+      lore:
+        - "_Menu"
+    commands:
+      server:
+        begin_session:
+          type: "ENCHANTED_BOOK"
+          name: "§5Begin Session"
+          lore:
+            - "§bStarts the session,"
+            - "§bgiving all online players a task and the ability to use /gift."
+            - ""
+            - "§5Command:"
+            - "_BeginSession"
+        reload_config:
+          type: "NETHERITE_PICKAXE"
+          name: "§5Reload Config"
+          lore:
+            - "§bReloads the config file."
+            - ""
+            - "§5Command:"
+            - "ReloadConfig"
+        delete_all_data:
+          type: "SCULK_SHRIEKER"
+          name: "§5Delete ALL Plugin Data"
+          lore:
+            - "§cCompletely resets all of the plugin's data for ALL players."
+            - "§cThis includes their hearts, lives, and even tasks."
+            - ""
+            - "§c§n§lDon't use this if you don't know what you're doing!"
+            - ""
+            - "§cYou should only use this command if you want to reset"
+            - "§ceverything and start a new 'season' on the same server."
+            - ""
+            - "§5Command:"
+            - "DeleteAllPlayersData"
+      player:
+        begin_player_session:
+          type: "ENCHANTED_BOOK"
+          name: "§5Begin Player Session"
+          lore:
+            - "§bStarts the session for a specific player,"
+            - "§bgiving them a task and the ability to use /gift."
+            - ""
+            - "§bUseful for players who joined the session late."
+            - ""
+            - "§5Command:"
+            - "BeginPlayerSession"
+        add_life:
+          type: "TOTEM_OF_UNDYING"
+          name: "§5Add Life"
+          lore:
+            - "§aAdds 1 LIFE to a specific player."
+            - ""
+            - "§5Command:"
+            - "AddLife"
+        remove_life:
+          type: "SKELETON_SKULL"
+          name: "§5Remove Life"
+          lore:
+            - "§cRemoves 1 LIFE of a specific player."
+            - ""
+            - "§5Command:"
+            - "RemoveLife"
+        add_murder_hearts:
+          type: "NETHERITE_SWORD"
+          name: "§5Add Murder Hearts"
+          lore:
+            - "§aSimulates a specific player committing a murder."
+            - ""
+            - "§a§nNote:"
+            - "§a If the selected player isn't a red name"
+            - "§a and the setting 'can_non_reds_kill' is off,"
+            - "§a nothing will happen."
+            - ""
+            - "§5Command:"
+            - "AddMurderHearts"
+        add_heart:
+          type: "HEART_POTTERY_SHERD"
+          name: "§5Add Heart"
+          lore:
+            - "§aAdds 1 heart to a specific player."
+            - ""
+            - "§a§nNote:"
+            - "§a This heart can overflow beyond the 'reward max',"
+            - "§a but not beyond the 'true max'."
+            - ""
+            - "§5Command:"
+            - "AddHeart"
+        remove_heart:
+          type: "HEARTBREAK_POTTERY_SHERD"
+          name: "§5Remove Heart"
+          lore:
+            - "§cRemoves 1 heart of a specific player."
+            - ""
+            - "§c§nNote:"
+            - "§c This can not kill the player."
+            - "§c If the player is already on 1 heart or less,"
+            - "§c nothing will happen."
+            - ""
+            - "§5Command:"
+            - "RemoveHeart"
+        reset_hearts:
+          type: "RESPAWN_ANCHOR"
+          name: "§5Reset Hearts"
+          lore:
+            - "§cResets the amount of hearts a specific player has,"
+            - "§cas if they just died and respawned back on full hearts."
+            - ""
+            - "§5Command:"
+            - "ResetHearts"
+        force_fail_player_task:
+          type: "BELL"
+          name: "§5Force Player to Fail Task"
+          lore:
+            - "§cForces a specific player to fail their current task."
+            - ""
+            - "§5Command:"
+            - "ForceFailPlayerTask"
+        reset_player_task:
+          type: "LAVA_BUCKET"
+          name: "§5Reset Player's Current Task"
+          lore:
+            - "§cResets the plugin's stored data of a specific player's current task."
+            - ""
+            - "§c§nNote:"
+            - "§c This is useful for when a player accidentally loses their task item,"
+            - "§c since most commands won't be allowed to execute"
+            - "§c if their stored task isn't in their inventory."
+            - ""
+            - "§5Command:"
+            - "ResetPlayerTask"

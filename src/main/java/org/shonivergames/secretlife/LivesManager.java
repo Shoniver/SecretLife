@@ -20,9 +20,13 @@ public class LivesManager {
         int lives = Main.playerData.getLivesCount(player) - 1;
         if(lives < 0)
             lives = 0; // can't remove any more lives!
-        else if(lives == 0) // Summon lightning strike on the final death
-            player.getWorld().strikeLightningEffect(player.getLocation());
-        setCurrentLives(player, lives);
+        else if(lives >= 0) {
+            // Summon lightning strike on the final death
+            if(lives == 0)
+                player.getWorld().strikeLightningEffect(player.getLocation());
+
+            setCurrentLives(player, lives);
+        }
     }
 
     public static void initPlayer(Player player){
@@ -62,15 +66,16 @@ public class LivesManager {
         team.addEntry(player.getName());
     }
 
-    public static String getPlayerColorCode(Player player){
+    public static String getColoredPlayerName(Player player){
         int lives = Main.playerData.getLivesCount(player);
-        return switch (lives){
+        String colorCode = switch (lives){
             case 3 -> "§a";
             case 2 -> "§e";
             case 1 -> "§c";
             case 0 -> "§8";
             default -> "§2"; // 4+
         };
+        return colorCode + player.getDisplayName();
     }
 
     public static void createTeams(){

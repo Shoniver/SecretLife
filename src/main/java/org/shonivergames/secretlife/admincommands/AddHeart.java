@@ -10,7 +10,7 @@ public class AddHeart extends _CommandBase {
     }
 
     @Override
-    public void executeCommand(CommandSender sender, Player player) {
+    public void executeCommand(CommandSender sender, Player player, boolean irrelevant) {
         HealthManager.addHealth(player, 2, true);
         printFeedback(sender);
     }

@@ -10,7 +10,7 @@ public class RemoveLife extends _CommandBase {
     }
 
     @Override
-    public void executeCommand(CommandSender sender, Player player) {
+    public void executeCommand(CommandSender sender, Player player, boolean irrelevant) {
         LivesManager.removeLife(player);
         printFeedback(sender);
     }

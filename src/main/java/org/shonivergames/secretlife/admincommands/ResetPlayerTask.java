@@ -3,15 +3,14 @@ package org.shonivergames.secretlife.admincommands;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.shonivergames.secretlife.Main;
-import org.shonivergames.secretlife.TasksManager;
 
 public class ResetPlayerTask extends _CommandBase {
     public ResetPlayerTask() {
-        super("ResetTask", true);
+        super("ResetPlayerTask", true);
     }
 
     @Override
-    public void executeCommand(CommandSender sender, Player player) {
+    public void executeCommand(CommandSender sender, Player player, boolean irrelevant) {
         Main.playerData.resetTask(player);
         printFeedback(sender);
     }

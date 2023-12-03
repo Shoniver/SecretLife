@@ -12,7 +12,7 @@ public class BeginSession extends _CommandBase {
     }
 
     @Override
-    public void executeCommand(CommandSender sender, Player irrelevant) {
+    public void executeCommand(CommandSender sender, Player irrelevant, boolean irrelevant2) {
         boolean needToExit = false;
 
         for (Player player : Main.server.getOnlinePlayers()) {

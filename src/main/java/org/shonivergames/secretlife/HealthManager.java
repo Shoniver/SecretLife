@@ -7,7 +7,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.shonivergames.secretlife.config_readers.SettingReader;
 import org.shonivergames.secretlife.config_readers.TitleReader;
-import org.shonivergames.secretlife.events.EntityRegenEvent;
+import org.shonivergames.secretlife.events.EntityRegainHealthEvent;
 
 import java.util.List;
 
@@ -16,7 +16,7 @@ public class HealthManager {
 
     public static void init(){
         if(SettingReader.getBool(baseConfigPath, "uhc_enabled")) {
-            Main.server.getPluginManager().registerEvents(new EntityRegenEvent(), Main.instance);
+            Main.server.getPluginManager().registerEvents(new EntityRegainHealthEvent(), Main.instance);
             setNaturalRegen(false);
         }
         else
@@ -128,7 +128,7 @@ public class HealthManager {
                 for (Player player : Main.server.getOnlinePlayers()) {
                     String format = SettingReader.getString(baseConfigPath, "show_hearts_on_tab.format");
                     int health = getRoundHealth(player);
-                    String listName = Util.getFormattedString(format, getPresentableHeartsCount(health), LivesManager.getPlayerColorCode(player) + player.getDisplayName());
+                    String listName = Util.getFormattedString(format, getPresentableHeartsCount(health), LivesManager.getColoredPlayerName(player));
                     player.setPlayerListName(listName);
                 }
             }

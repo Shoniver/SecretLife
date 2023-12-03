@@ -13,6 +13,7 @@ public final class Main extends JavaPlugin {
     public static PlayerDataManager playerData;
     public static Server server;
     public static Logger logger;
+    public static AdminCommandsManager adminCommandsManager;
 
     @Override
     public void onEnable() {
@@ -26,7 +27,8 @@ public final class Main extends JavaPlugin {
         logger = getLogger();
         server = getServer();
 
-        getCommand(AdminCommandsManager.commandName).setExecutor(new AdminCommandsManager());
+        adminCommandsManager = new AdminCommandsManager();
+        getCommand(AdminCommandsManager.commandName).setExecutor(adminCommandsManager);
         getCommand(GiftCommand.commandName).setExecutor(new GiftCommand());
 
         server.getPluginManager().registerEvents(new PlayerJoinEvent(), this);
@@ -35,6 +37,7 @@ public final class Main extends JavaPlugin {
         server.getPluginManager().registerEvents(new PlayerRespawnEvent(), this);
         server.getPluginManager().registerEvents(new EntityDamageEvent(), this);
         server.getPluginManager().registerEvents(new PlayerInteractEvent(), this);
+        server.getPluginManager().registerEvents(new InventoryClickEvent(), this);
 
         LivesManager.createTeams();
         HealthManager.init();

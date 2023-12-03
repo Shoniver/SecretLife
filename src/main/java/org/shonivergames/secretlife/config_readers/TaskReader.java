@@ -42,31 +42,22 @@ public class TaskReader {
 
         List<String> allTasks = new ArrayList<>();
         if(LivesManager.isRedPlayer(player))
-            allTasks.addAll(getTasksFromConfig(configPath + "red." + difficulty));
+            allTasks.addAll(Util.safeGetStringListFromConfig(configPath + "red." + difficulty));
         else {
-            allTasks.addAll(getTasksFromConfig(configPath + difficulty));
+            allTasks.addAll(Util.safeGetStringListFromConfig(configPath + difficulty));
 
             if (LivesManager.isThereYellowPlayer() && !LivesManager.isYellowPlayer(player))
-                allTasks.addAll(getTasksFromConfig(configPath + "has_yellows." + difficulty));
+                allTasks.addAll(Util.safeGetStringListFromConfig(configPath + "has_yellows." + difficulty));
             else // If there are no yellow players or THIS player is yellow
-                allTasks.addAll(getTasksFromConfig(configPath + "no_yellows." + difficulty));
+                allTasks.addAll(Util.safeGetStringListFromConfig(configPath + "no_yellows." + difficulty));
 
             if (LivesManager.isThereRedPlayer() && !LivesManager.isRedPlayer(player))
-                allTasks.addAll(getTasksFromConfig(configPath + "has_reds." + difficulty));
+                allTasks.addAll(Util.safeGetStringListFromConfig(configPath + "has_reds." + difficulty));
             else
-                allTasks.addAll(getTasksFromConfig(configPath + "no_reds." + difficulty));
+                allTasks.addAll(Util.safeGetStringListFromConfig(configPath + "no_reds." + difficulty));
         }
 
         String draw = allTasks.get(rnd.nextInt(allTasks.size()));
         return Util.getFormattedString(draw, Util.getRandomOtherPlayer(player).getName());
-    }
-
-    private static List<String> getTasksFromConfig(String configPath){
-        List<String> allTasks;
-        if(Main.configFile.isList(configPath))
-            allTasks = Main.configFile.getStringList(configPath);
-        else
-            allTasks = new ArrayList<>();
-        return allTasks;
     }
 }

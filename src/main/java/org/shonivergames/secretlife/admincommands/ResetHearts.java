@@ -10,7 +10,7 @@ public class ResetHearts extends _CommandBase {
     }
 
     @Override
-    public void executeCommand(CommandSender sender, Player player) {
+    public void executeCommand(CommandSender sender, Player player, boolean irrelevant) {
         HealthManager.resetHealth(player);
         printFeedback(sender);
     }

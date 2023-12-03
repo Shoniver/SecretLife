@@ -12,7 +12,7 @@ public class BeginPlayerSession extends _CommandBase {
     }
 
     @Override
-    public void executeCommand(CommandSender sender, Player player) {
+    public void executeCommand(CommandSender sender, Player player, boolean irrelevant) {
         String errorCode = TasksManager.getSessionBeginError(player);
         if(errorCode != null) {
             MessageReader.sendPrivate(baseConfigPath, "specific_errors." + errorCode, sender, player.getName());

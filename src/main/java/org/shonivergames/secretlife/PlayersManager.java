@@ -1,8 +1,6 @@
 package org.shonivergames.secretlife;
 
-import org.bukkit.Location;
 import org.bukkit.entity.Player;
-import org.bukkit.scheduler.BukkitRunnable;
 import org.shonivergames.secretlife.config_readers.*;
 
 public class PlayersManager {

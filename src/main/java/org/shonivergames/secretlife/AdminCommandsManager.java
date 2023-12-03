@@ -30,34 +30,42 @@ public class AdminCommandsManager implements TabCompleter, CommandExecutor {
         commandsList.add(new ResetHearts());
         commandsList.add(new AddLife());
         commandsList.add(new RemoveLife());
-        commandsList.add(new DeletePlayerData());
         commandsList.add(new DeleteAllPlayersData());
+        commandsList.add(new Menu());
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (args.length == 0 || args.length > 2) {
+        if(args.length == 0){
+            PluginMenuManager.showMenu((Player)sender);
+            return true;
+        }
+        if (args.length > 2) {
             MessageReader.sendPrivate(baseConfigPath, "generic_errors.invalid_cmd_structure", sender);
             return true;
         }
 
-        for (_CommandBase currentCmd : commandsList) {
-            if (currentCmd.isCorrectCommand(args[0])) {
-                String player = "";
-                if (args.length > 1)
-                    player = args[1];
+        _CommandBase requestedCommand = getCommand(args[0]);
+        if(requestedCommand == null)
+            MessageReader.sendPrivate(baseConfigPath, "generic_errors.invalid_cmd", sender);
+        else{
+            String player = null;
+            if (args.length > 1)
+                player = args[1];
 
-                if (currentCmd.isPerPlayer && !Util.isPlayerOnline(player)) {
-                    MessageReader.sendPrivate(baseConfigPath, "generic_errors.no_player", sender, player);
-                }
-                else
-                    currentCmd.executeCommand(sender, Main.server.getPlayer(player));
-                return true;
-            }
+            executeCommand(requestedCommand, sender, player, false);
         }
-
-        MessageReader.sendPrivate(baseConfigPath, "generic_errors.invalid_cmd", sender);
         return true;
+    }
+
+    public _CommandBase getCommand(String command){
+        if(command == null)
+            return null;
+        for (_CommandBase currentCmd : commandsList) {
+            if (currentCmd.isCorrectCommand(command))
+                return currentCmd;
+        }
+        return null;
     }
 
     @Override
@@ -70,18 +78,11 @@ public class AdminCommandsManager implements TabCompleter, CommandExecutor {
 
         // if we're on the first argument, just gotta give the list of all possible commands
         if (args.length == 1) {
-            for (_CommandBase currentCmd : commandsList)
-                options.add(currentCmd.command);
+            options = getAllCommandNames();
         }
         else if (args.length == 2) {
             // Find the command that was chosen in the first argument
-            _CommandBase chosenCmd = null;
-            for (_CommandBase currentCmd : commandsList) {
-                if (currentCmd.isCorrectCommand(args[0])) {
-                    chosenCmd = currentCmd;
-                    break;
-                }
-            }
+            _CommandBase chosenCmd = getCommand(args[0]);
             // If there wasn't a valid command, we leave with an empty list.
             if(chosenCmd == null || !chosenCmd.isPerPlayer)
                 return options;
@@ -102,5 +103,35 @@ public class AdminCommandsManager implements TabCompleter, CommandExecutor {
                 result.add(o);
         }
         return  result;
+    }
+
+    public List<String> getAllCommandNames(){
+        List<String> names = new ArrayList<String>();
+        for (_CommandBase currentCmd : commandsList)
+            names.add(currentCmd.name);
+        return names;
+    }
+
+    public boolean executeCommand(_CommandBase command, CommandSender sender, String playerName, boolean isAfterWarning){
+        // Fail-safe! Only OP players can execute commands.
+        // This prevents the possibility of players making a "fake menu" by giving chests a custom name and thus gaining access to commands.
+        if(sender instanceof Player && !sender.isOp()) {
+            MessageReader.sendPrivate(baseConfigPath, "generic_errors.not_op", sender);
+            return false;
+        }
+
+        if (command.isPerPlayer) {
+            if(playerName == null)
+                MessageReader.sendPrivate(baseConfigPath, "generic_errors.no_player_selected", sender, command.name);
+            else if(!Util.isPlayerOnline(playerName))
+                MessageReader.sendPrivate(baseConfigPath, "generic_errors.no_player", sender, playerName);
+            else
+                command.executeCommand(sender, Main.server.getPlayer(playerName), isAfterWarning);
+            return false;
+        }
+        else {
+            command.executeCommand(sender, null, isAfterWarning);
+            return true;
+        }
     }
 }

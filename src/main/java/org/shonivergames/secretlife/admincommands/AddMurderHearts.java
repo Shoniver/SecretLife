@@ -10,7 +10,7 @@ public class AddMurderHearts extends _CommandBase {
     }
 
     @Override
-    public void executeCommand(CommandSender sender, Player player) {
+    public void executeCommand(CommandSender sender, Player player, boolean irrelevant) {
         KillManager.CommitKill(player);
         printFeedback(sender);
     }

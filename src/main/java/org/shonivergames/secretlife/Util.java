@@ -11,6 +11,8 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.concurrent.CompletableFuture;
 
@@ -104,5 +106,14 @@ public class Util {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public static List<String> safeGetStringListFromConfig(String configPath){
+        List<String> list;
+        if(Main.configFile.isList(configPath))
+            list = Main.configFile.getStringList(configPath);
+        else
+            list = new ArrayList<>();
+        return list;
     }
 }

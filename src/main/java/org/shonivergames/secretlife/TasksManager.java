@@ -29,10 +29,6 @@ public class TasksManager {
             concludeTask(player, "reroll_task");
         }
 
-        // If this player gets constant tasks AND currently has a task, don't continue forward.
-        if(shouldGetConstantTasks(player) && Main.playerData.hasTask(player))
-            return;
-
         new BukkitRunnable() {
             boolean init = false;
             int i;
@@ -111,7 +107,7 @@ public class TasksManager {
     }
 
     // Assumes the task exists in the player inventory. Must be checked before this!
-    public static void failTask(Player player) {
+    public static void failTask(Player player, boolean isForced) {
         // Get the current task's settings before removing the task
         String difficulty = Main.playerData.getTaskDifficulty(player);
         String configVar = "penalty.";
@@ -123,8 +119,15 @@ public class TasksManager {
 
         HealthManager.removeHealth(player, SettingReader.getInt(baseConfigPath, configVar), SettingReader.getBool(baseConfigPath, "can_penalty_kill"));
 
-        if(shouldGetConstantTasks(player))
-            spawnItemAtLootPool(player, getNewPlayerTask(player, false));
+        if(shouldGetConstantTasks(player)) {
+            ItemStack newConstantTask = getNewPlayerTask(player, false);
+            // If you were forced to fail your last task by an admin, don't spawn the new task at the loot pool -
+            // you could be in a random location, after all
+            if(isForced)
+                Util.spawnItemForPlayer(player, player.getLocation(), newConstantTask);
+            else
+                spawnItemAtLootPool(player, newConstantTask);
+        }
     }
 
     // Assumes the task exists in the player inventory. Must be checked before this!
@@ -151,7 +154,7 @@ public class TasksManager {
             return "red_cant_reroll";
 
         // Can't reroll without a task
-        String removeTaskError = getRemoveTaskError(player);
+        String removeTaskError = getRemoveTaskError(player, false);
         if(removeTaskError != null)
             return removeTaskError;
 
@@ -169,15 +172,16 @@ public class TasksManager {
         return null;
     }
     public static String getPassTaskError(Player player){
-        return getRemoveTaskError(player);
+        return getRemoveTaskError(player, false);
     }
     public static String getFailTaskError(Player player){
-        return getRemoveTaskError(player);
+        return getRemoveTaskError(player, false);
     }
-    public static String getSessionBeginError(Player player) {
+    public static String getBeginSessionError(Player player) {
         // If the player already has a task, can't start the session!
         // This does NOT apply if the player has constant tasks.
-        if(!shouldGetConstantTasks(player) && Main.playerData.hasTask(player))
+        // That way, you don't get an error when trying to execute the command - we will simply skip the constant task player later.
+        if(!hasConstantTask(player) && Main.playerData.hasTask(player))
             return "has_incomplete_task";
         // if the player is currently in the middle of getting a task
         if (Main.playerData.isOnTaskCooldown(player))
@@ -189,9 +193,26 @@ public class TasksManager {
 
         return null;
     }
-    private static String getRemoveTaskError(Player player) {
+    public static String getBeginSessionGiveTaskError(Player player){
+        // Constant tasks are not limited by session.
+        if(hasConstantTask(player))
+            return "has_constant_task";
+
+        return null;
+    }
+    public static String getEndSessionError(Player player) {
+        return getRemoveTaskError(player, true);
+    }
+    public static String getEndSessionFailTaskError(Player player){
+        // Constant tasks are not limited by session
+        if(hasConstantTask(player))
+            return "has_constant_task";
+
+        return getFailTaskError(player);
+    }
+    private static String getRemoveTaskError(Player player, boolean skipIfNoTask) {
         // If the player doesn't have a task, it can not be removed
-        if(!Main.playerData.hasTask(player))
+        if(!skipIfNoTask && !Main.playerData.hasTask(player))
             return "has_no_task";
         // If the player has a task, but doesn't have it in his inventory, can't give new task.
         if (Main.playerData.hasTask(player) && !isTaskInPlayerInv(player))
@@ -220,6 +241,9 @@ public class TasksManager {
     }
     private static boolean shouldGetConstantTasks(Player player){
         return LivesManager.isRedPlayer(player) && SettingReader.getBool(baseConfigPath, "constant_red_tasks");
+    }
+    private static boolean hasConstantTask(Player player){
+        return Main.playerData.hasTask(player) && Main.playerData.getIsRedTask(player) && SettingReader.getBool(baseConfigPath, "constant_red_tasks");
     }
 
     public static void manageHasTaskEffect(){

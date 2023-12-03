@@ -27,6 +27,7 @@ org\shonivergames\secretlife\PlayerDataManager.class
 org\shonivergames\secretlife\config_readers\VisualEffectReader.class
 org\shonivergames\secretlife\LivesManager.class
 org\shonivergames\secretlife\HealthManager.class
+org\shonivergames\secretlife\admincommands\EndSession.class
 org\shonivergames\secretlife\TasksManager$2.class
 org\shonivergames\secretlife\config_readers\TitleReader.class
 org\shonivergames\secretlife\events\PlayerJoinEvent.class

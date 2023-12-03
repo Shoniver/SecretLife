@@ -13,14 +13,15 @@ public class BeginPlayerSession extends _CommandBase {
 
     @Override
     public void executeCommand(CommandSender sender, Player player, boolean irrelevant) {
-        String errorCode = TasksManager.getSessionBeginError(player);
+        String errorCode = TasksManager.getBeginSessionError(player);
         if(errorCode != null) {
             MessageReader.sendPrivate(baseConfigPath, "specific_errors." + errorCode, sender, player.getName());
             return;
         }
 
         Main.playerData.setCanGift(player, true);
-        TasksManager.giveTaskAnimated(player, false);
+        if(TasksManager.getBeginSessionGiveTaskError(player) == null)
+            TasksManager.giveTaskAnimated(player, false);
         printFeedback(sender);
     }
 }

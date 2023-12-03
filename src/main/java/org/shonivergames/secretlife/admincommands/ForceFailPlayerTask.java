@@ -18,6 +18,6 @@ public class ForceFailPlayerTask extends _CommandBase {
             return;
         }
 
-        TasksManager.failTask(player);
+        TasksManager.failTask(player, true);
         printFeedback(sender);
     }}

@@ -6,9 +6,9 @@ import org.shonivergames.secretlife.Main;
 import org.shonivergames.secretlife.TasksManager;
 import org.shonivergames.secretlife.config_readers.MessageReader;
 
-public class BeginSession extends _CommandBase {
-    public BeginSession() {
-        super("_BeginSession", false);
+public class EndSession extends _CommandBase {
+    public EndSession() {
+        super("_EndSession", false);
     }
 
     @Override
@@ -16,7 +16,7 @@ public class BeginSession extends _CommandBase {
         boolean needToExit = false;
 
         for (Player player : Main.server.getOnlinePlayers()) {
-            String errorCode = TasksManager.getBeginSessionError(player);
+            String errorCode = TasksManager.getEndSessionError(player);
             if(errorCode != null) {
                 MessageReader.sendPrivate(baseConfigPath, "specific_errors." + errorCode, sender, player.getName());
                 needToExit = true;
@@ -26,13 +26,12 @@ public class BeginSession extends _CommandBase {
         if(needToExit)
             return;
 
+        // Fails the task for everyone who HAS A TASK, but without constant tasks
         for (Player player : Main.server.getOnlinePlayers()) {
-            Main.playerData.setCanGift(player, true);
-            if(TasksManager.getBeginSessionGiveTaskError(player) == null)
-                TasksManager.giveTaskAnimated(player, false);
+            if(TasksManager.getEndSessionFailTaskError(player) == null)
+                TasksManager.failTask(player, true);
         }
 
-        TasksManager.handleStartOfSession();
         printFeedback(sender);
     }
 }

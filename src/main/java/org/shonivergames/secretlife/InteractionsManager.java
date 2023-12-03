@@ -57,6 +57,6 @@ public class InteractionsManager {
             return;
         }
         SoundEffectReader.playAtPlayer(baseConfigPath, "fail_task", player, true);
-        TasksManager.failTask(player);
+        TasksManager.failTask(player, false);
     }
 }

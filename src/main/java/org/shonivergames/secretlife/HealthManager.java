@@ -14,13 +14,16 @@ import java.util.List;
 public class HealthManager {
     private static final String baseConfigPath = "health_manager";
 
-    public static void init(){
+    public static void onConfigLoad(){
         if(SettingReader.getBool(baseConfigPath, "uhc_enabled")) {
-            Main.server.getPluginManager().registerEvents(new EntityRegainHealthEvent(), Main.instance);
             setNaturalRegen(false);
         }
         else
             setNaturalRegen(true);
+    }
+    public static void handleRegenEvent(org.bukkit.event.entity.EntityRegainHealthEvent event){
+        if(SettingReader.getBool(baseConfigPath, "uhc_enabled"))
+            event.setCancelled(true);
     }
 
     public static int addHealth(Player player, int health, boolean overflow){
@@ -119,7 +122,7 @@ public class HealthManager {
         }
     }
 
-    public static void handleTabListDisplay(){
+    public static void manageTabListDisplay(){
         new BukkitRunnable() {
             @Override
             public void run() {

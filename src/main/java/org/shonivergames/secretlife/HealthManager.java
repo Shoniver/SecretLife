@@ -7,23 +7,25 @@ import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.shonivergames.secretlife.config_readers.SettingReader;
 import org.shonivergames.secretlife.config_readers.TitleReader;
-import org.shonivergames.secretlife.events.EntityRegainHealthEvent;
 
 import java.util.List;
 
 public class HealthManager {
     private static final String baseConfigPath = "health_manager";
 
-    public static void onConfigLoad(){
-        if(SettingReader.getBool(baseConfigPath, "uhc_enabled")) {
-            setNaturalRegen(false);
-        }
-        else
-            setNaturalRegen(true);
+    public static void init(){
+        setNaturalRegen(false);
+        manageTabListDisplay();
     }
-    public static void handleRegenEvent(org.bukkit.event.entity.EntityRegainHealthEvent event){
-        if(SettingReader.getBool(baseConfigPath, "uhc_enabled"))
-            event.setCancelled(true);
+    public static void handleRegenEvent(org.bukkit.event.entity.EntityRegainHealthEvent event) {
+        event.setCancelled(true);
+    }
+    public static void handleDamageEvent(org.bukkit.event.entity.EntityDamageEvent event) {
+        Player player = ((Player) event.getEntity());
+        setPlayerMaxHealth(player, player.getHealth() - event.getFinalDamage());
+    }
+    private static void setPlayerMaxHealth(Player player, double maxHealth){
+        player.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(maxHealth);
     }
 
     public static int addHealth(Player player, int health, boolean overflow){
@@ -111,7 +113,7 @@ public class HealthManager {
     }
 
     private static void setHealth(Player player, double health){
-        player.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(health);
+        setPlayerMaxHealth(player, health);
         player.setHealth(health);
     }
 

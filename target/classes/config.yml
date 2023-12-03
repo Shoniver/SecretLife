@@ -42,7 +42,6 @@ health_manager:
       enabled: true
       update_rate: 1
       format: "[§c❤<value1>§f] <value2>"
-    uhc_enabled: true
     reward_max: 60
     health_on_respawn: 60
     true_max: 80

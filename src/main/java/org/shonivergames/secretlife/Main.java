@@ -19,13 +19,13 @@ public final class Main extends JavaPlugin {
     public void onEnable() {
         // Plugin startup logic
         instance = this;
+        logger = getLogger();
+        server = getServer();
 
         saveDefaultConfig();
         loadConfig();
 
         playerData = new PlayerDataManager();
-        logger = getLogger();
-        server = getServer();
 
         adminCommandsManager = new AdminCommandsManager();
         getCommand(AdminCommandsManager.commandName).setExecutor(adminCommandsManager);
@@ -42,7 +42,7 @@ public final class Main extends JavaPlugin {
 
         LivesManager.createTeams();
         TasksManager.manageHasTaskEffect();
-        HealthManager.manageTabListDisplay();
+        HealthManager.init();
 
         logger.info("SecretLife has been enabled!");
     }
@@ -58,6 +58,5 @@ public final class Main extends JavaPlugin {
     public static void loadConfig(){
         instance.reloadConfig();
         configFile = instance.getConfig();
-        HealthManager.onConfigLoad();
     }
 }

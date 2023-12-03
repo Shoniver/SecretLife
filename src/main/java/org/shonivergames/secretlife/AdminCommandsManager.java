@@ -30,7 +30,7 @@ public class AdminCommandsManager implements TabCompleter, CommandExecutor {
         commandsList.add(new ResetHearts());
         commandsList.add(new AddLife());
         commandsList.add(new RemoveLife());
-        commandsList.add(new DeleteAllPlayersData());
+        commandsList.add(new StartNewSeason());
         commandsList.add(new Menu());
     }
 

@@ -8,6 +8,8 @@ public class TitleReader {
     private static final String configName = ".title_messages.";
 
     public static void send(String configTitle, String configVar, Player target, String... formattingValues){
+        if(!Util.isPlayerOnline(target))
+            return;
         String configPath = configTitle + configName + configVar;
         String title = Main.configFile.getString(configPath + ".title", null);
         String sub = Main.configFile.getString(configPath + ".sub", null);

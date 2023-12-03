@@ -3,10 +3,14 @@ package org.shonivergames.secretlife;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.shonivergames.secretlife.config_readers.SettingReader;
 
 import javax.tools.JavaFileManager;
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 import java.util.logging.Level;
 
 public class PlayerDataManager {
@@ -55,6 +59,37 @@ public class PlayerDataManager {
         return currentTask != null && !currentTask.isEmpty();
     }
 
+    public void addToTaskHistory(Player player, String taskContent){
+        List<String> taskHistory = getTaskHistory(player);
+        taskHistory.add(taskContent);
+        setValueAndSave(player, "task_history", taskHistory);
+    }
+    public List<String> getTaskHistory(Player player){
+        return getStringList(player, "task_history");
+    }
+    public List<String> getAllPreviousTasks(){
+        List<String> allTasks = new ArrayList<>();
+
+        Set<String> allKeys = dataConfig.getKeys(false);
+        for (String key : allKeys)
+            allTasks.addAll(getStringList(key, "task_history"));
+
+        return allTasks;
+    }
+
+    public boolean isOnTaskCooldown(Player player){
+        return getBool(player, "is_on_task_cooldown");
+    }
+    public void startTaskCooldown(Player player){
+        setValueAndSave(player, "is_on_task_cooldown", true);
+    }
+    public void endTaskCooldown(Player player){
+        setValueAndSave(player, "is_on_task_cooldown", false);
+    }
+    public void endTaskCooldown(String playerUUID){ // Useful for if the player has logged out, but we still want to end their cooldown
+        setValueAndSave(playerUUID, "is_on_task_cooldown", false);
+    }
+
     public int getLivesCount(Player player){
         return getInt(player, "lives");
     }
@@ -73,25 +108,31 @@ public class PlayerDataManager {
 
     public boolean isPlayerRegistered(Player player){
         String currentUUID = String.valueOf(player.getUniqueId());
-        return !dataConfig.contains(currentUUID);
+        return dataConfig.contains(currentUUID);
     }
 
     private <T> void setValueAndSave(Player player, String varName, T value) {
         String currentUUID = String.valueOf(player.getUniqueId());
-        dataConfig.set(currentUUID + "." + varName, value);
+        setValueAndSave(currentUUID, varName, value);
+    }
+    private <T> void setValueAndSave(String playerUUID, String varName, T value) {
+        dataConfig.set(playerUUID + "." + varName, value);
         saveData();
     }
-
     private int getInt(Player player, String varName) {
         String currentUUID = String.valueOf(player.getUniqueId());
         return dataConfig.getInt(currentUUID + "." + varName);
     }
-
     private String getString(Player player, String varName) {
         String currentUUID = String.valueOf(player.getUniqueId());
         return dataConfig.getString(currentUUID + "." + varName);
     }
-
+    private List<String> getStringList(Player player, String varName) {
+        return getStringList(String.valueOf(player.getUniqueId()), varName);
+    }
+    private List<String> getStringList(String playerUUID, String varName) {
+        return Util.safeGetStringListFromConfig(dataConfig, playerUUID + "." + varName);
+    }
     private boolean getBool(Player player, String varName) {
         String currentUUID = String.valueOf(player.getUniqueId());
         return dataConfig.getBoolean(currentUUID + "." + varName);

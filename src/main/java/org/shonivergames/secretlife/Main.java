@@ -22,7 +22,6 @@ public final class Main extends JavaPlugin {
         logger = getLogger();
         server = getServer();
 
-        saveDefaultConfig();
         loadConfig();
 
         playerData = new PlayerDataManager();
@@ -41,7 +40,7 @@ public final class Main extends JavaPlugin {
         server.getPluginManager().registerEvents(new EntityRegainHealthEvent(), Main.instance);
 
         LivesManager.createTeams();
-        TasksManager.manageHasTaskEffect();
+        TasksManager.init();
         HealthManager.init();
 
         logger.info("SecretLife has been enabled!");
@@ -56,6 +55,7 @@ public final class Main extends JavaPlugin {
     }
 
     public static void loadConfig(){
+        instance.saveDefaultConfig();
         instance.reloadConfig();
         configFile = instance.getConfig();
     }

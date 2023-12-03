@@ -26,6 +26,8 @@ admin_commands_manager:
       no_task_in_inv: "§c<value1>'s task not found in their inventory!"
       has_no_task: "§c<value1> does not have an active task."
       has_incomplete_task: "§c<value1> still has an unfinished task from last session!"
+      no_tasks_available: "§cThere are no tasks available for <value1>!\nPlease add more tasks in the config."
+      on_task_cooldown: "§cPlease wait!\n<value1> is still in the process of getting their task!"
 
 lives_manager:
   settings:
@@ -194,8 +196,20 @@ tasks_manager:
     fail_task: "§l§c<value1> has failed their task!§r§c It was:\n<value2>"
   tasks:
     settings:
-      task_title: "§c<value1>'s Task"
-      task_content: "<value1> TASK: <value2>"
+      title_format: "§c<value1>'s Task"
+      content_format: "<value1> TASK: <value2>"
+      can_tasks_appear_more_than_once:
+        normal: true
+        hard: true
+        red:
+          normal: true
+          hard: true
+      can_player_get_repeat_tasks:
+        normal: false
+        hard: false
+        red:
+          normal: true
+          hard: true
     normal:
       - "Make a build that is deeply uncomfortable to use and look at. To pass the task, another player has to insult you for building said build. For a yellow name to make you fail, they need to guess that your goal is to get INSULTED."
       - "Dig a big hole. All the way down. At least 3x3. Make it your base if you want. To pass the task, another player has to question your actions. For a yellow name to make you fail, they need to guess that your goal is to get QUESTIONED."
@@ -713,6 +727,7 @@ tasks_manager:
           - "LONG_SWIFTNESS"
           - "STRONG_SWIFTNESS"
         loot:
+          - "ELYTRA"
           - "END_CRYSTAL"
           - "DIAMOND_BLOCK"
           - "NETHERITE_INGOT"
@@ -794,6 +809,8 @@ interactions_manger:
     has_no_task: "§cYou don't have an active task!"
     already_has_hard: "§cYou already have a hard task!"
     red_cant_reroll: "§cRed players are not allowed to reroll for a hard task!"
+    no_tasks_available: "§cSeems like there are no tasks available for you at the moment.\nPlease contact the server admin for help!"
+    on_task_cooldown: "§cPlease wait!\nYou are already in the process of receiving a task!"
 
 kill_manager:
   settings:

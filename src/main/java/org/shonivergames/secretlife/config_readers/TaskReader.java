@@ -6,6 +6,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BookMeta;
 import org.shonivergames.secretlife.LivesManager;
 import org.shonivergames.secretlife.Main;
+import org.shonivergames.secretlife.PlayerDataManager;
 import org.shonivergames.secretlife.Util;
 
 import java.util.ArrayList;
@@ -19,11 +20,14 @@ public class TaskReader {
     public static ItemStack getRandomTask(String configTitle, Player player, String difficulty){
         String configPath = configTitle + configName;
 
-        String taskTitle = SettingReader.getString(configPath, "task_title");
-        taskTitle = Util.getFormattedString(taskTitle, player.getName());
+        String taskTitleFormat = SettingReader.getString(configPath, "title_format");
+        String taskTitle = Util.getFormattedString(taskTitleFormat, player.getName());
 
-        String taskContent = SettingReader.getString(configPath, "task_content");
-        taskContent = Util.getFormattedString(taskContent, difficulty.toUpperCase(), getRandomContent(configPath, player, difficulty));
+        String taskContentFormat = SettingReader.getString(configPath, "content_format");
+        String originalTaskContent = getRandomContent(configPath, player, difficulty);
+        String taskContent = Util.getFormattedString(taskContentFormat, difficulty.toUpperCase(), originalTaskContent);
+
+        Main.playerData.addToTaskHistory(player, originalTaskContent);
 
         ItemStack book = new ItemStack(Material.WRITTEN_BOOK);
         BookMeta meta = (BookMeta) book.getItemMeta();
@@ -35,28 +39,43 @@ public class TaskReader {
 
         return book;
     }
+    public static boolean doesPlayerHaveAvailableTasks(String configTitle, Player player, String difficulty){
+        return getRandomContent(configTitle + configName, player, difficulty) != null;
+    }
 
     private static String getRandomContent(String configPath, Player player, String difficulty) {
         if (rnd == null)
             rnd = new Random();
 
         List<String> allTasks = new ArrayList<>();
-        if(LivesManager.isRedPlayer(player))
-            allTasks.addAll(Util.safeGetStringListFromConfig(configPath + "red." + difficulty));
+        String pathAddition = difficulty;
+        if(LivesManager.isRedPlayer(player)) {
+            pathAddition = "red." + pathAddition;
+        }
         else {
-            allTasks.addAll(Util.safeGetStringListFromConfig(configPath + difficulty));
-
             if (LivesManager.isThereYellowPlayer() && !LivesManager.isYellowPlayer(player))
-                allTasks.addAll(Util.safeGetStringListFromConfig(configPath + "has_yellows." + difficulty));
+                allTasks.addAll(Util.safeGetStringListFromConfig(configPath + "has_yellows." + pathAddition));
             else // If there are no yellow players or THIS player is yellow
-                allTasks.addAll(Util.safeGetStringListFromConfig(configPath + "no_yellows." + difficulty));
+                allTasks.addAll(Util.safeGetStringListFromConfig(configPath + "no_yellows." + pathAddition));
 
             if (LivesManager.isThereRedPlayer() && !LivesManager.isRedPlayer(player))
-                allTasks.addAll(Util.safeGetStringListFromConfig(configPath + "has_reds." + difficulty));
+                allTasks.addAll(Util.safeGetStringListFromConfig(configPath + "has_reds." + pathAddition));
             else
-                allTasks.addAll(Util.safeGetStringListFromConfig(configPath + "no_reds." + difficulty));
+                allTasks.addAll(Util.safeGetStringListFromConfig(configPath + "no_reds." + pathAddition));
+        }
+        allTasks.addAll(Util.safeGetStringListFromConfig(configPath + pathAddition));
+
+        if(!SettingReader.getBool(configPath, "can_tasks_appear_more_than_once." + pathAddition)){
+            List<String> pastTasks = Main.playerData.getAllPreviousTasks();
+            allTasks.removeAll(pastTasks);
+        }
+        else if(!SettingReader.getBool(configPath, "can_player_get_repeat_tasks." + pathAddition)){
+            List<String> taskHistory = Main.playerData.getTaskHistory(player);
+            allTasks.removeAll(taskHistory);
         }
 
+        if(allTasks.isEmpty())
+            return null;
         String draw = allTasks.get(rnd.nextInt(allTasks.size()));
         return Util.getFormattedString(draw, Util.getRandomOtherPlayer(player).getName());
     }

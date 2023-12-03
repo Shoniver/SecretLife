@@ -14,6 +14,16 @@ import java.nio.charset.StandardCharsets;
 public class TasksManager {
     private static final String baseConfigPath = "tasks_manager";
 
+    public static void init(){
+        manageHasTaskEffect();
+    }
+
+    public static void initPlayer(Player player){
+        // Just in case it's turned on, for whatever reason -
+        // COULD technically happen if the server crashes at EXACTLY the wrong moment
+        Main.playerData.endTaskCooldown(player);
+    }
+
     public static void giveTaskAnimated(Player player, boolean isHardTask){
         if(isHardTask){
             concludeTask(player, "reroll_task");
@@ -27,7 +37,7 @@ public class TasksManager {
             boolean init = false;
             int i;
             int amount;
-            String playerName;
+            String playerUUID;
 
             @Override
             public void run() {
@@ -37,11 +47,10 @@ public class TasksManager {
                     i = 1;
                     amount = SettingReader.getInt(baseConfigPath, "amount_of_messages_on_obtain." + convertToDifficulty(isHardTask));
 
-                    playerName = player.getName();
-
+                    playerUUID = String.valueOf(player.getUniqueId());
+                    Main.playerData.startTaskCooldown(player);
                 }
 
-                Player player = Util.getPlayerFromName(playerName); // TODO: Is this really needed?
                 String currentVar = "task_obtain." + convertToDifficulty(isHardTask) + ".";
 
                 if(i <= amount){
@@ -52,11 +61,18 @@ public class TasksManager {
                         SoundEffectReader.playAtPlayer(baseConfigPath, currentVar + "tick", player, false);
                 }
                 else if (i == amount + 1) {
-                    player.playEffect(EntityEffect.TOTEM_RESURRECT);
+                    if(Util.isPlayerOnline(player))
+                        player.playEffect(EntityEffect.TOTEM_RESURRECT);
                 }
                 else {
-                    Util.spawnItemForPlayer(player, player.getLocation(), getNewPlayerTask(player, isHardTask));
-                    SoundEffectReader.playAtPlayer(baseConfigPath, currentVar + "obtained", player, true);
+                    if(Util.isPlayerOnline(player)) {
+                        Util.spawnItemForPlayer(player, player.getLocation(), getNewPlayerTask(player, isHardTask));
+                        SoundEffectReader.playAtPlayer(baseConfigPath, currentVar + "obtained", player, true);
+                    }
+
+                    // Sends the UUID instead of the player variable,
+                    // that way it works even if the player has logged out
+                    Main.playerData.endTaskCooldown(playerUUID);
                     cancel();
                 }
 
@@ -114,7 +130,7 @@ public class TasksManager {
     // Assumes the task exists in the player inventory. Must be checked before this!
     private static void concludeTask(Player player, String actionType) {
         // Get the current task details
-        ItemStack taskItem = getTaskInInventory(player);
+        ItemStack taskItem = getTaskFromInventory(player);
         String taskDifficulty = Main.playerData.getTaskDifficulty(player);
         Boolean isRedTask = Main.playerData.getIsRedTask(player);
         String taskContent = Util.extractBookContent((BookMeta)taskItem.getItemMeta());
@@ -130,17 +146,25 @@ public class TasksManager {
     }
 
     public static String getRerollTaskError(Player player) {
+        // If red players aren't allowed to reroll tasks
+        if(!SettingReader.getBool(baseConfigPath, "can_reds_get_hard_tasks") && LivesManager.isRedPlayer(player))
+            return "red_cant_reroll";
+
         // Can't reroll without a task
         String removeTaskError = getRemoveTaskError(player);
         if(removeTaskError != null)
             return removeTaskError;
 
-        // If red players aren't allowed to reroll tasks
-        if(!SettingReader.getBool(baseConfigPath, "can_reds_get_hard_tasks") && LivesManager.isRedPlayer(player))
-            return "red_cant_reroll";
         // if the player has requested a hard task, but already HAS a hard task, invalid request.
-        else if (checkIsHardTask(Main.playerData.getTaskDifficulty(player)))
+        if (checkIsHardTask(Main.playerData.getTaskDifficulty(player)))
             return "already_has_hard";
+        // if the player is currently in the middle of getting a task
+        if (Main.playerData.isOnTaskCooldown(player))
+            return "on_task_cooldown";
+        // If the player physically doesn't have any tasks to pick from.
+        // This can happen if the config file is set to not allow repeat tasks, for example.
+        if(!TaskReader.doesPlayerHaveAvailableTasks(baseConfigPath, player, "hard"))
+            return "no_tasks_available";
 
         return null;
     }
@@ -155,6 +179,13 @@ public class TasksManager {
         // This does NOT apply if the player has constant tasks.
         if(!shouldGetConstantTasks(player) && Main.playerData.hasTask(player))
             return "has_incomplete_task";
+        // if the player is currently in the middle of getting a task
+        if (Main.playerData.isOnTaskCooldown(player))
+            return "on_task_cooldown";
+        // If the player physically doesn't have any tasks to pick from.
+        // This can happen if the config file is set to not allow repeat tasks, for example.
+        if(!TaskReader.doesPlayerHaveAvailableTasks(baseConfigPath, player, "normal"))
+            return "no_tasks_available";
 
         return null;
     }
@@ -170,9 +201,9 @@ public class TasksManager {
     }
 
     private static boolean isTaskInPlayerInv(Player player){
-        return getTaskInInventory(player) != null;
+        return getTaskFromInventory(player) != null;
     }
-    private static ItemStack getTaskInInventory(Player player) {
+    private static ItemStack getTaskFromInventory(Player player) {
         String taskItemName = Main.playerData.getTaskTitle(player);
         Inventory inv = player.getInventory();
         ItemStack[] allItems = inv.getContents();
@@ -257,7 +288,7 @@ public class TasksManager {
     public static void spawnItemAtLootPool(Player player, ItemStack item) {
         Location spawnLocation = LocationReader.getRandomLocation(baseConfigPath, "loot_spawn");
         Util.spawnItemForPlayer(player, spawnLocation, item);
-        SoundEffectReader.playAtLocation(baseConfigPath, "loot_spawn", player, spawnLocation, true);
+        SoundEffectReader.playAtLocation(baseConfigPath, "loot_spawn", spawnLocation);
     }
 
     public static void handleStartOfSession(){

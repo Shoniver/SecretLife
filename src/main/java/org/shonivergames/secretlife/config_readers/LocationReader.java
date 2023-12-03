@@ -4,8 +4,6 @@ import org.bukkit.Location;
 import org.shonivergames.secretlife.Main;
 import org.shonivergames.secretlife.Util;
 
-import java.util.Random;
-
 public class LocationReader {
     private static final String configName = ".locations.";
 

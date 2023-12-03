@@ -10,7 +10,7 @@ public class VisualEffectReader {
     private static final String configName = ".visual_effects.";
 
     public static void play(String configTitle, String configVar, Player player, Location location, boolean showToSelf, boolean showToOtherPlayers){
-        if(!Util.isPlayerOnline(player.getName()))
+        if(!Util.isPlayerOnline(player))
             return;
 
         String configPath = configTitle + configName + configVar;

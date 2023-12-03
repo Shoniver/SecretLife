@@ -1,6 +1,7 @@
 package org.shonivergames.secretlife;
 
 import org.bukkit.Location;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -36,6 +37,9 @@ public class Util {
 
     public static boolean isPlayerOnline(String playerName){
         return getPlayerFromName(playerName) != null;
+    }
+    public static boolean isPlayerOnline(Player player){
+        return player != null && getPlayerFromName(player.getName()) != null;
     }
 
     public static Player getPlayerFromName(String playerName){
@@ -109,9 +113,13 @@ public class Util {
     }
 
     public static List<String> safeGetStringListFromConfig(String configPath){
+        return safeGetStringListFromConfig(Main.configFile, configPath);
+    }
+
+    public static List<String> safeGetStringListFromConfig(FileConfiguration configFile, String configPath){
         List<String> list;
-        if(Main.configFile.isList(configPath))
-            list = Main.configFile.getStringList(configPath);
+        if(configFile.isList(configPath))
+            list = configFile.getStringList(configPath);
         else
             list = new ArrayList<>();
         return list;

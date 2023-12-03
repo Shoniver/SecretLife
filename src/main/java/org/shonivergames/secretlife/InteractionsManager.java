@@ -31,9 +31,9 @@ public class InteractionsManager {
     }
 
     public static void passTaskInteraction(Player player){
-        String removeTaskError = TasksManager.getPassTaskError(player);
-        if(removeTaskError != null) {
-            MessageReader.sendPrivate(baseConfigPath, removeTaskError, player);
+        String passTaskError = TasksManager.getPassTaskError(player);
+        if(passTaskError != null) {
+            MessageReader.sendPrivate(baseConfigPath, passTaskError, player);
             return;
         }
         SoundEffectReader.playAtPlayer(baseConfigPath, "pass_task", player, true);
@@ -51,9 +51,9 @@ public class InteractionsManager {
     }
 
     public static void failTaskInteraction(Player player){
-        String removeTaskError = TasksManager.getFailTaskError(player);
-        if(removeTaskError != null) {
-            MessageReader.sendPrivate(baseConfigPath, removeTaskError, player);
+        String failTaskError = TasksManager.getFailTaskError(player);
+        if(failTaskError != null) {
+            MessageReader.sendPrivate(baseConfigPath, failTaskError, player);
             return;
         }
         SoundEffectReader.playAtPlayer(baseConfigPath, "fail_task", player, true);

@@ -31,7 +31,7 @@ public class LivesManager {
 
     public static void initPlayer(Player player){
         int lives;
-        if(Main.playerData.isPlayerRegistered(player))
+        if(!Main.playerData.isPlayerRegistered(player))
             lives = SettingReader.getInt(baseConfigPath, "start_amount");
         else
             lives = Main.playerData.getLivesCount(player);

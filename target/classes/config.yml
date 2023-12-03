@@ -893,12 +893,14 @@ plugin_menu_manager:
             - ""
             - "§5Command:"
             - "ReloadConfig"
-        delete_all_data:
+        start_new_season:
           type: "SCULK_SHRIEKER"
-          name: "§5Delete ALL Plugin Data"
+          name: "§5Start a New Season"
           lore:
-            - "§cCompletely resets all of the plugin's data for ALL players."
-            - "§cThis includes their hearts, lives, and even tasks."
+            - "§cCompletely resets all of the plugin's data"
+            - "§c(including lives, hearts, and tasks) as well as"
+            - "§cnormal Minecraft player data (achievements, inventories...) -"
+            - "§cEVERYTHING. For ALL PLAYERS."
             - ""
             - "§c§n§lDon't use this if you don't know what you're doing!"
             - ""
@@ -906,7 +908,7 @@ plugin_menu_manager:
             - "§ceverything and start a new 'season' on the same server."
             - ""
             - "§5Command:"
-            - "DeleteAllPlayersData"
+            - "StartNewSeason"
       player:
         begin_player_session:
           type: "ENCHANTED_BOOK"

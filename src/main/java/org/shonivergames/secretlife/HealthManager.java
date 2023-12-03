@@ -120,16 +120,21 @@ public class HealthManager {
     }
 
     public static void handleTabListDisplay(){
-        if(!SettingReader.getBool(baseConfigPath, "show_hearts_on_tab.enabled"))
-            return;
         new BukkitRunnable() {
             @Override
             public void run() {
-                for (Player player : Main.server.getOnlinePlayers()) {
-                    String format = SettingReader.getString(baseConfigPath, "show_hearts_on_tab.format");
-                    int health = getRoundHealth(player);
-                    String listName = Util.getFormattedString(format, getPresentableHeartsCount(health), LivesManager.getColoredPlayerName(player));
-                    player.setPlayerListName(listName);
+                if(!SettingReader.getBool(baseConfigPath, "show_hearts_on_tab.enabled")) {
+                    for (Player player : Main.server.getOnlinePlayers()) {
+                        player.setPlayerListName(LivesManager.getColoredPlayerName(player));
+                    }
+                }
+                else {
+                    for (Player player : Main.server.getOnlinePlayers()) {
+                        String format = SettingReader.getString(baseConfigPath, "show_hearts_on_tab.format");
+                        int health = getRoundHealth(player);
+                        String listName = Util.getFormattedString(format, getPresentableHeartsCount(health), LivesManager.getColoredPlayerName(player));
+                        player.setPlayerListName(listName);
+                    }
                 }
             }
         }.runTaskTimer(Main.instance, 0L, SettingReader.getInt(baseConfigPath, "show_hearts_on_tab.update_rate"));

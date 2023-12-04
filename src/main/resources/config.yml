@@ -315,7 +315,11 @@ tasks_manager:
       - "For this entire session, you are allergic to all mobs. If there is ANY creature nearby, you must cough, sneeze, and sniffle. This includes friendly mobs too!"
       - "You are Poultry Man for this session! Do anything in your power to get as many eggs as possible, and proceed to fill every base on the server with as many chickens as you can - while also throwing eggs at people. You pass the task as long as you fully commit to the bit."
       - "Who is your best friend / teammate in the server? Well, for this entire session, that player CAN NOT see you! You must hide from them at all costs. You may use anything you want for this task (including invis potions). If they see you, you fail!"
-      - "Convince another player you have the same task as them. If you can't manage to do so, you fail. You pass the task if they say they think you have the same task, or something of that nature."
+      - "Convince another player you have the same task as them. If they don't believe you, try again with another player. You pass the task if they say they think you have the same task, or something of that nature."
+      - "The FIRST mob (ANY mob, even if it's hostile!) you look at after closing this book is now your pet for this session. You must properly take care of it by feeding it and taking it for walks. You fail if the pet dies."
+      - "Ask as many players as possible what you could do for them in exchange for diamonds (they set the amount and the task). You can not negotiate - whatever amount they offer is what you get. You pass the task if you get at LEAST 10 diamonds by the end of the session."
+      - "You are now a Genie! Announce in chat that you are a Genie and can grant infinite wishes - but only one wish per player. You pass if you grant at least 3 wishes successfully by the end of the session."
+      - "You are a BAD Genie. Announce in chat that you are a Genie and can grant infinite wishes - but only one wish per player. When granting a wish, you must get SOME of it wrong - how wrong is up to you. You pass if you 'grant' at least 3 wishes by the end of the session."
     hard:
       - "Come up with a nickname for another player and convince as many other players as you can to use it. You pass the task if at least 2 other players say it by the end of the session."
       - "Figure out another player's secret task and prevent them from completing it in any way possible (they MUST fail for you to pass!)."
@@ -367,9 +371,11 @@ tasks_manager:
       normal:
         - "You are the red names' secret lackey for this session. They must give you instructions on trap creations and you must execute them WITHOUT arousing suspicion from non-reds. You can show ANY red player this task, but no one else."
         - "You are the impostor among us. For the entire session, red names can give you ANY task to DIRECTLY damage a green/yellow player (they can't specify a specific player!). You can show ANY red player this task, but no one else."
-      hard:
+      hard: false
     no_reds:
-      normal: false
+      normal:
+        - "You are now the Boogeyman! To pass the task, you must kill one other player in any way you can think of. It can be whoever you want. If you can't manage to do so by the end of the session, you fail."
+        - "You are a FAKE Boogeyman. Fake attacks, place lava with no intent of doing damage, etc. Get as many people as possible to believe you are the Boogeyman. You pass if you get accused at least once by the end of the session."
       hard: false
     red:
       normal:

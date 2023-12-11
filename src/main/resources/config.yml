@@ -89,7 +89,12 @@ tasks_manager:
         normal: 5
         hard: 10
     loot:
-      loot_per_heath: .5
+      loot_per_heath:
+        normal: .5
+        hard: .5
+        red:
+          normal: .5
+          hard: .5
       delay_between_items: 2
     tasks_log:
       enabled: false

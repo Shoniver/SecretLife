@@ -293,7 +293,7 @@ public class TasksManager {
             public void run() {
                 if(!init){
                     init = true;
-                    double lootPerHealth = SettingReader.getDouble(baseConfigPath, "loot.loot_per_heath");
+                    double lootPerHealth = SettingReader.getDouble(baseConfigPath, "loot.loot_per_heath." + lootTable);
                     itemsCount = lootPerHealth * healthToConvert;
                     return; // Skips the first loop, just to give a tiny delay
                 }

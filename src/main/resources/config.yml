@@ -86,8 +86,8 @@ tasks_manager:
       normal: 0
       hard: 20
       red:
-        normal: 20
-        hard: 20
+        normal: 5
+        hard: 10
     loot:
       loot_per_heath: .5
       delay_between_items: 2
@@ -320,6 +320,7 @@ tasks_manager:
       - "Ask as many players as possible what you could do for them in exchange for diamonds (they set the amount and the task). You can not negotiate - whatever amount they offer is what you get. You pass the task if you get at LEAST 10 diamonds by the end of the session."
       - "You are now a Genie! Announce in chat that you are a Genie and can grant infinite wishes - but only one wish per player. You pass if you grant at least 3 wishes successfully by the end of the session."
       - "You are a BAD Genie. Announce in chat that you are a Genie and can grant infinite wishes - but only one wish per player. When granting a wish, you must get SOME of it wrong - how wrong is up to you. You pass if you 'grant' at least 3 wishes by the end of the session."
+      - "Dig a secret underground tunnel from your base to the base of a player who you are NOT currently teaming with. Try to surprise them by popping out of nowhere in their own base! You pass as long as it's completed BEFORE they find it and call you out for it."
     hard:
       - "Come up with a nickname for another player and convince as many other players as you can to use it. You pass the task if at least 2 other players say it by the end of the session."
       - "Figure out another player's secret task and prevent them from completing it in any way possible (they MUST fail for you to pass!)."
@@ -383,7 +384,7 @@ tasks_manager:
         - "Create a damaging trap in a a non-red player's base (if there are any - otherwise, any player will do). You pass the task when your trap is unintentionally triggered. If it's discovered, try again in a different base."
         - "Go invisible and hit at least 5 different players with a sword within 1 minute without being hit back."
         - "Hit a non-red player (if there are any - otherwise, any player will do) with a sword until they block you with a shield. If you kill them you also succeed."
-        - "Find a non-red player (if there are any - otherwise, any player will do) with at least 20 hearts. Take approximately 10 of them in any way you see fit."
+        - "Find a non-red player (if there are any - otherwise, any player will do) with at least 20 hearts. Take approximately 10 of them in any way you see fit. If all players have less than 20 hearts, damage any player for 5 hearts instead."
         - "Cause any amount of damage to a non-red player (if there are any - otherwise, any player will do) using a falling anvil."
         - "Summon a mob using an egg to deal any damage to a non-red player (if there are any - otherwise, any player will do)."
         - "Use redstone to damage a non-red player (if there are any - otherwise, any player will do). You can not hit them with the item, it must be a machine or trap of some kind."
@@ -407,6 +408,11 @@ tasks_manager:
         - "Make a parkour course/challenge. It can be as deadly as you want, but you must be able to complete it yourself first. After it is done, hand this task to another player of your choice. They are now required to reach the end of your course - or die trying."
         - "Hand this task over to a player of your choice. They will become your sleeping agent: They must act naturally until you, the original owner of this task, say/send in chat the word 'snap'. ---><p>Once that happens, your sleeping agent must become hyper-aggressive and attack anyone and anything around them for the next 60 SECONDS with whatever their strongest weapon is. ---><p>If your sleeping agent gets any kills during this period, you may ask the admin for the extra hearts - as if you were the killer. However, if your sleeping agent deals NO DAMAGE at all, you FAIL your task."
         - "Hit other players using a bow for a total of 5 times. You are allowed to hit a player you've already hit."
+        - "Fire arrows from an unenchanted bow continuously at a non-red player (if there are any - otherwise, any player will do) until they deflect it with a shield. If they die, you also succeed."
+        - "Build an explosive trap under a high traffic public area of the server (can NOT be inside a base). Detonate it from afar when a conversation is happening. You pass if it deals any damage."
+        - "Cause a non-red player (if there are any - otherwise, any player will do) to take fall damage of at least 1 heart. You can punch them off a cliff if you need to!"
+        - "Damage a non-red player (if there are any - otherwise, any player will do) by firing a bow straight up into the air. The angle can not be below roughly 70 degrees."
+        - "Cause a non-red player (if there are any - otherwise, any player will do) to take suffocation damage via any means necessary - riding a mob into a wall, pushing a block with a piston, etc!"
       hard: false
   loot_tables:
     normal:
@@ -856,9 +862,9 @@ gift_command:
 plugin_menu_manager:
   settings:
     menu_names:
-      main: "§bSL - Main Menu"
-      player_select: "§bSL - Player Select"
-      warning: "§cARE YOU SURE?"
+      main: "§5§n§lSL - Main Menu"
+      player_select: "§5§n§lSL - Player Select"
+      warning: "§c§n§lARE YOU SURE?"
     change_page_buttons_material: "ARROW"
     current_page_prefix: "§bCurrent Page:"
     current_command_prefix: "§bCurrent Command:"

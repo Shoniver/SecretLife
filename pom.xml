@@ -6,7 +6,7 @@
 
     <groupId>org.shonivergames.secretlife</groupId>
     <artifactId>secret-life</artifactId>
-    <version>1.9.1</version>
+    <version>1.9.2</version>
     <packaging>jar</packaging>
 
     <name>Secret Life</name>

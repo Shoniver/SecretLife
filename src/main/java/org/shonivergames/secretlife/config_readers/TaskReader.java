@@ -22,12 +22,15 @@ public class TaskReader {
 
         String taskTitleFormat = SettingReader.getString(configPath, "title_format");
         String taskTitle = Util.getFormattedString(taskTitleFormat, player.getName());
-
-        String taskContentFormat = SettingReader.getString(configPath, "content_format");
         String originalTaskContent = getRandomContent(configPath, player, difficulty);
-        String taskContent = Util.getFormattedString(taskContentFormat, difficulty.toUpperCase(), originalTaskContent);
 
         Main.playerData.addToTaskHistory(player, originalTaskContent);
+
+        String taskContentFormat = SettingReader.getString(configPath, "content_format");
+        // Fill in a random player
+        String taskContent = Util.getFormattedString(originalTaskContent, Util.getRandomOtherPlayer(player).getName());
+        // Format the content according to the "content_format" config value
+        taskContent = Util.getFormattedString(taskContentFormat, difficulty.toUpperCase(), taskContent);
 
         ItemStack book = new ItemStack(Material.WRITTEN_BOOK);
         BookMeta meta = (BookMeta) book.getItemMeta();
@@ -76,7 +79,6 @@ public class TaskReader {
 
         if(allTasks.isEmpty())
             return null;
-        String draw = allTasks.get(rnd.nextInt(allTasks.size()));
-        return Util.getFormattedString(draw, Util.getRandomOtherPlayer(player).getName());
+        return allTasks.get(rnd.nextInt(allTasks.size()));
     }
 }

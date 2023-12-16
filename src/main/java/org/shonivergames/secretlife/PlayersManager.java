@@ -23,6 +23,6 @@ public class PlayersManager {
         if(!SettingReader.getBool(baseConfigPath, "teleport_to_platform_on_first_join"))
             return;
 
-        player.teleport(LocationReader.get(baseConfigPath, "first_join_platform"));
+        player.teleport(LocationReader.get(baseConfigPath, "starting_platform"));
     }
 }

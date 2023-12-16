@@ -1,11 +1,12 @@
 basic_settings:
   admin_name: "§bThe Secret Keeper"
+  config_version: "1.0"
 
 players_manager:
   settings:
-    teleport_to_platform_on_first_join: true
+    teleport_to_platform_on_first_join: false
   locations:
-    first_join_platform:
+    starting_platform:
       world: "world"
       x: -1032.5
       y: 100
@@ -46,7 +47,7 @@ health_manager:
       format: "[§c❤<value1>§f] <value2>"
     reward_max: 60
     health_on_respawn: 60
-    true_max: 80
+    overflow_max: 80
   title_messages:
     given:
       title: "§a+<value2> hearts"
@@ -323,8 +324,8 @@ tasks_manager:
       - "Convince another player you have the same task as them. If they don't believe you, try again with another player. You pass the task if they say they think you have the same task, or something of that nature."
       - "The FIRST mob (ANY mob, even if it's hostile!) you look at after closing this book is now your pet for this session. You must properly take care of it by feeding it and taking it for walks. You fail if the pet dies."
       - "Ask as many players as possible what you could do for them in exchange for diamonds (they set the amount and the task). You can not negotiate - whatever amount they offer is what you get. You pass the task if you get at LEAST 10 diamonds by the end of the session."
-      - "You are now a Genie! Announce in chat that you are a Genie and can grant infinite wishes - but only one wish per player. You pass if you grant at least 3 wishes successfully by the end of the session."
-      - "You are a BAD Genie. Announce in chat that you are a Genie and can grant infinite wishes - but only one wish per player. When granting a wish, you must get SOME of it wrong - how wrong is up to you. You pass if you 'grant' at least 3 wishes by the end of the session."
+      - "You are now a Genie! Announce in chat that you are a Genie and can grant infinite wishes - but only one wish per player. You pass if you grant at least 3 wishes successfully by the end of the session. You are also immune to yellow guesses for this session."
+      - "You are a BAD Genie. Announce in chat that you are a Genie and can grant infinite wishes - but only one wish per player. When granting a wish, you must get SOME of it wrong - how wrong is up to you. ---><p>You pass if you 'grant' at least 3 wishes by the end of the session. You are also immune to yellow guesses for this session."
       - "Dig a secret underground tunnel from your base to the base of a player who you are NOT currently teaming with. Try to surprise them by popping out of nowhere in their own base! You pass as long as it's completed BEFORE they find it and call you out for it."
     hard:
       - "Come up with a nickname for another player and convince as many other players as you can to use it. You pass the task if at least 2 other players say it by the end of the session."
@@ -351,7 +352,6 @@ tasks_manager:
         - "Bait a yellow into believing your task is 'Sing everything you say'. You pass if a yellow guesses singing is your actual task."
         - "Make up a fake task and get a yellow player to believe it is the task of one of the other players. You only succeed if the yellow believes you and guesses wrongly. If they don't believe you, you can try again with another yellow."
         - "Get a yellow to accuse you of a task. Whatever they tell you is now your REAL TASK for the rest of the session. You can show them your secret once they give you your new task. You are also immune to yellow guesses for this session."
-        - "Bait a yellow into believing that you and one other player share the same task. You can share this information with the other player, but once you do, you can not pick another player for the task. You pass if a yellow says they think you both have the same task."
         - "You are now a FAKE spy. Choose a yellow player and make them believe your task is to spy for them - without giving them ANY real info. You pass if they either guess you're their REAL SPY, or if you get through the whole session without being called out for fake info."
         - "For this entire session, you must do the OPPOSITE of what green names tell you to do, but you must also do anything yellows tell you to do - exactly as they said it!"
       hard:
@@ -362,6 +362,7 @@ tasks_manager:
         - "You are now afraid of doors. Whenever you enter someone's base, you can NOT enter through a door, no matter what. To pass the task, you must visit every player's base at least once during this session, while they're inside."
         - "You are a weeping angel. If someone is looking directly at you, you must not walk, run or sneak. You can still turn, but not move for the whole session."
         - "You are now mute. You can not say a single word for the rest of the session - if you do, you fail. You are also not allowed to type in chat. Your only way to communicate is by placing a SIGN and writing a message in it."
+        - "Bait a yellow into believing that you and one other player share the same task. You can share this information with the other player, but once you do, you can not pick another player for the task. You pass if a yellow says they think you both have the same task."
     no_yellows:
       normal:
         - "Use a pig as your main mode of transport for 30 consecutive minutes of the session. If you get off of it, the timer resets."

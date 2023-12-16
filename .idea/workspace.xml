@@ -5,22 +5,33 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b469b66d-051b-4bba-8f48-e4cb4617d351" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/shonivergames/secretlife/config_readers/TaskReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/shonivergames/secretlife/config_readers/TaskReader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/shonivergames/secretlife/HealthManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/shonivergames/secretlife/HealthManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/shonivergames/secretlife/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/shonivergames/secretlife/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/shonivergames/secretlife/PlayerDataManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/shonivergames/secretlife/PlayerDataManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/shonivergames/secretlife/PlayersManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/shonivergames/secretlife/PlayersManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/shonivergames/secretlife/admincommands/ReloadConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/shonivergames/secretlife/admincommands/ReloadConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/shonivergames/secretlife/config_readers/SettingReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/shonivergames/secretlife/config_readers/SettingReader.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/config.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/config.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/config.yml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/config.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/plugin.yml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/plugin.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-archiver/pom.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/original-secret-life-1.9.4.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/secret-life-1.9.4-shaded.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/secret-life-1.9.4.jar" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -32,6 +43,9 @@
   &quot;associatedIndex&quot;: 8
 }</component>
   <component name="ProjectId" id="2ZUhf1ZMTILGMYgwZmD3xvynOoI" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />

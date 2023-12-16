@@ -3,10 +3,7 @@ package org.shonivergames.secretlife;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
-import org.shonivergames.secretlife.config_readers.SettingReader;
 
-import javax.tools.JavaFileManager;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;

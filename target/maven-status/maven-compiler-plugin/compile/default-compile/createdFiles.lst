@@ -32,6 +32,7 @@ org\shonivergames\secretlife\TasksManager$2.class
 org\shonivergames\secretlife\config_readers\TitleReader.class
 org\shonivergames\secretlife\events\PlayerJoinEvent.class
 org\shonivergames\secretlife\admincommands\StartNewSeason.class
+org\shonivergames\secretlife\ConfigController.class
 org\shonivergames\secretlife\admincommands\ResetPlayerTask.class
 org\shonivergames\secretlife\PlayersManager.class
 org\shonivergames\secretlife\admincommands\Menu.class

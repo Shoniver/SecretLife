@@ -22,7 +22,7 @@ public final class Main extends JavaPlugin {
         logger = getLogger();
         server = getServer();
 
-        loadConfig();
+        ConfigController.loadConfig();
 
         playerData = new PlayerDataManager();
 
@@ -52,11 +52,5 @@ public final class Main extends JavaPlugin {
         LivesManager.deleteTeams();
 
         logger.info("SecretLife has been disabled!");
-    }
-
-    public static void loadConfig(){
-        instance.saveDefaultConfig();
-        instance.reloadConfig();
-        configFile = instance.getConfig();
     }
 }

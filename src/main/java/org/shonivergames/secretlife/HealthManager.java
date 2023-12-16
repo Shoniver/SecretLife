@@ -80,7 +80,7 @@ public class HealthManager {
 
     private static int getCorrectMaxHealth(boolean overflow){
         if(overflow)
-            return SettingReader.getInt(baseConfigPath, "true_max");
+            return SettingReader.getInt(baseConfigPath, "overflow_max");
         else
             return SettingReader.getInt(baseConfigPath, "reward_max");
     }

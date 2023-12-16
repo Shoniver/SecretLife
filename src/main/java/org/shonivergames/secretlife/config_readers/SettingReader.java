@@ -8,6 +8,9 @@ public class SettingReader {
     public static String getAdminName(){
         return Main.configFile.getString("basic_settings.admin_name");
     }
+    public static String getConfigVersion(){
+        return Main.configFile.getString("basic_settings.config_version");
+    }
 
     public static String getString(String configTitle, String configVar){
         return Main.configFile.getString(configTitle + configName + configVar);

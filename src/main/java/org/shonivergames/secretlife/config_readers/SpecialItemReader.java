@@ -16,7 +16,9 @@ public class SpecialItemReader {
     public static ItemStack get(String configTitle, String configVar){
         String configPath = configTitle + configName + configVar;
 
-        ItemStack item = new ItemStack(Material.getMaterial(Main.configFile.getString(configPath + ".type")));
+        if(Main.configFile.isBoolean(configPath))
+            return null;
+        ItemStack item = new ItemStack(Material.matchMaterial(Main.configFile.getString(configPath + ".type")));
         ItemMeta meta = item.getItemMeta();
         meta.setDisplayName(Main.configFile.getString(configPath + ".name"));
         meta.setLore(Util.safeGetStringListFromConfig(configPath + ".lore"));

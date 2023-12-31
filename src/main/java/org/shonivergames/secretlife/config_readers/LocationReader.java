@@ -24,13 +24,11 @@ public class LocationReader {
                 Util.getRandomDoubleInRange(loc1.getZ(), loc2.getZ()));
     }
 
-    public static boolean isAtLocation(String configTitle, String configVar, Location locToCheck, boolean checkInt){
+    public static boolean isAtLocation(String configTitle, String configVar, Location locToCheck){
         Location loc = get(configTitle, configVar);
         if(loc.getWorld() != locToCheck.getWorld())
             return false;
-        if(checkInt)
-            return (int)loc.getX() == (int)locToCheck.getX() && (int)loc.getY() == (int)locToCheck.getY() && (int)loc.getZ() == (int)locToCheck.getZ();
-        else
-            return loc.getX() == locToCheck.getX() && loc.getY() == locToCheck.getY() && loc.getZ() == locToCheck.getZ();
+
+        return (int)Math.ceil(loc.getX()) == (int)Math.ceil(locToCheck.getX()) && (int)Math.ceil(loc.getY()) == (int)Math.ceil(locToCheck.getY()) && (int)Math.ceil(loc.getZ()) == (int)Math.ceil(locToCheck.getZ());
     }
 }

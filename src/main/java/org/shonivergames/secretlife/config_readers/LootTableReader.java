@@ -31,7 +31,7 @@ public class LootTableReader {
             meta.addStoredEnchant(enchantment, getRandomEnchantLevel(enchantment), false);
             item.setItemMeta(meta);
         }
-        else if(mat == Material.SPLASH_POTION){
+        else if(mat == Material.SPLASH_POTION || mat == Material.POTION || mat == Material.LINGERING_POTION){
             PotionMeta meta = (PotionMeta) item.getItemMeta();
             PotionType potion = getRandomPotion(configPath);
             meta.setBasePotionType(potion);
@@ -51,7 +51,7 @@ public class LootTableReader {
             draw = allOptions.get(rnd.nextInt(allOptions.size()));
         }
 
-        return Material.getMaterial(draw);
+        return Material.matchMaterial(draw);
     }
 
     private static Enchantment getRandomEnchant(String configPath){

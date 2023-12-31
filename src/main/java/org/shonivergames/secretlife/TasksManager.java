@@ -24,6 +24,12 @@ public class TasksManager {
         Main.playerData.endTaskCooldown(player);
     }
 
+    public static void checkConstantTaskStatus(Player player){
+        // If the player should have a task now that they've respawned and don't currently have one, give them a new one.
+        if(shouldGetConstantTasks(player) && !Main.playerData.hasTask(player))
+            TasksManager.giveTaskAnimated(player, false);
+    }
+
     public static void giveTaskAnimated(Player player, boolean isHardTask){
         if(isHardTask){
             concludeTask(player, "reroll_task");

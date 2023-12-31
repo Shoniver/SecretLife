@@ -14,18 +14,18 @@ public class InteractionsManager {
     private static final String baseConfigPath = "interactions_manger";
 
     public static void checkInteraction(PlayerInteractEvent event){
-        Material correctBlockType = Material.getMaterial(SettingReader.getString(baseConfigPath, "block_type"));
+        Material correctBlockType = Material.matchMaterial(SettingReader.getString(baseConfigPath, "block_type"));
         Block block = event.getClickedBlock();
 
         if(block.getType() == correctBlockType){
             Player player = event.getPlayer();
 
             Location blockLocation = event.getClickedBlock().getLocation();
-            if(LocationReader.isAtLocation(baseConfigPath, "pass_task", blockLocation, true))
+            if(LocationReader.isAtLocation(baseConfigPath, "pass_task", blockLocation))
                 passTaskInteraction(player);
-            else if(LocationReader.isAtLocation(baseConfigPath, "fail_task", blockLocation, true))
+            else if(LocationReader.isAtLocation(baseConfigPath, "fail_task", blockLocation))
                 failTaskInteraction(player);
-            else if(LocationReader.isAtLocation(baseConfigPath, "reroll_task", blockLocation, true))
+            else if(LocationReader.isAtLocation(baseConfigPath, "reroll_task", blockLocation))
                 rerollTaskInteraction(player);
         }
     }

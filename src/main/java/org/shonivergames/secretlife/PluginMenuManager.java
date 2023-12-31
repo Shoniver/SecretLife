@@ -20,9 +20,11 @@ import java.util.List;
 
 public class PluginMenuManager {
     private static final String baseConfigPath = "plugin_menu_manager";
-    private static final int menuSize = 5 * 9;
+    private static int menuSize;
 
     public static void showMenu(Player player){
+        menuSize = 9 * SettingReader.getInt(baseConfigPath, "rows_count");
+
         Inventory inv = createBasicInv(player, "main");
         for (int i = 13; i < menuSize - 9; i+=9)
             inv.setItem(i, SpecialItemReader.get(baseConfigPath, "separator"));
@@ -94,7 +96,7 @@ public class PluginMenuManager {
                 Material itemType = item.getType();
 
                 if (invView.getTitle().equals(playerSelectMenuName)) {
-                    if(itemType == Material.getMaterial(SettingReader.getString(baseConfigPath, "change_page_buttons_material"))){
+                    if(itemType == Material.matchMaterial(SettingReader.getString(baseConfigPath, "change_page_buttons_material"))){
                         if (slot == menuSize - 9)
                             showPrevOnlinePlayersPage(inv);
                         else if (slot == menuSize - 1)

@@ -9,7 +9,7 @@ public class ConfigController {
         Main.instance.saveDefaultConfig();
         Main.instance.reloadConfig();
         Main.configFile = Main.instance.getConfig();
-        if(!SettingReader.getConfigVersion().equals("1.0")){
+        if(!SettingReader.getConfigVersion().equals("1.0.1")){
             File file = new File(Main.instance.getDataFolder(), "config.yml");
             File config_old = new File(Main.instance.getDataFolder(), "config_old.yml");
             file.renameTo(config_old);

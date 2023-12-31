@@ -1,6 +1,6 @@
 basic_settings:
   admin_name: "§bThe Secret Keeper"
-  config_version: "1.0"
+  config_version: "1.0.1"
 
 players_manager:
   settings:
@@ -32,7 +32,7 @@ admin_commands_manager:
 
 lives_manager:
   settings:
-    start_amount: 4
+    start_amount: 3
   messages:
     intro:
       2: "§eYou are on your second life.\nYou have the power to guess other players' tasks -\nand if you manage to guess correctly, they instantly fail!\n(you can only guess ONCE per player per session.)"
@@ -61,6 +61,81 @@ health_manager:
       fadeIn: 10
       stay: 20
       fadeOut: 10
+
+interactions_manger:
+  settings:
+    block_type: "bell"
+  sound_effects:
+    pass_task:
+      type: "block.bell.resonate"
+      volume: 1
+      pitch: 1
+    reroll_task:
+      type: ""
+      volume: 1
+      pitch: 1
+    fail_task:
+      type: "block.conduit.deactivate"
+      volume: 1
+      pitch: 2
+  locations:
+    pass_task:
+      world: "world"
+      x: -1026
+      y: 67
+      z: 1987
+    reroll_task:
+      world: "world"
+      x: -1033
+      y: 67
+      z: 1998
+    fail_task:
+      world: "world"
+      x: -1040
+      y: 67
+      z: 1987
+  messages:
+    no_task_in_inv: "§cYour task is not in your inventory!"
+    has_no_task: "§cYou don't have an active task!"
+    already_has_hard: "§cYou already have a hard task!"
+    red_cant_reroll: "§cRed players are not allowed to reroll for a hard task!"
+    no_tasks_available: "§cSeems like there are no tasks available for you at the moment.\nPlease contact the server admin for help!"
+    on_task_cooldown: "§cPlease wait!\nYou are already in the process of receiving a task!"
+
+kill_manager:
+  settings:
+    can_non_reds_kill: false
+    health_reward: 20
+  title_messages:
+    non_red_kills_disabled:
+      title: "§c...Why did you do that?"
+      sub: "§cYou monster..."
+      fadeIn: 10
+      stay: 60
+      fadeOut: 10
+
+gift_command:
+  settings:
+    health_given: 2
+    can_go_above_max: true
+  sound_effects:
+    give:
+      type: "block.enchantment_table.use"
+      volume: 1
+      pitch: 1.5
+    receive:
+      type: "block.enchantment_table.use"
+      volume: 1
+      pitch: 1.5
+  messages:
+    success: "§bCommand executed successfully."
+    errors:
+      must_be_player: "§cThis command can only be ran by a player."
+      invalid_cmd_structure: "§cCorrect usage - /gift [player]"
+      unavailable: "§cYou have already given your gift away. Wait for next session!"
+      no_player: "§cThere is no online player by the name <value1>."
+      self: "§cYou can not gift to yourself."
+      will_go_above_max: "§cYour gift will get <value1> above max health!"
 
 tasks_manager:
   settings:
@@ -246,7 +321,7 @@ tasks_manager:
       - "Convince someone to burn down your house without getting called out for it. If they do call you out, you must find a different person to do the deed."
       - "Be best friends with <value1> for as long as you can and help them with everything during this session without getting called out for it. To pass the task, you must manage to be their best friend for at LEAST 15 minutes before getting called out."
       - "Try to NATURALLY use as many of the words 'bet', 'poggers', 'dab', 'yeet', 'drip', 'slay', 'vibing', 'valid', 'rizz' as possible during this session. To pass, you must manage to say at least 3 different words (total) without being questioned."
-      - "Find any player over 25 hearts, and 'accidentally' take 5 off of them. The method is your choice. You fail if they ask if it is your task."
+      - "Find any player over 25 hearts, and 'accidentally' take 2 off of them. The method is your choice. You fail if they ask if it is your task."
       - "Re-bind your W key to A, S->W, D->S, and A->D, for 30 consecutive minutes of the session. If someone points out your weird movements, restart the timer. You must interact with other players during this time."
       - "You are a 'yes man' for the entire session. You can not deny any request or question from another player. You must always say yes / agree. If you refuse to do so, you fail."
       - "Request an item 3 times in one conversation but never pick it up. You must not be called out for it. If you do, you have to try again with another player."
@@ -261,7 +336,6 @@ tasks_manager:
       - "Create a dangerous mini-game and convince as many players as possible to participate in it. You pass the task if at least 1 player takes ANY damage while playing your mini-game by the end of the session."
       - "Connect your base to EVERY OTHER PLAYER's base (can be with paths, underground tunnels, whatever - up to you)."
       - "You are now terrified of 1 on 1 conversations. If you are in a conversation with just 1 person, you must flee in active terror. If you forget this, you fail."
-      - "Figure out <value1>'s task and complete it. You can show them this task once you think you have done it and get them to confirm success. You only pass if they confirm you've completed their task properly. If they deny it, you fail."
       - "Be involved in as many conversations <value1> has as possible this session. During these conversations, you must mimic all of <value1>'s movements. You pass if you manage to get through at least 3 conversations by the end of the session."
       - "Leave this 'secret task' book in as many different bases as possible and get other players to find them and call you out on it. You pass the task if at least 3 different players find your task by the end of the session."
       - "Fully convince someone their mic is off when it's not. You have to get them to log off in an attempt to fix the issue to pass the task."
@@ -312,7 +386,6 @@ tasks_manager:
       - "Go to as many bases as you can and break a part of their wall. Then, convince the owner of the base it's better to place a door there instead. You pass the task if you get at least one player to place a door by the end of the session."
       - "<value1> doesn't exist! For this entire session, you must pretend like you've never met or heard of <value1>, at all. If they speak to you, act like you're hearing a ghost. You fail if you forget this."
       - "For this session you may ONLY talk to <value1>. NO ONE ELSE! If there's another person in the conversation, you can not talk to them directly in any way. You CAN tell <value1> to pass a message for you, though. If you forget this, you fail."
-      - "Dye all sheep in ALL of the visible sheep farms on the server in one color (up to you which one, but can NOT be white!) without getting caught. If you do, you fail."
       - "Puzzled: For this entire session, you are perpetually confused. Act like you have no idea what's happening, why are things going the way they are, what goes around you - like a clueless child."
       - "You are INFECTED. For this session, your goal is to infect every other player on the server - infect other players by punching them. Every infected player on the server must wear Iron Boots for the rest of the session, to indicate that they are infected. ---><p>Other players may spread the infection as well.\nYou pass the task if EVERY PLAYER ON THE SERVER has been infected by the end of the session. You are also immune to yellow guesses for this session."
       - "Be super specific For the whole session. Say everything in extreme detail, no matter how obvious and simple it is."
@@ -327,6 +400,10 @@ tasks_manager:
       - "You are now a Genie! Announce in chat that you are a Genie and can grant infinite wishes - but only one wish per player. You pass if you grant at least 3 wishes successfully by the end of the session. You are also immune to yellow guesses for this session."
       - "You are a BAD Genie. Announce in chat that you are a Genie and can grant infinite wishes - but only one wish per player. When granting a wish, you must get SOME of it wrong - how wrong is up to you. ---><p>You pass if you 'grant' at least 3 wishes by the end of the session. You are also immune to yellow guesses for this session."
       - "Dig a secret underground tunnel from your base to the base of a player who you are NOT currently teaming with. Try to surprise them by popping out of nowhere in their own base! You pass as long as it's completed BEFORE they find it and call you out for it."
+      - "Be mean towards anyone who comes in contact with you for the whole session."
+      - "Get a player of your choice to quote lines and act out a scene with you. It can be from anything both of you like, from books to movies."
+      - "Get as many players on the server to say the name of a famous brand of your choice (at least once each). You pass if you get at least 3 players to say it."
+      - "During this session, you must jinx (say something at the same time the person you're talking to says it) as many people as you can. To pass the task, you must successfully jinx at least 2 other players, once each."
     hard:
       - "Come up with a nickname for another player and convince as many other players as you can to use it. You pass the task if at least 2 other players say it by the end of the session."
       - "Figure out another player's secret task and prevent them from completing it in any way possible (they MUST fail for you to pass!)."
@@ -347,6 +424,11 @@ tasks_manager:
       - "For the rest of the session, you are NOT ALLOWED to enter your base. At all. If you do, you fail."
       - "You can only communicate with other players with ONE-SYLLABLE words for the rest of the session. If you forget this, you fail."
       - "Don't stop moving for the rest of the session. Max amount of time you can stand still is 5 SECONDS. If you stand still more than that, you fail. Task starts as soon as you close this book."
+      - "Dye all sheep in ALL of the visible sheep farms on the server in one color (up to you which one, but can NOT be white!) without getting caught. If you do, you fail."
+      - "For the rest of the session, you are NOT ALLOWED to express any emotion. At all. If you do, you fail. You can still talk, but there must be no anger, excitement, or any other emotion in your voice."
+      - "You are now mute. You can not say a single word for the rest of the session - if you do, you fail. You are also not allowed to type in chat. Your only way to communicate is by placing a SIGN and writing a message in it."
+      - "You are a weeping angel. If someone is looking directly at you, you must not walk, run or sneak. You can still turn, but not move for the whole session."
+      - "For the rest of the session, you must only talk in Yoda Speak (for example, instead of saying 'I want to fight' you need to say 'to fight, I want'). If you forget this, you fail."
     has_yellows:
       normal:
         - "Bait a yellow into believing your task is 'Sing everything you say'. You pass if a yellow guesses singing is your actual task."
@@ -360,8 +442,6 @@ tasks_manager:
         - "You have an imaginary friend now. Talk to them as if they follow you around the whole session and are part of conversations. You must interact with other players during this time."
         - "Talk in a foreign accent for the rest of the session. If you accidentally change the accent through the session, you fail."
         - "You are now afraid of doors. Whenever you enter someone's base, you can NOT enter through a door, no matter what. To pass the task, you must visit every player's base at least once during this session, while they're inside."
-        - "You are a weeping angel. If someone is looking directly at you, you must not walk, run or sneak. You can still turn, but not move for the whole session."
-        - "You are now mute. You can not say a single word for the rest of the session - if you do, you fail. You are also not allowed to type in chat. Your only way to communicate is by placing a SIGN and writing a message in it."
         - "Bait a yellow into believing that you and one other player share the same task. You can share this information with the other player, but once you do, you can not pick another player for the task. You pass if a yellow says they think you both have the same task."
     no_yellows:
       normal:
@@ -370,8 +450,6 @@ tasks_manager:
         - "Talk in a foreign accent for the entire session. If you accidentally change the accent through the session, you fail."
         - "You are now afraid of doors. Whenever you enter someone's base, you can NOT enter through a door, no matter what. To pass the task, you must visit every player's base at least once during this session, while they're inside."
         - "Send <value1> on a wild goose chase that ends back in their own base."
-        - "You are a weeping angel. If someone is looking directly at you, you must not walk, run or sneak. You can still turn, but not move for the whole session."
-        - "You are now mute. You can not say a single word for the entire session - if you do, you fail. You are also not allowed to type in chat. Your only way to communicate is by placing a SIGN and writing a message in it."
       hard:
         - "Stalk <value1> for the rest of the session. You have to make sure they KNOW you're there. You are not allowed to say a single word to them the entire time."
     has_reds:
@@ -388,7 +466,7 @@ tasks_manager:
       normal:
         - "Dig a 3x3 hole all the way down to bedrock and get a non-red player (if there are any - otherwise, any player will do) to fall into it via any means necessary - but you can NOT deal damage to them before they fall in (can't punch them in, for example!)."
         - "Create a damaging trap in a a non-red player's base (if there are any - otherwise, any player will do). You pass the task when your trap is unintentionally triggered. If it's discovered, try again in a different base."
-        - "Go invisible and hit at least 5 different players with a sword within 1 minute without being hit back."
+        - "Go invisible and hit at least 3 different players with a sword within 1 minute."
         - "Hit a non-red player (if there are any - otherwise, any player will do) with a sword until they block you with a shield. If you kill them you also succeed."
         - "Find a non-red player (if there are any - otherwise, any player will do) with at least 20 hearts. Take approximately 10 of them in any way you see fit. If all players have less than 20 hearts, damage any player for 5 hearts instead."
         - "Cause any amount of damage to a non-red player (if there are any - otherwise, any player will do) using a falling anvil."
@@ -467,72 +545,72 @@ tasks_manager:
         - "LONG_SWIFTNESS"
         - "STRONG_SWIFTNESS"
       loot:
-        - "SPYGLASS"
-        - "BUNDLE"
-        - "NAME_TAG"
-        - "IRON_BLOCK"
-        - "GOLD_BLOCK"
-        - "EMERALD_BLOCK"
-        - "COPPER_BLOCK"
-        - "DIAMOND"
-        - "ANCIENT_DEBRIS"
-        - "GOLDEN_APPLE"
-        - "TNT"
-        - "PUFFERFISH_BUCKET"
-        - "AXOLOTL_BUCKET"
-        - "INFESTED_STONE"
-        - "SCULK_SENSOR"
-        - "SCULK_SHRIEKER"
-        - "ENDER_PEARL"
-        - "SNIFFER_EGG"
-        - "CHORUS_FRUIT"
-        - "SADDLE"
-        - "DIAMOND_HORSE_ARMOR"
-        - "SPONGE"
-        - "SUGAR_CANE"
+        - "spyglass"
+        - "bundle"
+        - "name_tag"
+        - "iron_block"
+        - "gold_block"
+        - "emerald_block"
+        - "copper_block"
+        - "diamond"
+        - "ancient_debris"
+        - "golden_apple"
+        - "tnt"
+        - "pufferfish_bucket"
+        - "axolotl_bucket"
+        - "infested_stone"
+        - "sculk_sensor"
+        - "sculk_shrieker"
+        - "ender_pearl"
+        - "sniffer_egg"
+        - "chorus_fruit"
+        - "saddle"
+        - "diamond_horse_armor"
+        - "sponge"
+        - "sugar_cane"
         - "<sub>egg"
         - "<sub>armor_trim"
-        - "ENCHANTED_BOOK"
-        - "SPLASH_POTION"
+        - "enchanted_book"
+        - "splash_potion"
       egg:
-        - "PANDA_SPAWN_EGG"
-        - "POLAR_BEAR_SPAWN_EGG"
-        - "PARROT_SPAWN_EGG"
-        - "WOLF_SPAWN_EGG"
-        - "CAT_SPAWN_EGG"
-        - "FOX_SPAWN_EGG"
-        - "ALLAY_SPAWN_EGG"
-        - "CHICKEN_SPAWN_EGG"
-        - "PIG_SPAWN_EGG"
-        - "COW_SPAWN_EGG"
-        - "SHEEP_SPAWN_EGG"
-        - "HORSE_SPAWN_EGG"
-        - "LLAMA_SPAWN_EGG"
-        - "DONKEY_SPAWN_EGG"
-        - "SKELETON_HORSE_SPAWN_EGG"
-        - "ZOMBIE_HORSE_SPAWN_EGG"
-        - "CAMEL_SPAWN_EGG"
-        - "ZOMBIE_SPAWN_EGG"
-        - "SLIME_SPAWN_EGG"
-        - "SPIDER_SPAWN_EGG"
-        - "SKELETON_SPAWN_EGG"
+        - "panda_spawn_egg"
+        - "polar_bear_spawn_egg"
+        - "parrot_spawn_egg"
+        - "wolf_spawn_egg"
+        - "cat_spawn_egg"
+        - "fox_spawn_egg"
+        - "allay_spawn_egg"
+        - "chicken_spawn_egg"
+        - "pig_spawn_egg"
+        - "cow_spawn_egg"
+        - "sheep_spawn_egg"
+        - "horse_spawn_egg"
+        - "llama_spawn_egg"
+        - "donkey_spawn_egg"
+        - "skeleton_horse_spawn_egg"
+        - "zombie_horse_spawn_egg"
+        - "camel_spawn_egg"
+        - "zombie_spawn_egg"
+        - "slime_spawn_egg"
+        - "spider_spawn_egg"
+        - "skeleton_spawn_egg"
       armor_trim:
-        - "SENTRY_ARMOR_TRIM_SMITHING_TEMPLATE"
-        - "VEX_ARMOR_TRIM_SMITHING_TEMPLATE"
-        - "WILD_ARMOR_TRIM_SMITHING_TEMPLATE"
-        - "COAST_ARMOR_TRIM_SMITHING_TEMPLATE"
-        - "DUNE_ARMOR_TRIM_SMITHING_TEMPLATE"
-        - "WAYFINDER_ARMOR_TRIM_SMITHING_TEMPLATE"
-        - "RAISER_ARMOR_TRIM_SMITHING_TEMPLATE"
-        - "SHAPER_ARMOR_TRIM_SMITHING_TEMPLATE"
-        - "HOST_ARMOR_TRIM_SMITHING_TEMPLATE"
-        - "WARD_ARMOR_TRIM_SMITHING_TEMPLATE"
-        - "SILENCE_ARMOR_TRIM_SMITHING_TEMPLATE"
-        - "TIDE_ARMOR_TRIM_SMITHING_TEMPLATE"
-        - "SNOUT_ARMOR_TRIM_SMITHING_TEMPLATE"
-        - "RIB_ARMOR_TRIM_SMITHING_TEMPLATE"
-        - "EYE_ARMOR_TRIM_SMITHING_TEMPLATE"
-        - "SPIRE_ARMOR_TRIM_SMITHING_TEMPLATE"
+        - "sentry_armor_trim_smithing_template"
+        - "vex_armor_trim_smithing_template"
+        - "wild_armor_trim_smithing_template"
+        - "coast_armor_trim_smithing_template"
+        - "dune_armor_trim_smithing_template"
+        - "wayfinder_armor_trim_smithing_template"
+        - "raiser_armor_trim_smithing_template"
+        - "shaper_armor_trim_smithing_template"
+        - "host_armor_trim_smithing_template"
+        - "ward_armor_trim_smithing_template"
+        - "silence_armor_trim_smithing_template"
+        - "tide_armor_trim_smithing_template"
+        - "snout_armor_trim_smithing_template"
+        - "rib_armor_trim_smithing_template"
+        - "eye_armor_trim_smithing_template"
+        - "spire_armor_trim_smithing_template"
     hard:
       enchanted_book:
         - "aqua_affinity"
@@ -601,95 +679,95 @@ tasks_manager:
         - "WEAKNESS"
         - "LONG_WEAKNESS"
       loot:
-        - "SPYGLASS"
-        - "BUNDLE"
-        - "NAME_TAG"
-        - "IRON_BLOCK"
-        - "GOLD_BLOCK"
-        - "EMERALD_BLOCK"
-        - "COPPER_BLOCK"
-        - "DIAMOND"
-        - "ANCIENT_DEBRIS"
-        - "GOLDEN_APPLE"
-        - "TNT"
-        - "PUFFERFISH_BUCKET"
-        - "AXOLOTL_BUCKET"
-        - "INFESTED_STONE"
-        - "SCULK_SENSOR"
-        - "ENDER_PEARL"
-        - "SNIFFER_EGG"
-        - "CHORUS_FRUIT"
-        - "SADDLE"
-        - "DIAMOND_HORSE_ARMOR"
-        - "SPONGE"
-        - "SUGAR_CANE"
+        - "spyglass"
+        - "bundle"
+        - "name_tag"
+        - "iron_block"
+        - "gold_block"
+        - "emerald_block"
+        - "copper_block"
+        - "diamond"
+        - "ancient_debris"
+        - "golden_apple"
+        - "tnt"
+        - "pufferfish_bucket"
+        - "axolotl_bucket"
+        - "infested_stone"
+        - "sculk_sensor"
+        - "ender_pearl"
+        - "sniffer_egg"
+        - "chorus_fruit"
+        - "saddle"
+        - "diamond_horse_armor"
+        - "sponge"
+        - "sugar_cane"
         - "<sub>armor_trim"
-        - "GOAT_HORN"
-        - "ELYTRA"
-        - "END_CRYSTAL"
-        - "DIAMOND_BLOCK"
-        - "NETHERITE_INGOT"
-        - "NETHERITE_UPGRADE_SMITHING_TEMPLATE"
-        - "NETHER_WART"
-        - "BLAZE_ROD"
-        - "SHULKER_SHELL"
-        - "TRIDENT"
-        - "BOOKSHELF"
-        - "DRAGON_BREATH"
-        - "ENDER_CHEST"
-        - "RESPAWN_ANCHOR"
-        - "NETHER_STAR"
-        - "TURTLE_HELMET"
+        - "goat_horn"
+        - "elytra"
+        - "end_crystal"
+        - "diamond_block"
+        - "netherite_ingot"
+        - "netherite_upgrade_smithing_template"
+        - "nether_wart"
+        - "blaze_rod"
+        - "shulker_shell"
+        - "trident"
+        - "bookshelf"
+        - "dragon_breath"
+        - "ender_chest"
+        - "respawn_anchor"
+        - "nether_star"
+        - "turtle_helmet"
         - "<sub>music_disc"
         - "<sub>egg"
-        - "ENCHANTED_BOOK"
-        - "SPLASH_POTION"
+        - "enchanted_book"
+        - "splash_potion"
       armor_trim:
-        - "SENTRY_ARMOR_TRIM_SMITHING_TEMPLATE"
-        - "VEX_ARMOR_TRIM_SMITHING_TEMPLATE"
-        - "WILD_ARMOR_TRIM_SMITHING_TEMPLATE"
-        - "COAST_ARMOR_TRIM_SMITHING_TEMPLATE"
-        - "DUNE_ARMOR_TRIM_SMITHING_TEMPLATE"
-        - "WAYFINDER_ARMOR_TRIM_SMITHING_TEMPLATE"
-        - "RAISER_ARMOR_TRIM_SMITHING_TEMPLATE"
-        - "SHAPER_ARMOR_TRIM_SMITHING_TEMPLATE"
-        - "HOST_ARMOR_TRIM_SMITHING_TEMPLATE"
-        - "WARD_ARMOR_TRIM_SMITHING_TEMPLATE"
-        - "SILENCE_ARMOR_TRIM_SMITHING_TEMPLATE"
-        - "TIDE_ARMOR_TRIM_SMITHING_TEMPLATE"
-        - "SNOUT_ARMOR_TRIM_SMITHING_TEMPLATE"
-        - "RIB_ARMOR_TRIM_SMITHING_TEMPLATE"
-        - "EYE_ARMOR_TRIM_SMITHING_TEMPLATE"
-        - "SPIRE_ARMOR_TRIM_SMITHING_TEMPLATE"
+        - "sentry_armor_trim_smithing_template"
+        - "vex_armor_trim_smithing_template"
+        - "wild_armor_trim_smithing_template"
+        - "coast_armor_trim_smithing_template"
+        - "dune_armor_trim_smithing_template"
+        - "wayfinder_armor_trim_smithing_template"
+        - "raiser_armor_trim_smithing_template"
+        - "shaper_armor_trim_smithing_template"
+        - "host_armor_trim_smithing_template"
+        - "ward_armor_trim_smithing_template"
+        - "silence_armor_trim_smithing_template"
+        - "tide_armor_trim_smithing_template"
+        - "snout_armor_trim_smithing_template"
+        - "rib_armor_trim_smithing_template"
+        - "eye_armor_trim_smithing_template"
+        - "spire_armor_trim_smithing_template"
       music_disc:
-        - "MUSIC_DISC_CAT"
-        - "MUSIC_DISC_PIGSTEP"
-        - "MUSIC_DISC_OTHERSIDE"
+        - "music_disc_cat"
+        - "music_disc_pigstep"
+        - "music_disc_otherside"
       egg:
-        - "POLAR_BEAR_SPAWN_EGG"
-        - "PARROT_SPAWN_EGG"
-        - "WOLF_SPAWN_EGG"
-        - "CAT_SPAWN_EGG"
-        - "ALLAY_SPAWN_EGG"
-        - "CHICKEN_SPAWN_EGG"
-        - "PIG_SPAWN_EGG"
-        - "COW_SPAWN_EGG"
-        - "SHEEP_SPAWN_EGG"
-        - "HORSE_SPAWN_EGG"
-        - "SKELETON_HORSE_SPAWN_EGG"
-        - "CAMEL_SPAWN_EGG"
-        - "ZOMBIE_SPAWN_EGG"
-        - "SLIME_SPAWN_EGG"
-        - "SPIDER_SPAWN_EGG"
-        - "SKELETON_SPAWN_EGG"
-        - "VILLAGER_SPAWN_EGG"
-        - "WITCH_SPAWN_EGG"
-        - "CAVE_SPIDER_SPAWN_EGG"
-        - "CREEPER_SPAWN_EGG"
-        - "PIGLIN_BRUTE_SPAWN_EGG"
-        - "STRAY_SPAWN_EGG"
-        - "VEX_SPAWN_EGG"
-        - "MOOSHROOM_SPAWN_EGG"
+        - "polar_bear_spawn_egg"
+        - "parrot_spawn_egg"
+        - "wolf_spawn_egg"
+        - "cat_spawn_egg"
+        - "allay_spawn_egg"
+        - "chicken_spawn_egg"
+        - "pig_spawn_egg"
+        - "cow_spawn_egg"
+        - "sheep_spawn_egg"
+        - "horse_spawn_egg"
+        - "skeleton_horse_spawn_egg"
+        - "camel_spawn_egg"
+        - "zombie_spawn_egg"
+        - "slime_spawn_egg"
+        - "spider_spawn_egg"
+        - "skeleton_spawn_egg"
+        - "villager_spawn_egg"
+        - "witch_spawn_egg"
+        - "cave_spider_spawn_egg"
+        - "creeper_spawn_egg"
+        - "piglin_brute_spawn_egg"
+        - "stray_spawn_egg"
+        - "vex_spawn_egg"
+        - "mooshroom_spawn_egg"
     red:
       normal:
         enchanted_book:
@@ -745,125 +823,50 @@ tasks_manager:
           - "LONG_SWIFTNESS"
           - "STRONG_SWIFTNESS"
         loot:
-          - "ELYTRA"
-          - "END_CRYSTAL"
-          - "DIAMOND_BLOCK"
-          - "NETHERITE_INGOT"
-          - "NETHERITE_UPGRADE_SMITHING_TEMPLATE"
-          - "NETHER_WART"
-          - "BLAZE_ROD"
-          - "TRIDENT"
-          - "BOOKSHELF"
-          - "DRAGON_BREATH"
-          - "IRON_BLOCK"
-          - "GOLD_BLOCK"
-          - "EMERALD_BLOCK"
-          - "DIAMOND"
-          - "ANCIENT_DEBRIS"
-          - "GOLDEN_APPLE"
-          - "TNT"
-          - "PUFFERFISH_BUCKET"
-          - "INFESTED_STONE"
-          - "SCULK_SENSOR"
-          - "ENDER_PEARL"
+          - "elytra"
+          - "end_crystal"
+          - "diamond_block"
+          - "netherite_ingot"
+          - "netherite_upgrade_smithing_template"
+          - "nether_wart"
+          - "blaze_rod"
+          - "trident"
+          - "bookshelf"
+          - "dragon_breath"
+          - "iron_block"
+          - "gold_block"
+          - "emerald_block"
+          - "diamond"
+          - "ancient_debris"
+          - "golden_apple"
+          - "tnt"
+          - "pufferfish_bucket"
+          - "infested_stone"
+          - "sculk_sensor"
+          - "ender_pearl"
           - "<sub>egg"
-          - "ENCHANTED_BOOK"
-          - "SPLASH_POTION"
+          - "enchanted_book"
+          - "splash_potion"
         egg:
-          - "VILLAGER_SPAWN_EGG"
-          - "WITCH_SPAWN_EGG"
-          - "CAVE_SPIDER_SPAWN_EGG"
-          - "CREEPER_SPAWN_EGG"
-          - "PIGLIN_BRUTE_SPAWN_EGG"
-          - "STRAY_SPAWN_EGG"
-          - "VEX_SPAWN_EGG"
-          - "MOOSHROOM_SPAWN_EGG"
-          - "WOLF_SPAWN_EGG"
-          - "ZOMBIE_SPAWN_EGG"
-          - "SLIME_SPAWN_EGG"
-          - "SPIDER_SPAWN_EGG"
-          - "SKELETON_SPAWN_EGG"
+          - "villager_spawn_egg"
+          - "witch_spawn_egg"
+          - "cave_spider_spawn_egg"
+          - "creeper_spawn_egg"
+          - "piglin_brute_spawn_egg"
+          - "stray_spawn_egg"
+          - "vex_spawn_egg"
+          - "mooshroom_spawn_egg"
+          - "wolf_spawn_egg"
+          - "zombie_spawn_egg"
+          - "slime_spawn_egg"
+          - "spider_spawn_egg"
+          - "skeleton_spawn_egg"
       hard:
         enchanted_book:
         potion:
         loot:
-          - "ENCHANTED_BOOK"
-          - "SPLASH_POTION"
-
-interactions_manger:
-  settings:
-    block_type: "BELL"
-  sound_effects:
-    pass_task:
-      type: "block.bell.resonate"
-      volume: 1
-      pitch: 1
-    reroll_task:
-      type: ""
-      volume: 1
-      pitch: 1
-    fail_task:
-      type: "block.conduit.deactivate"
-      volume: 1
-      pitch: 2
-  locations:
-    pass_task:
-      world: "world"
-      x: -1026
-      y: 67
-      z: 1987
-    reroll_task:
-      world: "world"
-      x: -1033
-      y: 67
-      z: 1998
-    fail_task:
-      world: "world"
-      x: -1040
-      y: 67
-      z: 1987
-  messages:
-    no_task_in_inv: "§cYour task is not in your inventory!"
-    has_no_task: "§cYou don't have an active task!"
-    already_has_hard: "§cYou already have a hard task!"
-    red_cant_reroll: "§cRed players are not allowed to reroll for a hard task!"
-    no_tasks_available: "§cSeems like there are no tasks available for you at the moment.\nPlease contact the server admin for help!"
-    on_task_cooldown: "§cPlease wait!\nYou are already in the process of receiving a task!"
-
-kill_manager:
-  settings:
-    can_non_reds_kill: false
-    health_reward: 20
-  title_messages:
-    non_red_kills_disabled:
-      title: "§c...Why did you do that?"
-      sub: "§cYou monster..."
-      fadeIn: 10
-      stay: 60
-      fadeOut: 10
-
-gift_command:
-  settings:
-    health_given: 2
-    can_go_above_max: true
-  sound_effects:
-    give:
-      type: "block.enchantment_table.use"
-      volume: 1
-      pitch: 1.5
-    receive:
-      type: "block.enchantment_table.use"
-      volume: 1
-      pitch: 1.5
-  messages:
-    success: "§bCommand executed successfully."
-    errors:
-      must_be_player: "§cThis command can only be ran by a player."
-      invalid_cmd_structure: "§cCorrect usage - /gift [player]"
-      unavailable: "§cYou have already given your gift away. Wait for next session!"
-      no_player: "§cThere is no online player by the name <value1>."
-      self: "§cYou can not gift to yourself."
-      will_go_above_max: "§cYour gift will get <value1> above max health!"
+          - "enchanted_book"
+          - "splash_potion"
 
 plugin_menu_manager:
   settings:
@@ -874,44 +877,45 @@ plugin_menu_manager:
     change_page_buttons_material: "ARROW"
     current_page_prefix: "§bCurrent Page:"
     current_command_prefix: "§bCurrent Command:"
+    rows_count: 5
   special_items:
     cancel:
-      type: "BARRIER"
+      type: "barrier"
       name: "§cCancel"
       lore: false
     frame:
-      type: "LIGHT_BLUE_STAINED_GLASS_PANE"
+      type: "light_blue_stained_glass_pane"
       name: "Frame"
       lore: false
     separator:
-      type: "RED_STAINED_GLASS_PANE"
+      type: "red_stained_glass_pane"
       name: "Separator"
       lore: false
     info:
-      type: "WARPED_SIGN"
+      type: "warped_sign"
       name: "§bInfo"
       lore: false
     next_page:
-      type: "ARROW"
+      type: "arrow"
       name: "§bNext Page"
       lore: false
     prev_page:
-      type: "ARROW"
+      type: "arrow"
       name: "§bPrevious Page"
       lore: false
     proceed:
-      type: "SCULK_SHRIEKER"
+      type: "sculk_shrieker"
       name: "§cProceed"
       lore: false
     go_back:
-      type: "BARRIER"
+      type: "barrier"
       name: "§aNever mind, go back"
       lore:
         - "_Menu"
     commands:
       server:
         begin_session:
-          type: "ENCHANTED_BOOK"
+          type: "enchanted_book"
           name: "§5Begin Session"
           lore:
             - "§aStarts the session,"
@@ -920,7 +924,7 @@ plugin_menu_manager:
             - "§5Command:"
             - "_BeginSession"
         end_session:
-          type: "BELL"
+          type: "bell"
           name: "§5End Session"
           lore:
             - "§cEnds the session,"
@@ -934,15 +938,16 @@ plugin_menu_manager:
             - "§5Command:"
             - "_EndSession"
         reload_config:
-          type: "NETHERITE_PICKAXE"
+          type: "netherite_pickaxe"
           name: "§5Reload Config"
           lore:
             - "§bReloads the config file."
             - ""
             - "§5Command:"
             - "ReloadConfig"
+        space1: false
         start_new_season:
-          type: "SCULK_SHRIEKER"
+          type: "sculk_shrieker"
           name: "§5Start a New Season"
           lore:
             - "§cCompletely resets all of the plugin's data"
@@ -959,7 +964,7 @@ plugin_menu_manager:
             - "StartNewSeason"
       player:
         begin_player_session:
-          type: "ENCHANTED_BOOK"
+          type: "enchanted_book"
           name: "§5Begin Player Session"
           lore:
             - "§aStarts the session for a specific player,"
@@ -970,7 +975,7 @@ plugin_menu_manager:
             - "§5Command:"
             - "BeginPlayerSession"
         add_life:
-          type: "TOTEM_OF_UNDYING"
+          type: "totem_of_undying"
           name: "§5Add Life"
           lore:
             - "§aAdds 1 LIFE to a specific player."
@@ -978,7 +983,7 @@ plugin_menu_manager:
             - "§5Command:"
             - "AddLife"
         remove_life:
-          type: "SKELETON_SKULL"
+          type: "skeleton_skull"
           name: "§5Remove Life"
           lore:
             - "§cRemoves 1 LIFE of a specific player."
@@ -986,7 +991,7 @@ plugin_menu_manager:
             - "§5Command:"
             - "RemoveLife"
         add_murder_hearts:
-          type: "NETHERITE_SWORD"
+          type: "netherite_sword"
           name: "§5Add Murder Hearts"
           lore:
             - "§aSimulates a specific player committing a murder."
@@ -999,7 +1004,7 @@ plugin_menu_manager:
             - "§5Command:"
             - "AddMurderHearts"
         add_heart:
-          type: "HEART_POTTERY_SHERD"
+          type: "heart_pottery_sherd"
           name: "§5Add Heart"
           lore:
             - "§aAdds 1 heart to a specific player."
@@ -1011,7 +1016,7 @@ plugin_menu_manager:
             - "§5Command:"
             - "AddHeart"
         remove_heart:
-          type: "HEARTBREAK_POTTERY_SHERD"
+          type: "heartbreak_pottery_sherd"
           name: "§5Remove Heart"
           lore:
             - "§cRemoves 1 heart of a specific player."
@@ -1024,7 +1029,7 @@ plugin_menu_manager:
             - "§5Command:"
             - "RemoveHeart"
         reset_hearts:
-          type: "RESPAWN_ANCHOR"
+          type: "respawn_anchor"
           name: "§5Reset Hearts"
           lore:
             - "§cResets the amount of hearts a specific player has,"
@@ -1033,7 +1038,7 @@ plugin_menu_manager:
             - "§5Command:"
             - "ResetHearts"
         force_fail_player_task:
-          type: "BELL"
+          type: "bell"
           name: "§5Force Player to Fail Task"
           lore:
             - "§cForces a specific player to fail their current task."
@@ -1041,7 +1046,7 @@ plugin_menu_manager:
             - "§5Command:"
             - "ForceFailPlayerTask"
         reset_player_task:
-          type: "LAVA_BUCKET"
+          type: "lava_bucket"
           name: "§5Reset Player's Current Task"
           lore:
             - "§cResets the plugin's stored data of a specific player's current task."

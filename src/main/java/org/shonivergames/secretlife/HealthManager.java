@@ -16,14 +16,12 @@ public class HealthManager {
     public static void init(){
         setNaturalRegen(false);
         manageTabListDisplay();
+        setMaxHealth();
     }
     public static void handleRegenEvent(org.bukkit.event.entity.EntityRegainHealthEvent event) {
         event.setCancelled(true);
     }
-    public static void handleDamageEvent(org.bukkit.event.entity.EntityDamageEvent event) {
-        Player player = ((Player) event.getEntity());
-        setPlayerMaxHealth(player, player.getHealth() - event.getFinalDamage());
-    }
+
     private static void setPlayerMaxHealth(Player player, double maxHealth){
         player.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(maxHealth);
     }
@@ -143,6 +141,17 @@ public class HealthManager {
                 }
             }
         }.runTaskTimer(Main.instance, 0L, SettingReader.getInt(baseConfigPath, "show_hearts_on_tab.update_rate"));
+    }
+
+    public static void setMaxHealth(){
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                for (Player player : Main.server.getOnlinePlayers()) {
+                    setPlayerMaxHealth(player, player.getHealth());
+                }
+            }
+        }.runTaskTimer(Main.instance, 0L, 1);
     }
 
     private static int getRoundHealth(Player player){

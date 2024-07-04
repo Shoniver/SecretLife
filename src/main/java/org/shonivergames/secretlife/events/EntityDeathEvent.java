@@ -11,7 +11,7 @@ public class EntityDeathEvent implements Listener {
     public void onPlayerDeath(org.bukkit.event.entity.EntityDeathEvent event) {
         LivingEntity entity = event.getEntity();
         Player killer = entity.getKiller();
-        if(entity instanceof Player && killer != null)
+        if(entity instanceof Player && killer != null && killer != entity)
             KillManager.CommitKill(killer);
     }
 }

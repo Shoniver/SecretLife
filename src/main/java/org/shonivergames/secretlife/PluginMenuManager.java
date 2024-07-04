@@ -20,13 +20,11 @@ import java.util.List;
 
 public class PluginMenuManager {
     private static final String baseConfigPath = "plugin_menu_manager";
-    private static int menuSize;
 
     public static void showMenu(Player player){
-        menuSize = 9 * SettingReader.getInt(baseConfigPath, "rows_count");
 
         Inventory inv = createBasicInv(player, "main");
-        for (int i = 13; i < menuSize - 9; i+=9)
+        for (int i = 13; i < getMenuSize() - 9; i+=9)
             inv.setItem(i, SpecialItemReader.get(baseConfigPath, "separator"));
         inv.setItem(2, changeItemLore(SpecialItemReader.get(baseConfigPath, "info"), "§bServer Options"));
         inv.setItem(6, changeItemLore(SpecialItemReader.get(baseConfigPath, "info"), "§bPlayer Options"));
@@ -62,7 +60,7 @@ public class PluginMenuManager {
         inv.setItem(4, changeItemLore(SpecialItemReader.get(baseConfigPath, "info"),
                 SettingReader.getString(baseConfigPath, "current_command_prefix"), command.name));
 
-        int middleRowStart = menuSize / 2 - ((menuSize / 2) % 9);
+        int middleRowStart = getMenuSize() / 2 - ((getMenuSize() / 2) % 9);
         inv.setItem(middleRowStart + 2, changeItemLore(SpecialItemReader.get(baseConfigPath, "proceed"), command.name));
         inv.setItem(middleRowStart + 6, SpecialItemReader.get(baseConfigPath, "go_back"));
     }
@@ -97,9 +95,9 @@ public class PluginMenuManager {
 
                 if (invView.getTitle().equals(playerSelectMenuName)) {
                     if(itemType == Material.matchMaterial(SettingReader.getString(baseConfigPath, "change_page_buttons_material"))){
-                        if (slot == menuSize - 9)
+                        if (slot == getMenuSize() - 9)
                             showPrevOnlinePlayersPage(inv);
-                        else if (slot == menuSize - 1)
+                        else if (slot == getMenuSize() - 1)
                             showNextOnlinePlayersPage(inv);
                     }
                     else if(itemType == Material.PLAYER_HEAD) {
@@ -140,16 +138,16 @@ public class PluginMenuManager {
         inv.clear();
         fillInventoryWithBasicItems(inv);
         // Set up the inventory's buttons
-        inv.setItem(menuSize - 5, changeItemLore(SpecialItemReader.get(baseConfigPath, "info"),
+        inv.setItem(getMenuSize() - 5, changeItemLore(SpecialItemReader.get(baseConfigPath, "info"),
                 SettingReader.getString(baseConfigPath, "current_page_prefix"), String.valueOf(pageIndex)));
         if(pageIndex > 1)
-            inv.setItem(menuSize - 9, SpecialItemReader.get(baseConfigPath, "prev_page"));
-        inv.setItem(menuSize - 1, SpecialItemReader.get(baseConfigPath, "next_page"));
+            inv.setItem(getMenuSize() - 9, SpecialItemReader.get(baseConfigPath, "prev_page"));
+        inv.setItem(getMenuSize() - 1, SpecialItemReader.get(baseConfigPath, "next_page"));
 
         // Fill all available slots with player heads
         List<Player> players = (List<Player>) Main.server.getOnlinePlayers();
-        int firstPlayerOnPageIndex = (pageIndex - 1) * (menuSize - (2 * 9));
-        for (int i = 10, playerIndex = firstPlayerOnPageIndex; playerIndex < players.size() && i < menuSize - 9; playerIndex++) {
+        int firstPlayerOnPageIndex = (pageIndex - 1) * (getMenuSize() - (2 * 9));
+        for (int i = 10, playerIndex = firstPlayerOnPageIndex; playerIndex < players.size() && i < getMenuSize() - 9; playerIndex++) {
             inv.setItem(i, getPlayerHeadItem(players.get(playerIndex)));
             i++;
             if((i + 1) % 9 == 0) // if we're at the last col, which should be frames
@@ -160,7 +158,7 @@ public class PluginMenuManager {
 
     private static Inventory createBasicInv(Player player, String nameConfigVar){
         String invName = SettingReader.getString(baseConfigPath, "menu_names." + nameConfigVar);
-        Inventory inv = Bukkit.createInventory(player, menuSize, invName);
+        Inventory inv = Bukkit.createInventory(player, getMenuSize(), invName);
         fillInventoryWithBasicItems(inv);
         player.openInventory(inv);
         return inv;
@@ -168,8 +166,8 @@ public class PluginMenuManager {
 
     private static void fillInventoryWithBasicItems(Inventory inv){
         inv.setItem(0, SpecialItemReader.get(baseConfigPath, "cancel"));
-        for (int i = 1; i < menuSize; i++) {
-            if(i % 9 == 0 || i < 9 || (i+1) % 9 == 0 || i >= menuSize - 9)
+        for (int i = 1; i < getMenuSize(); i++) {
+            if(i % 9 == 0 || i < 9 || (i+1) % 9 == 0 || i >= getMenuSize() - 9)
                 inv.setItem(i, SpecialItemReader.get(baseConfigPath, "frame"));
         }
     }
@@ -207,6 +205,10 @@ public class PluginMenuManager {
 
     private static int extractPageNumber(Inventory inv) {
         // currently, the page number is stored the same way as commands do, so I can just reuse the same function
-        return Integer.parseInt(extractCommandName(inv.getItem(menuSize - 5)));
+        return Integer.parseInt(extractCommandName(inv.getItem(getMenuSize() - 5)));
+    }
+
+    private static int getMenuSize(){
+        return 9 * SettingReader.getInt(baseConfigPath, "rows_count");
     }
 }

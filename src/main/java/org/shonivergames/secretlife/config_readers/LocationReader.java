@@ -19,7 +19,7 @@ public class LocationReader {
         Location loc1 = get(configTitle, configVar + ".start");
         Location loc2 = get(configTitle, configVar + ".end");
 
-        return new Location(Main.server.getWorlds().get(0), Util.getRandomDoubleInRange(loc1.getX(), loc2.getX()),
+        return new Location(loc1.getWorld(), Util.getRandomDoubleInRange(loc1.getX(), loc2.getX()),
                 Util.getRandomDoubleInRange(loc1.getY(), loc2.getY()),
                 Util.getRandomDoubleInRange(loc1.getZ(), loc2.getZ()));
     }

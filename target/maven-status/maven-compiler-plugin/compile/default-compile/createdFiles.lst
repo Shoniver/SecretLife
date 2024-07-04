@@ -2,7 +2,6 @@ org\shonivergames\secretlife\admincommands\ResetHearts.class
 org\shonivergames\secretlife\config_readers\LootTableReader.class
 org\shonivergames\secretlife\events\EntityDeathEvent.class
 org\shonivergames\secretlife\admincommands\AddLife.class
-org\shonivergames\secretlife\events\EntityDamageEvent.class
 org\shonivergames\secretlife\events\PlayerDeathEvent.class
 org\shonivergames\secretlife\admincommands\AddMurderHearts.class
 org\shonivergames\secretlife\admincommands\RemoveLife.class
@@ -30,6 +29,7 @@ org\shonivergames\secretlife\HealthManager.class
 org\shonivergames\secretlife\admincommands\EndSession.class
 org\shonivergames\secretlife\TasksManager$2.class
 org\shonivergames\secretlife\config_readers\TitleReader.class
+org\shonivergames\secretlife\HealthManager$2.class
 org\shonivergames\secretlife\events\PlayerJoinEvent.class
 org\shonivergames\secretlife\admincommands\StartNewSeason.class
 org\shonivergames\secretlife\ConfigController.class

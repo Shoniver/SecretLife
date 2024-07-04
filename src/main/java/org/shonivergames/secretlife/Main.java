@@ -34,7 +34,6 @@ public final class Main extends JavaPlugin {
         server.getPluginManager().registerEvents(new PlayerDeathEvent(), this);
         server.getPluginManager().registerEvents(new EntityDeathEvent(), this);
         server.getPluginManager().registerEvents(new PlayerRespawnEvent(), this);
-        server.getPluginManager().registerEvents(new EntityDamageEvent(), this);
         server.getPluginManager().registerEvents(new PlayerInteractEvent(), this);
         server.getPluginManager().registerEvents(new InventoryClickEvent(), this);
         server.getPluginManager().registerEvents(new EntityRegainHealthEvent(), Main.instance);

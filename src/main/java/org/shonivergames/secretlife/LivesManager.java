@@ -8,6 +8,9 @@ import org.bukkit.scoreboard.Team;
 import org.shonivergames.secretlife.config_readers.MessageReader;
 import org.shonivergames.secretlife.config_readers.SettingReader;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class LivesManager {
     private static final String baseConfigPath = "lives_manager";
 
@@ -90,6 +93,11 @@ public class LivesManager {
         t.setColor(ChatColor.RED);
         t = scoreboard.registerNewTeam("0");
         t.setColor(ChatColor.DARK_GRAY);
+
+        for (Team team : scoreboard.getTeams()) {
+            team.setCanSeeFriendlyInvisibles(false);
+            team.setAllowFriendlyFire(true);
+        }
     }
 
     public static void deleteTeams(){

@@ -10,7 +10,7 @@ public class KillManager {
         boolean canNonRedsKill = SettingReader.getBool(baseConfigPath, "can_non_reds_kill");
         if(!canNonRedsKill && !LivesManager.isRedPlayer(cause))
             TitleReader.send(baseConfigPath, "non_red_kills_disabled", cause);
-        else{
+        else if(!cause.isDead()){
             int healthForKill = SettingReader.getInt(baseConfigPath, "health_reward");
             HealthManager.addHealthByPlayer(cause, healthForKill, SettingReader.getAdminName(), true);
         }

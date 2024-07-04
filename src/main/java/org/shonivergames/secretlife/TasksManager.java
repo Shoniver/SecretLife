@@ -4,6 +4,7 @@ import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.BookMeta;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.shonivergames.secretlife.config_readers.*;
@@ -139,14 +140,10 @@ public class TasksManager {
     // Assumes the task exists in the player inventory. Must be checked before this!
     private static void concludeTask(Player player, String actionType) {
         // Get the current task details
-        ItemStack taskItem = getTaskFromInventory(player);
+        ItemStack taskItem = getTaskFromInventory(player, true);
         String taskDifficulty = Main.playerData.getTaskDifficulty(player);
         Boolean isRedTask = Main.playerData.getIsRedTask(player);
         String taskContent = Util.extractBookContent((BookMeta)taskItem.getItemMeta());
-
-        // Remove the task from the player's inventory
-        Inventory inv = player.getInventory();
-        inv.remove(taskItem);
 
         Main.playerData.resetTask(player);
         MessageReader.sendPublic(baseConfigPath, actionType, player.getName(), taskContent);
@@ -228,22 +225,30 @@ public class TasksManager {
     }
 
     private static boolean isTaskInPlayerInv(Player player){
-        return getTaskFromInventory(player) != null;
+        return getTaskFromInventory(player, false) != null;
     }
-    private static ItemStack getTaskFromInventory(Player player) {
+    private static ItemStack getTaskFromInventory(Player player, boolean removeItem) {
         String taskItemName = Main.playerData.getTaskTitle(player);
         Inventory inv = player.getInventory();
         ItemStack[] allItems = inv.getContents();
-        for (ItemStack item : allItems) {
+
+        ItemStack result = null;
+        for (int i = 0; i < allItems.length; i++){
+            ItemStack item = allItems[i];
             if (item != null &&
                     item.getType() == Material.WRITTEN_BOOK &&
                     ((BookMeta) item.getItemMeta()).getTitle().equals(taskItemName)) {
 
-                return item;
+                result = item;
+                allItems[i] = null;
             }
         }
 
-        return null;
+        // Update the inventory accordingly.
+        if(removeItem)
+            inv.setContents(allItems);
+
+        return result;
     }
     private static boolean shouldGetConstantTasks(Player player){
         return LivesManager.isRedPlayer(player) && SettingReader.getBool(baseConfigPath, "constant_red_tasks");
@@ -270,7 +275,7 @@ public class TasksManager {
 
                 // For every player with a task, spawn an effect
                 for (Player player : Main.server.getOnlinePlayers()) {
-                    if(!Main.playerData.hasTask(player))
+                    if(!Main.playerData.hasTask(player) || player.isInvisible())
                         continue;
 
                     Location location = player.getLocation().clone();

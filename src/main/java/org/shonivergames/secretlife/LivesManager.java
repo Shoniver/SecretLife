@@ -8,9 +8,6 @@ import org.bukkit.scoreboard.Team;
 import org.shonivergames.secretlife.config_readers.MessageReader;
 import org.shonivergames.secretlife.config_readers.SettingReader;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class LivesManager {
     private static final String baseConfigPath = "lives_manager";
 
@@ -32,13 +29,12 @@ public class LivesManager {
         }
     }
 
-    public static void initPlayer(Player player){
-        int lives;
-        if(!Main.playerData.isPlayerRegistered(player))
-            lives = SettingReader.getInt(baseConfigPath, "start_amount");
-        else
-            lives = Main.playerData.getLivesCount(player);
+    public static void initNewPlayer(Player player){
+        int lives = SettingReader.getInt(baseConfigPath, "start_amount");
         setCurrentLives(player, lives);
+    }
+    public static void initPlayer(Player player){
+        setCurrentLives(player, Main.playerData.getLivesCount(player));
     }
 
     public static void setCurrentLives(Player player, int lives){

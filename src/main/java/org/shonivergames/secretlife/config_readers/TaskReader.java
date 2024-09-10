@@ -22,13 +22,16 @@ public class TaskReader {
 
         String taskTitleFormat = SettingReader.getString(configPath, "title_format");
         String taskTitle = Util.getFormattedString(taskTitleFormat, player.getName());
-        String originalTaskContent = getRandomContent(configPath, player, difficulty);
 
-        Main.playerData.addToTaskHistory(player, originalTaskContent);
+        String taskContent = Main.playerData.getAndRemovePredeterminedTask(player);
+        if(taskContent == null)
+            taskContent = getRandomContent(configPath, player, difficulty);
+
+        Main.playerData.addToTaskHistory(player, taskContent);
 
         String taskContentFormat = SettingReader.getString(configPath, "content_format");
         // Fill in a random player
-        String taskContent = Util.getFormattedString(originalTaskContent, Util.getRandomOtherPlayer(player).getName());
+        taskContent = Util.getFormattedString(taskContent, Util.getRandomOtherPlayer(player).getName());
         // Format the content according to the "content_format" config value
         taskContent = Util.getFormattedString(taskContentFormat, difficulty.toUpperCase(), taskContent);
 

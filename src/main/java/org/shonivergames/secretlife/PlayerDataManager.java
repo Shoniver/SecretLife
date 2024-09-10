@@ -10,6 +10,11 @@ import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
 
+// In hindsight, this is written pretty poorly.
+// Every manager should have handled its own get/set functions, they should NOT be contained here -
+// but it's too late to change that now - too much work and too many things might break.
+// The entire plugin is pretty poorly written, ngl.
+// Wish I could've remade it completely, but I don't have the time or motivation for that anymore, sadly.
 public class PlayerDataManager {
     private static final String fileName = "PlayerData.yml";
 
@@ -32,6 +37,29 @@ public class PlayerDataManager {
         catch (IOException e) {
             Main.logger.log(Level.SEVERE, "Could not save player data " + this.dataFile, e);
         }
+    }
+
+    public boolean isPlayerRegistered(Player player){
+        String currentUUID = String.valueOf(player.getUniqueId());
+        return dataConfig.contains(currentUUID);
+    }
+    public void registerPlayer(Player player){
+        setValueAndSave(player, "name", player.getName());
+        setEmptyPredeterminedTask(player);
+    }
+
+    public String getAndRemovePredeterminedTask(Player player){
+        String task = getString(player, "predetermined_task").strip();
+        setEmptyPredeterminedTask(player);
+        if(task.isEmpty())
+            return null;
+        return task;
+    }
+    private void setEmptyPredeterminedTask(Player player){
+        setPredeterminedTask(player, "");
+    }
+    public void setPredeterminedTask(Player player, String task){
+        setValueAndSave(player, "predetermined_task", task);
     }
 
     public String getTaskTitle(Player player){
@@ -101,11 +129,6 @@ public class PlayerDataManager {
 
     public void setCanGift(Player player, boolean canGift){
         setValueAndSave(player, "can_gift", canGift);
-    }
-
-    public boolean isPlayerRegistered(Player player){
-        String currentUUID = String.valueOf(player.getUniqueId());
-        return dataConfig.contains(currentUUID);
     }
 
     private <T> void setValueAndSave(Player player, String varName, T value) {

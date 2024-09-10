@@ -945,7 +945,18 @@ plugin_menu_manager:
             - ""
             - "§5Command:"
             - "ReloadConfig"
+        reload_playerdata:
+          type: "redstone"
+          name: "§5Reload PlayerData"
+          lore:
+            - "§bReloads the PlayerData file."
+            - ""
+            - "§5Command:"
+            - "ReloadPlayerData"
         space1: false
+        space2: false
+        space3: false
+        space4: false
         start_new_season:
           type: "sculk_shrieker"
           name: "§5Start a New Season"

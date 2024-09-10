@@ -34,6 +34,7 @@ org\shonivergames\secretlife\events\PlayerJoinEvent.class
 org\shonivergames\secretlife\admincommands\StartNewSeason.class
 org\shonivergames\secretlife\ConfigController.class
 org\shonivergames\secretlife\admincommands\ResetPlayerTask.class
+org\shonivergames\secretlife\admincommands\ReloadPlayerData.class
 org\shonivergames\secretlife\PlayersManager.class
 org\shonivergames\secretlife\admincommands\Menu.class
 org\shonivergames\secretlife\admincommands\_CommandBase.class

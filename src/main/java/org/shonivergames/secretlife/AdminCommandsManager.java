@@ -23,6 +23,7 @@ public class AdminCommandsManager implements TabCompleter, CommandExecutor {
         commandsList.add(new EndSession());
         commandsList.add(new BeginPlayerSession());
         commandsList.add(new ReloadConfig());
+        commandsList.add(new ReloadPlayerData());
         commandsList.add(new ForceFailPlayerTask());
         commandsList.add(new ResetPlayerTask());
         commandsList.add(new AddHeart());

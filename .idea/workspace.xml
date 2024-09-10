@@ -7,33 +7,22 @@
     <list default="true" id="b469b66d-051b-4bba-8f48-e4cb4617d351" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/shonivergames/secretlife/HealthManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/shonivergames/secretlife/HealthManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/shonivergames/secretlife/KillManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/shonivergames/secretlife/KillManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/shonivergames/secretlife/AdminCommandsManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/shonivergames/secretlife/AdminCommandsManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/shonivergames/secretlife/LivesManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/shonivergames/secretlife/LivesManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/shonivergames/secretlife/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/shonivergames/secretlife/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/shonivergames/secretlife/PluginMenuManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/shonivergames/secretlife/PluginMenuManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/shonivergames/secretlife/TasksManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/shonivergames/secretlife/TasksManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/shonivergames/secretlife/PlayerDataManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/shonivergames/secretlife/PlayerDataManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/shonivergames/secretlife/PlayersManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/shonivergames/secretlife/PlayersManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/shonivergames/secretlife/config_readers/LocationReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/shonivergames/secretlife/config_readers/LocationReader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/shonivergames/secretlife/events/EntityDamageEvent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/shonivergames/secretlife/events/EntityDeathEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/shonivergames/secretlife/events/EntityDeathEvent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/shonivergames/secretlife/events/PlayerRespawnEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/shonivergames/secretlife/events/PlayerRespawnEvent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/shonivergames/secretlife/HealthManager$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/shonivergames/secretlife/HealthManager$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/shonivergames/secretlife/HealthManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/shonivergames/secretlife/HealthManager.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/shonivergames/secretlife/KillManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/shonivergames/secretlife/KillManager.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/shonivergames/secretlife/config_readers/TaskReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/shonivergames/secretlife/config_readers/TaskReader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/config.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/config.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/config.yml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/config.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/org/shonivergames/secretlife/LivesManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/shonivergames/secretlife/LivesManager.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/shonivergames/secretlife/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/shonivergames/secretlife/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/shonivergames/secretlife/PluginMenuManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/shonivergames/secretlife/PluginMenuManager.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/shonivergames/secretlife/TasksManager$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/shonivergames/secretlife/TasksManager$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/shonivergames/secretlife/TasksManager$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/shonivergames/secretlife/TasksManager$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/shonivergames/secretlife/TasksManager$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/shonivergames/secretlife/TasksManager$3.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/shonivergames/secretlife/TasksManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/shonivergames/secretlife/TasksManager.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/org/shonivergames/secretlife/config_readers/LocationReader.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/shonivergames/secretlife/config_readers/LocationReader.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/shonivergames/secretlife/events/EntityDamageEvent.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/shonivergames/secretlife/events/EntityDeathEvent.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/shonivergames/secretlife/events/EntityDeathEvent.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/shonivergames/secretlife/events/PlayerRespawnEvent.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/shonivergames/secretlife/events/PlayerRespawnEvent.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/plugin.yml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/plugin.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-archiver/pom.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/original-secret-life-1.11.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/secret-life-1.11-shaded.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/secret-life-1.11.jar" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -71,6 +60,11 @@
     &quot;git-widget-placeholder&quot;: &quot;main&quot;
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="org.shonivergames.secretlife.admincommands" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="secret-life package" type="MavenRunConfiguration" factoryName="Maven">
       <MavenSettings>

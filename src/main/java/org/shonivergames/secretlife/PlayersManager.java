@@ -11,11 +11,16 @@ public class PlayersManager {
         MessageReader.sendPrivate(baseConfigPath, "welcome", player, player.getName());
 
         if(!Main.playerData.isPlayerRegistered(player)) {
+            Main.playerData.registerPlayer(player);
+
             HealthManager.initNewPlayer(player);
             teleportToJoinPlatform(player);
+            LivesManager.initNewPlayer(player);
+        }
+        else {
+            LivesManager.initPlayer(player);
         }
 
-        LivesManager.initPlayer(player);
         TasksManager.initPlayer(player);
     }
 

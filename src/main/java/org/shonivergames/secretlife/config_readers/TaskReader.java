@@ -23,7 +23,7 @@ public class TaskReader {
         String taskTitleFormat = SettingReader.getString(configPath, "title_format");
         String taskTitle = Util.getFormattedString(taskTitleFormat, player.getName());
 
-        String taskContent = Main.playerData.getAndRemovePredeterminedTask(player);
+        String taskContent = Main.playerData.getAndRemovePredeterminedTask(player, difficulty);
         if(taskContent == null)
             taskContent = getRandomContent(configPath, player, difficulty);
 

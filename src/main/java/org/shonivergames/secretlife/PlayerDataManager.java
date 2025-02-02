@@ -45,21 +45,30 @@ public class PlayerDataManager {
     }
     public void registerPlayer(Player player){
         setValueAndSave(player, "name", player.getName());
-        setEmptyPredeterminedTask(player);
+        SetEmptyPredeterminedTasks(player);
     }
 
-    public String getAndRemovePredeterminedTask(Player player){
-        String task = getString(player, "predetermined_task").strip();
-        setEmptyPredeterminedTask(player);
-        if(task.isEmpty())
-            return null;
+    public String getAndRemovePredeterminedTask(Player player, String difficulty){
+        List<String> tasksList = getPredeterminedTasks(player, difficulty);
+        String task = null;
+        if (!tasksList.isEmpty()) {
+            task = tasksList.remove(0);
+            if(task.isEmpty())
+                task = null;
+        }
+        if(tasksList.isEmpty())
+            tasksList.add("");
+        setValueAndSave(player, "predetermined_task." + difficulty, tasksList);
         return task;
     }
-    private void setEmptyPredeterminedTask(Player player){
-        setPredeterminedTask(player, "");
+    public List<String> getPredeterminedTasks(Player player, String difficulty){
+        return getStringList(player, "predetermined_task." + difficulty);
     }
-    public void setPredeterminedTask(Player player, String task){
-        setValueAndSave(player, "predetermined_task", task);
+    public void SetEmptyPredeterminedTasks(Player player){
+        List<String> emptyList = new ArrayList<>();
+        emptyList.add("");
+        setValueAndSave(player, "predetermined_task.normal", emptyList);
+        setValueAndSave(player, "predetermined_task.hard", emptyList);
     }
 
     public String getTaskTitle(Player player){

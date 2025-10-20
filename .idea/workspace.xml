@@ -7,13 +7,16 @@
     <list default="true" id="b469b66d-051b-4bba-8f48-e4cb4617d351" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/shonivergames/secretlife/PlayerDataManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/shonivergames/secretlife/PlayerDataManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/shonivergames/secretlife/config_readers/TaskReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/shonivergames/secretlife/config_readers/TaskReader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/plugin.yml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/plugin.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-archiver/pom.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/original-secret-life-1.12.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/secret-life-1.12-shaded.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/secret-life-1.12.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/shonivergames/secretlife/KillManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/shonivergames/secretlife/KillManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/shonivergames/secretlife/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/shonivergames/secretlife/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/shonivergames/secretlife/events/EntityDeathEvent.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/shonivergames/secretlife/events/PlayerDeathEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/shonivergames/secretlife/events/PlayerDeathEvent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/shonivergames/secretlife/KillManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/shonivergames/secretlife/KillManager.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/shonivergames/secretlife/admincommands/AddMurderHearts.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/shonivergames/secretlife/admincommands/AddMurderHearts.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/shonivergames/secretlife/events/EntityDeathEvent.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/shonivergames/secretlife/events/EntityDeathEvent.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/original-secret-life-1.13.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/secret-life-1.13-shaded.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/secret-life-1.13.jar" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

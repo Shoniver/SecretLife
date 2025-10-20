@@ -1,6 +1,5 @@
 org\shonivergames\secretlife\admincommands\ResetHearts.class
 org\shonivergames\secretlife\config_readers\LootTableReader.class
-org\shonivergames\secretlife\events\EntityDeathEvent.class
 org\shonivergames\secretlife\admincommands\AddLife.class
 org\shonivergames\secretlife\events\PlayerDeathEvent.class
 org\shonivergames\secretlife\admincommands\AddMurderHearts.class
